@@ -66,7 +66,8 @@ export const Navbar = () => {
                 {language === 'en' ? 'বাংলা' : 'English'}
               </span>
             </button>
-            <button
+            <Link
+            to={"/"}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 scrolled
                   ? 'bg-teal-600 hover:bg-teal-700 '
@@ -74,7 +75,7 @@ export const Navbar = () => {
               }`}
             >
               {t('navbar.getStarted')}
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ export function PrivateRoute({ children }) {
 
   // Check if user is not authenticated
   if (!access) {
-    return <Navigate to="/home" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   // User meets all requirements
