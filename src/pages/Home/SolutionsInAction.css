@@ -1,0 +1,25 @@
+/* SolutionsInAction.css */
+.slider-container {
+  --slider-position: 50%;
+}
+
+.slider-handle:hover {
+  background-color: #2563eb;
+}
+
+.text-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.text-panel::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.text-panel::-webkit-scrollbar-thumb {
+  background: #64748b;
+  border-radius: 3px;
+}
+
+.text-panel::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

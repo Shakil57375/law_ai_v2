@@ -1,0 +1,56 @@
+.custom-scrollbar {
+  direction: rtl; /* Move scrollbar to left */
+}
+
+.custom-scrollbar > * {
+  direction: ltr; /* Keep content normal */
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px; /* Reduced width */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #94A3B8; /* Remove #94A3B8 background */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #14b8a6; /* Cyan color */
+  border-radius: 2px;
+  width: 3px; /* Make thumb even thinner */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0d9488; /* Darker cyan on hover */
+}
+
+/* Remove scrollbar buttons/arrows completely */
+.custom-scrollbar::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+/* Remove corner if present */
+.custom-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+  display: none;
+}
+
+/* Dark mode */
+.dark .custom-scrollbar {
+  scrollbar-color: #14b8a6 transparent;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #14b8a6;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0d9488;
+}

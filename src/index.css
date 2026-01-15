@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f9fafc !important;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: none;
+}
+
+/* Add this to your global CSS file (e.g., index.css or App.css) */
+
+/* Fix for mobile devices with bottom safe areas (like iOS notch) */
+.safe-area-bottom {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+/* Ensure body takes full height without extra space */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Fix for preventing address bar from causing layout issues on mobile */
+@supports (-webkit-touch-callout: none) {
+  body {
+    min-height: -webkit-fill-available;
+  }
+  
+  .chat-container {
+    min-height: -webkit-fill-available;
+  }
+}
