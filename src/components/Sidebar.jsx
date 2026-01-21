@@ -85,7 +85,7 @@ export function Sidebar({
     setIsDeleting(true);
     try {
       await axios.delete(
-        'https://parliament-curves-cancel-foreign.trycloudflare.com/api/chat/delete_all_chats/',
+        'http://lawbotmvp.duckdns.org/api/chat/delete_all_chats/',
         {
           headers: {
             Authorization: `Bearer ${token}`,

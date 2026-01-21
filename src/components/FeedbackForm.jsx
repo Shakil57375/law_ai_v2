@@ -147,7 +147,6 @@ export default function FeedbackForm() {
             <span className="lg:block hidden ">
               {t('feedback.writeFeedback')}{' '}
             </span>
-            {language === 'en' ? 'Feedback' : 'প্রতিক্রিয়া'}
           </span>
         </button>
       </div>

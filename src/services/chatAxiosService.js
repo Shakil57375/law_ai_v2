@@ -3,8 +3,7 @@ import store from '../app/store.js';
 import { selectAccessToken } from '../features/auth/authSlice';
 import toast from 'react-hot-toast';
 
-const API_BASE_URL =
-  'https://parliament-curves-cancel-foreign.trycloudflare.com/api';
+const API_BASE_URL = 'http://lawbotmvp.duckdns.org/api';
 
 export const createChatAxios = async (formData) => {
   try {
