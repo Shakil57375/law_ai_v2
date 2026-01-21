@@ -86,7 +86,7 @@ export default function ProblemsSection() {
   ];
 
   return (
-    <div className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
+    <div id="problems" className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Side - Image */}

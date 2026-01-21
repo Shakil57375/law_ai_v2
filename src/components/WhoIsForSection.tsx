@@ -1,5 +1,6 @@
 // WhoIsForSection.jsx
 import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import imge1 from '../../src/assets/Card/Group (3) - Copy.png';
 import imge2 from '../../src/assets/Card/Group (2) - Copy.png';
 import imge3 from '../../src/assets/Card/10137 [Converted].png';
@@ -191,10 +192,16 @@ export default function WhoIsForSection() {
   ];
 
   return (
-    <div className="sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
+    <div id="whoIsFor" className="sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
+        >
           <h1
             ref={headingRef}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6"
@@ -207,18 +214,29 @@ export default function WhoIsForSection() {
           >
             {t('whoIsFor.description')}
           </p>
-        </div>
+        </motion.div>
 
         {/* Cards Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12 lg:mb-16">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12 lg:mb-16"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
+          viewport={{ once: true }}
+        >
           {audiences.map((audience, index) => (
-            <div
+            <motion.div
               key={audience.id}
               ref={(el) => (cardsRef.current[index] = el)}
               onClick={() => handleCardClick(audience.id)}
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.3 }}
+              viewport={{ once: true }}
               className={`${
                 audience.color
-              } rounded-2xl p-4 sm:p-5 lg:p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105 ${
+              } rounded-2xl p-4 sm:p-5 lg:p-6 cursor-pointer transition-all duration-300 hover:shadow-xl ${
                 activeCard === audience.id
                   ? 'ring-4 ring-teal-500 shadow-lg'
                   : ''
@@ -226,13 +244,17 @@ export default function WhoIsForSection() {
             >
               <div className="flex flex-col items-center text-center">
                 {/* Icon SVG */}
-                <div className="w-full h-24 sm:h-28 lg:h-32 flex items-center justify-center mb-2">
+                <motion.div
+                  className="w-full h-24 sm:h-28 lg:h-32 flex items-center justify-center mb-2"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <img
                     src={audience.image || '/placeholder.svg'}
                     alt=""
                     className="w-full h-full object-contain"
                   />
-                </div>
+                </motion.div>
                 <h3 className="text-xs sm:text-sm lg:text-base font-bold text-gray-900 leading-tight">
                   {audience.title}
                 </h3>
@@ -252,18 +274,28 @@ export default function WhoIsForSection() {
                   </svg>
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Detail Box */}
-        <div
+        <motion.div
           ref={detailBoxRef}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
           className="bg-white rounded-3xl shadow-xl p-4 sm:p-6 lg:p-12 border border-gray-200"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             {/* Left Content */}
-            <div className="order-2 lg:order-1">
+            <motion.div
+              className="order-2 lg:order-1"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
                 {audiences[activeCard].heading}
               </h2>
@@ -274,7 +306,14 @@ export default function WhoIsForSection() {
 
               <ul className="space-y-3 sm:space-y-4">
                 {audiences[activeCard].points.map((point, index) => (
-                  <li key={index} className="flex items-start gap-2 sm:gap-3">
+                  <motion.li
+                    key={index}
+                    className="flex items-start gap-2 sm:gap-3"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
                     <span className="text-teal-600 font-bold mt-1 flex-shrink-0">
                       •
                     </span>
@@ -282,21 +321,27 @@ export default function WhoIsForSection() {
                       <strong className="text-gray-900">{point.title}</strong> —{' '}
                       {point.desc}
                     </p>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
             {/* Right Illustration */}
-            <div className="flex justify-center order-1 lg:order-2 w-full h-auto">
+            <motion.div
+              className="flex justify-center order-1 lg:order-2 w-full h-auto"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
               <img
                 className="w-full h-auto max-w-xs sm:max-w-sm lg:max-w-md"
                 src={audiences[activeCard].image || '/placeholder.svg'}
                 alt={audiences[activeCard].title}
               />
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

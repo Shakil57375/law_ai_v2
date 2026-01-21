@@ -1,84 +1,230 @@
 import { useEffect, useState } from 'react';
 import { getTranslation } from '../../../lib/i18n';
 import { useLanguage } from '../../../lib/language-context';
-import { motion } from 'framer-motion';
-import logo from "../../assets/logo.png"
+import { motion, AnimatePresence } from 'framer-motion';
+import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
+import { Menu, X, ArrowUp } from 'lucide-react';
+
 // Navbar Component
 export const Navbar = () => {
   const { language, setLanguage } = useLanguage();
   const t = (key) => getTranslation(language, key);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+      setShowBackToTop(window.scrollY > 300);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow-lg' : 'bg-white text-black'
-      }`}
-    >
-      <div className="w-full lg:px-52 px-6 mx-auto">
-        <div className="flex items-center justify-between h-16">
-          <div
-            className={`text-2xl font-bold ${scrolled ? 'text-teal-600' : ''}`}
-          >
-            <Link
-              to="/home"
-              className="text-xl font-bold text-teal-600 dark:text-teal-400 py-2"
-            >
-              <img src={logo} alt="" className="lg:w-16 lg:h-16 w-12 h-12" />
-            </Link>
-          </div>
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setMobileMenuOpen(false);
+    }
+  };
 
-          <div className="hidden md:flex gap-6">
-            {['home', 'about', 'contact'].map((item) => (
-              <a
-                key={item}
-                href={`#${item}`}
-                className={`hover:opacity-80 transition font-medium ${
-                  scrolled ? 'text-gray-700' : ''
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const menuItems = [
+    { label: 'Problems', id: 'problems' },
+    { label: 'About', id: 'about' },
+    { label: 'Blog', id: 'blog' },
+    { label: 'Contact', id: 'contact' },
+  ];
+
+  const menuVariants = {
+    hidden: { opacity: 0, x: -300 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.3, ease: 'easeOut' },
+    },
+    exit: {
+      opacity: 0,
+      x: -300,
+      transition: { duration: 0.3, ease: 'easeIn' },
+    },
+  };
+
+  const menuItemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (i) => ({
+      opacity: 1,
+      x: 0,
+      transition: { delay: i * 0.1, duration: 0.3 },
+    }),
+  };
+
+  return (
+    <>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled ? 'bg-white shadow-lg' : 'bg-white text-black'
+        }`}
+      >
+        <div className="w-full lg:px-52 px-4 sm:px-6 mx-auto">
+          <div className="flex items-center justify-between h-16">
+            <div
+              className={`text-2xl font-bold ${scrolled ? 'text-teal-600' : ''}`}
+            >
+              <Link
+                to="/home"
+                className="text-xl font-bold text-teal-600 dark:text-teal-400 py-2"
+              >
+                <img src={logo} alt="" className="lg:w-16 lg:h-16 w-12 h-12" />
+              </Link>
+            </div>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex gap-6">
+              {menuItems.map((item) => (
+                <motion.button
+                  key={item.id}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`hover:opacity-80 transition font-medium ${
+                    scrolled ? 'text-gray-700' : ''
+                  }`}
+                >
+                  {item.label}
+                </motion.button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2 sm:gap-3">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition ${
+                  scrolled
+                    ? 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                    : 'bg-white/20 hover:bg-white/30'
                 }`}
               >
-                {t(`navbar.${item}`)}
-              </a>
-            ))}
-          </div>
+                <span>{language === 'en' ? '🇧🇩' : '🇬🇧'}</span>
+                <span className="text-sm hidden sm:inline">
+                  {language === 'en' ? 'বাংলা' : 'English'}
+                </span>
+              </motion.button>
 
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition ${
-                scrolled
-                  ? 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                  : 'bg-white/20 hover:bg-white/30 '
-              }`}
-            >
-              <span>{language === 'en' ? '🇧🇩' : '🇬🇧'}</span>
-              <span className="text-sm hidden sm:inline">
-                {language === 'en' ? 'বাংলা' : 'English'}
-              </span>
-            </button>
-            <Link
-            to={"/"}
-              className={`px-4 py-2 rounded-lg font-medium transition ${
-                scrolled
-                  ? 'bg-teal-600 hover:bg-teal-700 '
-                  : 'bg-white hover:bg-gray-100 text-teal-600'
-              }`}
-            >
-              {t('navbar.getStarted')}
-            </Link>
+              <Link to="/">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition cursor-pointer ${
+                    scrolled
+                      ? 'bg-teal-600 hover:bg-teal-700 text-white'
+                      : 'bg-white hover:bg-gray-100 text-teal-600'
+                  }`}
+                >
+                  {t('navbar.getStarted')}
+                </motion.div>
+              </Link>
+
+              {/* Mobile Menu Button */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </motion.button>
+            </div>
           </div>
         </div>
-      </div>
-    </motion.nav>
+      </motion.nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            />
+            <motion.div
+              variants={menuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="fixed left-0 top-16 h-screen w-64 bg-white shadow-xl z-40 md:hidden overflow-y-auto"
+            >
+              <div className="p-6 space-y-4">
+                {menuItems.map((item, i) => (
+                  <motion.button
+                    key={item.id}
+                    custom={i}
+                    variants={menuItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    whileHover={{ x: 10, backgroundColor: '#f3f4f6' }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => scrollToSection(item.id)}
+                    className="w-full text-left px-4 py-3 rounded-lg text-gray-700 font-medium transition hover:text-teal-600"
+                  >
+                    {item.label}
+                  </motion.button>
+                ))}
+
+                <motion.div
+                  variants={menuItemVariants}
+                  custom={menuItems.length}
+                  initial="hidden"
+                  animate="visible"
+                  className="border-t pt-4"
+                >
+                  <p className="text-sm text-gray-600 px-4 mb-3">Language</p>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
+                    className="w-full px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 flex items-center justify-center gap-2"
+                  >
+                    <span>{language === 'en' ? '🇧🇩' : '🇬🇧'}</span>
+                    <span>{language === 'en' ? 'বাংলা' : 'English'}</span>
+                  </motion.button>
+                </motion.div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Back to Top Button */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={scrollToTop}
+            className="fixed bottom-6 right-4 sm:right-6 z-40 bg-teal-600 hover:bg-teal-700 text-white p-3 sm:p-4 rounded-full shadow-lg transition"
+          >
+            <ArrowUp size={20} className="sm:w-6 sm:h-6" />
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </>
   );
 };

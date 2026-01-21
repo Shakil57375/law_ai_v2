@@ -10,7 +10,10 @@ export default function AboutUsSection() {
   const t = (key: string) => getTranslation(language, key);
 
   return (
-    <div className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <div
+      id="about"
+      className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-white"
+    >
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
         <div className="flex justify-center lg:justify-start order-2 lg:order-1 w-full">
           <img
