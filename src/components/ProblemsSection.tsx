@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useRef } from 'react';
 import image from '../../src/assets/Group (1).png';
 import { useLanguage } from '../../lib/language-context';
@@ -90,13 +88,17 @@ export default function ProblemsSection() {
   return (
     <div className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Side - Image */}
           <div
             ref={imageRef}
-            className="flex justify-center lg:justify-start order-2 lg:order-1"
+            className="flex justify-center lg:justify-start order-2 lg:order-1 w-full"
           >
-            <img src={image || '/placeholder.svg'} alt="" className="" />
+            <img
+              src={image || '/placeholder.svg'}
+              alt="Problems illustration"
+              className="w-full h-auto max-w-md lg:max-w-none"
+            />
           </div>
 
           {/* Right Side - Content */}

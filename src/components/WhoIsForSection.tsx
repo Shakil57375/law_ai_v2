@@ -210,7 +210,7 @@ export default function WhoIsForSection() {
         </div>
 
         {/* Cards Section */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 lg:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12 lg:mb-16">
           {audiences.map((audience, index) => (
             <div
               key={audience.id}
@@ -218,7 +218,7 @@ export default function WhoIsForSection() {
               onClick={() => handleCardClick(audience.id)}
               className={`${
                 audience.color
-              } rounded-2xl p-4 sm:p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105 ${
+              } rounded-2xl p-4 sm:p-5 lg:p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105 ${
                 activeCard === audience.id
                   ? 'ring-4 ring-teal-500 shadow-lg'
                   : ''
@@ -226,8 +226,14 @@ export default function WhoIsForSection() {
             >
               <div className="flex flex-col items-center text-center">
                 {/* Icon SVG */}
-                <img src={audience.image || '/placeholder.svg'} alt="" />
-                <h3 className="text-sm sm:text-base lg:text-lg font-bold text-gray-900">
+                <div className="w-full h-24 sm:h-28 lg:h-32 flex items-center justify-center mb-2">
+                  <img
+                    src={audience.image || '/placeholder.svg'}
+                    alt=""
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <h3 className="text-xs sm:text-sm lg:text-base font-bold text-gray-900 leading-tight">
                   {audience.title}
                 </h3>
                 <button className="mt-2 text-gray-600">
@@ -253,24 +259,26 @@ export default function WhoIsForSection() {
         {/* Detail Box */}
         <div
           ref={detailBoxRef}
-          className="bg-white rounded-3xl shadow-xl p-6 sm:p-8 lg:p-12 border border-gray-200"
+          className="bg-white rounded-3xl shadow-xl p-4 sm:p-6 lg:p-12 border border-gray-200"
         >
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             {/* Left Content */}
-            <div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+            <div className="order-2 lg:order-1">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
                 {audiences[activeCard].heading}
               </h2>
 
-              <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
+              <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4 sm:mb-6">
                 {audiences[activeCard].description}
               </p>
 
-              <ul className="space-y-4">
+              <ul className="space-y-3 sm:space-y-4">
                 {audiences[activeCard].points.map((point, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <span className="text-teal-600 font-bold mt-1">•</span>
-                    <p className="text-gray-700">
+                  <li key={index} className="flex items-start gap-2 sm:gap-3">
+                    <span className="text-teal-600 font-bold mt-1 flex-shrink-0">
+                      •
+                    </span>
+                    <p className="text-sm sm:text-base text-gray-700">
                       <strong className="text-gray-900">{point.title}</strong> —{' '}
                       {point.desc}
                     </p>
@@ -280,9 +288,9 @@ export default function WhoIsForSection() {
             </div>
 
             {/* Right Illustration */}
-            <div className="flex justify-center">
+            <div className="flex justify-center order-1 lg:order-2 w-full h-auto">
               <img
-                className="w-2/1"
+                className="w-full h-auto max-w-xs sm:max-w-sm lg:max-w-md"
                 src={audiences[activeCard].image || '/placeholder.svg'}
                 alt={audiences[activeCard].title}
               />
