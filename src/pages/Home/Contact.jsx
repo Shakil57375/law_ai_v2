@@ -2,8 +2,12 @@
 
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useLanguage } from "../../../lib/language-context"
+import { getTranslation } from "../../../lib/i18n"
 
 const Contact = () => {
+  const { language } = useLanguage()
+  const t = (key) => getTranslation(language, key)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,19 +21,19 @@ const Contact = () => {
     const newErrors = {}
 
     if (!formData.name.trim()) {
-      newErrors.name = "Name is required"
+      newErrors.name = t('contactPage.nameRequired')
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
+      newErrors.email = t('contactPage.emailRequired')
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Email is invalid"
+      newErrors.email = t('contactPage.emailInvalid')
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "Message is required"
+      newErrors.message = t('contactPage.messageRequired')
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = "Message must be at least 10 characters"
+      newErrors.message = t('contactPage.messageShort')
     }
 
     setErrors(newErrors)
@@ -78,26 +82,25 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-12 md:py-24 px-10 min-h-[400px]">
-      <h2 className="text-[2.074rem] font-bold mb-8 text-[#60a5fa] text-center tracking-tight">Get Started</h2>
+      <h2 className="text-[2.074rem] font-bold mb-8 text-[#60a5fa] text-center tracking-tight">{t('contactPage.title')}</h2>
       <div className="max-w-[1000px] mx-auto">
         <p className="text-center mb-8">
-          Ready to transform your clinical documentation process? Contact our team to learn how Clin Technologies can be
-          tailored to your specific healthcare setting.
+          {t('contactPage.subtitle')}
         </p>
 
         <div className="max-w-[600px] mx-auto bg-[#1e293b] p-8 rounded-xl shadow-lg border border-[rgba(96,165,250,0.2)]">
           {submitSuccess ? (
             <div className="bg-[rgba(16,185,129,0.2)] border border-[rgba(16,185,129,0.4)] text-[#10b981] p-4 rounded-lg mb-6 text-center">
               Thank you for your message! We will get back to you soon.
-            </div>
+            </{t('contactPage.successMessage')}
           ) : null}
 
           <div className="mt-8 text-center">
             <p className="text-[#94a3b8]">
               Or reach us directly via email at{" "}
+              {t('contactPage.email')}{" "}
               <a href="mailto:support@clintechso.com" className="text-[#60a5fa] hover:underline">
-                support@clintechso.com
-              </a>
+                {t('contactPage.emailAddress')}
             </p>
           </div>
         </div>
@@ -107,13 +110,13 @@ const Contact = () => {
             to="/login"
             className="bg-transparent border-2 border-[#3b82f6] text-white px-8 py-4 rounded-full hover:bg-[rgba(59,130,246,0.1)] transition-colors shadow-[0_5px_15px_rgba(37,99,235,0.2)] inline-block text-center"
           >
-            Login
+            {t('contactPage.login')}
           </Link>
           <Link
             to="/signup"
             className="bg-gradient-to-r from-[#3b82f6] to-[#2563eb] text-white px-8 py-4 rounded-full hover:translate-y-[-3px] hover:shadow-[0_8px_20px_rgba(37,99,235,0.5)] transition-all shadow-[0_5px_15px_rgba(37,99,235,0.4)] relative overflow-hidden z-1 inline-block text-center"
           >
-            Signup
+            {t('contactPage.signup')}
           </Link>
         </div>
       </div>

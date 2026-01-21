@@ -177,8 +177,8 @@ const ProfileModal = ({ isOpen, onClose }) => {
                     </h2>
                     <p className="text-gray-500 dark:text-gray-400 mt-2">
                       {isEditing
-                        ? 'Update your information'
-                        : 'View your profile details'}
+                        ? t('profile.updateInformation')
+                        : t('profile.viewDetails')}
                     </p>
                   </div>
 
@@ -219,7 +219,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                   <div className="space-y-5">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Full Name
+                        {t('profile.fullName')}
                       </label>
                       <input
                         type="text"
@@ -231,14 +231,14 @@ const ProfileModal = ({ isOpen, onClose }) => {
                           })
                         }
                         disabled={!isEditing}
-                        placeholder="Enter your full name"
+                        placeholder={t('profile.enterFullName')}
                         className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600  text-black dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all"
                       />
                     </div>
 
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Designation
+                        {t('profile.designation')}
                       </label>
                       <input
                         type="text"
@@ -250,14 +250,14 @@ const ProfileModal = ({ isOpen, onClose }) => {
                           })
                         }
                         disabled={!isEditing}
-                        placeholder="Enter your designation"
+                        placeholder={t('profile.enterDesignation')}
                         className="w-full px-4 py-3 rounded-lg border-2 text-black border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all"
                       />
                     </div>
 
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Organization Or University
+                        {t('profile.university')}
                       </label>
                       <input
                         type="text"
@@ -269,14 +269,14 @@ const ProfileModal = ({ isOpen, onClose }) => {
                           })
                         }
                         disabled={!isEditing}
-                        placeholder="Enter your university"
+                        placeholder={t('profile.enterUniversity')}
                         className="w-full px-4 py-3 rounded-lg border-2 text-black border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all"
                       />
                     </div>
 
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Email
+                        {t('profile.email')}
                       </label>
                       <input
                         type="email"
