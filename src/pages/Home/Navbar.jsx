@@ -36,12 +36,11 @@ export const Navbar = () => {
   };
 
   const menuItems = [
-    { label: 'Problems', id: 'problems' },
+    { label: 'Home', id: 'banner' , href: '/home' },
     { label: 'About', id: 'about' },
     { label: 'Blog', id: 'blog' },
-    { label: 'Contact', id: 'contact' },
+    { label: 'Contact', id: 'contact', href: '/contact' },
   ];
-
   const menuVariants = {
     hidden: { opacity: 0, x: -300 },
     visible: {
@@ -90,19 +89,39 @@ export const Navbar = () => {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex gap-6">
-              {menuItems.map((item) => (
-                <motion.button
-                  key={item.id}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`hover:opacity-80 transition font-medium ${
+              {menuItems.map((item) => {
+                const commonProps = {
+                  key: item.id,
+                  whileHover: { scale: 1.05 },
+                  whileTap: { scale: 0.95 },
+                  className: `hover:opacity-80 transition font-medium ${
                     scrolled ? 'text-gray-700' : ''
-                  }`}
-                >
-                  {item.label}
-                </motion.button>
-              ))}
+                  }`,
+                };
+
+                if (item.href) {
+                  return (
+                    <Link key={item.id} to={item.href}>
+                      <motion.div
+                        {...commonProps}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item.label}
+                      </motion.div>
+                    </Link>
+                  );
+                }
+
+                return (
+                  <motion.button
+                    key={item.id}
+                    {...commonProps}
+                    onClick={() => scrollToSection(item.id)}
+                  >
+                    {item.label}
+                  </motion.button>
+                );
+              })}
             </div>
 
             <div className="flex items-center gap-2 sm:gap-3">
@@ -169,21 +188,42 @@ export const Navbar = () => {
               className="fixed left-0 top-16 h-screen w-64 bg-white shadow-xl z-40 md:hidden overflow-y-auto"
             >
               <div className="p-6 space-y-4">
-                {menuItems.map((item, i) => (
-                  <motion.button
-                    key={item.id}
-                    custom={i}
-                    variants={menuItemVariants}
-                    initial="hidden"
-                    animate="visible"
-                    whileHover={{ x: 10, backgroundColor: '#f3f4f6' }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => scrollToSection(item.id)}
-                    className="w-full text-left px-4 py-3 rounded-lg text-gray-700 font-medium transition hover:text-teal-600"
-                  >
-                    {item.label}
-                  </motion.button>
-                ))}
+                {menuItems.map((item, i) => {
+                  const commonProps = {
+                    key: item.id,
+                    custom: i,
+                    variants: menuItemVariants,
+                    initial: 'hidden',
+                    animate: 'visible',
+                    whileHover: { x: 10, backgroundColor: '#f3f4f6' },
+                    whileTap: { scale: 0.95 },
+                    className:
+                      'w-full text-left px-4 py-3 rounded-lg text-gray-700 font-medium transition hover:text-teal-600',
+                  };
+
+                  if (item.href) {
+                    return (
+                      <Link key={item.id} to={item.href}>
+                        <motion.div
+                          {...commonProps}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {item.label}
+                        </motion.div>
+                      </Link>
+                    );
+                  }
+
+                  return (
+                    <motion.button
+                      key={item.id}
+                      {...commonProps}
+                      onClick={() => scrollToSection(item.id)}
+                    >
+                      {item.label}
+                    </motion.button>
+                  );
+                })}
 
                 <motion.div
                   variants={menuItemVariants}

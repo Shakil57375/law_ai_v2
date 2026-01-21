@@ -26,7 +26,6 @@ import { PublicRoute } from './components/PublicRoute';
 import NotFoundPage from './pages/NotFoundPage';
 import { Header } from './components/Header';
 import Users from './pages/Users';
-import LoginInfo from './pages/LoginInfo';
 import { PricingModal } from './components/Modals/PricingModal';
 import { SubscriptionManagement } from './components/Modals/ManageSuscription';
 import { GlobalModals } from './components/Modals/GlobalModal';
@@ -36,6 +35,7 @@ import { CustomPlanModal } from './components/CustomPlan';
 import VerifyAccount from './pages/VerifyAccount';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
+import Contact from './components/Contact';
 
 const DEFAULT_SIDEBAR_WIDTH = 350;
 const MIN_SIDEBAR_WIDTH = 350;
@@ -182,7 +182,7 @@ function MainContent() {
 
         <div
           className={`flex-1 ${
-            location.pathname === '/home'
+            location.pathname === '/home' || location.pathname === '/contact'
               ? 'overflow-y-auto'
               : 'overflow-hidden'
           }`}
@@ -274,6 +274,7 @@ function MainContent() {
               element={<ModalForHelpAndSupport />}
             />
             <Route path="/settings" element={<ModalForSettings />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<ModalForFAQ />} />
             <Route
               path="/upgrade"
@@ -291,14 +292,7 @@ function MainContent() {
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/login-info"
-              element={
-                <PrivateRoute>
-                  <LoginInfo />
-                </PrivateRoute>
-              }
-            />
+
             <Route
               path="/TermsAndConditions"
               element={<ModalTermsAndCondition />}

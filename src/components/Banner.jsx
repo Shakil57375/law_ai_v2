@@ -152,7 +152,7 @@ export default function Banner() {
   }, []);
 
   return (
-    <div
+    <section id='banner'
       style={{
         backgroundImage: `url(${backgroundImages})`,
       }}
@@ -227,6 +227,6 @@ export default function Banner() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
