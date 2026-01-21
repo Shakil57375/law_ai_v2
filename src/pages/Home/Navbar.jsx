@@ -3,13 +3,15 @@ import { getTranslation } from '../../../lib/i18n';
 import { useLanguage } from '../../../lib/language-context';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowUp } from 'lucide-react';
 
 // Navbar Component
 export const Navbar = () => {
   const { language, setLanguage } = useLanguage();
   const t = (key) => getTranslation(language, key);
+  const navigate = useNavigate();
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -25,9 +27,24 @@ export const Navbar = () => {
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
+
     if (element) {
+      // Element exists on current page, scroll to it
       element.scrollIntoView({ behavior: 'smooth' });
       setMobileMenuOpen(false);
+    } else if (location.pathname !== '/home') {
+      // Element doesn't exist and we're not on home page
+      // Navigate to home page first, then scroll
+      navigate('/home');
+      setMobileMenuOpen(false);
+
+      // Scroll to section after navigation completes
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 300);
     }
   };
 
@@ -36,7 +53,7 @@ export const Navbar = () => {
   };
 
   const menuItems = [
-    { label: 'Home', id: 'banner' , href: '/home' },
+    { label: 'Home', id: 'banner', href: '/home' },
     { label: 'About', id: 'about' },
     { label: 'Blog', id: 'blog' },
     { label: 'Contact', id: 'contact', href: '/contact' },
