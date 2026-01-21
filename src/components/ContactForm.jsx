@@ -4,7 +4,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useLanguage } from '../../lib/language-context';
 import { getTranslation } from '../../lib/i18n';
-
+import { MdEmail } from 'react-icons/md';
+import { CiLocationOn } from 'react-icons/ci';
+import { FaLocationDot } from 'react-icons/fa6';
 export default function ContactForm() {
   const { language } = useLanguage();
   const t = (key) => getTranslation(language, key);
@@ -81,13 +83,7 @@ export default function ContactForm() {
                 {/* Email */}
                 <div className="flex items-start gap-4">
                   <div className="text-2xl mt-1 flex-shrink-0">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
+                    <MdEmail className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <p className="text-slate-400 text-sm font-medium">
@@ -102,13 +98,7 @@ export default function ContactForm() {
                 {/* Address */}
                 <div className="flex items-start gap-4">
                   <div className="text-2xl mt-1 flex-shrink-0">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
-                    </svg>
+                    <FaLocationDot className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <p className="text-slate-400 text-sm font-medium">

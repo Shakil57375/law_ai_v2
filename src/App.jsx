@@ -16,7 +16,6 @@ import ModalTermsAndCondition from './components/Modals/TermsAndCondtionModal';
 import ProfileModal from './components/Modals/ModalForProfileEdit';
 import { ModalForHelpAndSupport } from './components/Modals/HelpAndSupport';
 import { ModalForSettings } from './components/Modals/SettingModal';
-import { ModalForFAQ } from './components/Modals/FaqModal';
 import { UpgradeModal } from './components/UpgradeModal';
 import { PrivateRoute } from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
@@ -36,6 +35,7 @@ import VerifyAccount from './pages/VerifyAccount';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import Contact from './components/Contact';
+import BlogDetailsPage from './pages/BlogDetailsPage';
 
 const DEFAULT_SIDEBAR_WIDTH = 350;
 const MIN_SIDEBAR_WIDTH = 350;
@@ -275,7 +275,7 @@ function MainContent() {
             />
             <Route path="/settings" element={<ModalForSettings />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<ModalForFAQ />} />
+            <Route path="/blog/:blogId" element={<BlogDetailsPage />} />
             <Route
               path="/upgrade"
               element={
