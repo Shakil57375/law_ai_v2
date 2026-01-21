@@ -36,6 +36,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import Contact from './components/Contact';
 import BlogDetailsPage from './pages/BlogDetailsPage';
+import ScrollToTop from './utils/ScrollToTop';
 
 const DEFAULT_SIDEBAR_WIDTH = 350;
 const MIN_SIDEBAR_WIDTH = 350;
@@ -181,8 +182,11 @@ function MainContent() {
         )}
 
         <div
+          id="main-scroll-container"
           className={`flex-1 ${
-            location.pathname === '/home' || location.pathname === '/contact'
+            location.pathname === '/home' ||
+            location.pathname === '/contact' ||
+            location.pathname.startsWith('/blog/')
               ? 'overflow-y-auto'
               : 'overflow-hidden'
           }`}
@@ -322,6 +326,7 @@ function App() {
       <I18nextProvider i18n={i18n}>
         <AuthProvider>
           <ChatProvider>
+            <ScrollToTop />
             <div className="font-montserrat">
               <GlobalModals />
               <MainContent />

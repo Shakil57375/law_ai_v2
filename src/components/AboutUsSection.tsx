@@ -1,5 +1,3 @@
-'use client';
-
 import { Link } from 'react-router-dom';
 import { getTranslation } from '../../lib/i18n';
 import { useLanguage } from '../../lib/language-context';

@@ -1,25 +1,19 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { blogPosts } from '../../lib/blogData';
 import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
 
 export default function BlogSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(
     typeof window !== 'undefined' ? window.innerWidth < 768 : false
   );
-  const { t } = useLanguage(); // Declare the t variable
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const blogs = blogPosts; // Declare the blogs variable
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const maxSlide = isMobile ? blogPosts.length - 1 : blogPosts.length - 2;
 
@@ -57,10 +51,10 @@ export default function BlogSection() {
         className="flex flex-col items-center text-center mb-8 sm:mb-12 lg:mb-16 z-50"
       >
         <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-2 sm:mb-4 leading-tight">
-          Latest Blog Posts
+          {t('blog.title')}
         </h1>
         <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-light text-gray-900">
-          Insights and expertise on AI and technology
+          {t('blog.subtitle')}
         </p>
       </motion.div>
 
@@ -82,8 +76,7 @@ export default function BlogSection() {
                 viewport={{ once: true }}
               >
                 <p className="text-base lg:text-lg text-gray-700 leading-relaxed">
-                  Explore our latest articles on artificial intelligence,
-                  chatbots, machine learning, and digital transformation.
+                  {t('blog.description')}
                 </p>
               </motion.div>
             </div>
@@ -126,7 +119,7 @@ export default function BlogSection() {
                             whileTap={{ scale: 0.95 }}
                             className="px-6 lg:px-8 py-2 lg:py-3 border-2 border-gray-900 text-gray-900 rounded-full font-medium hover:bg-gray-900 hover:text-white transition-colors text-base lg:text-lg"
                           >
-                            View Post
+                            {t('blog.viewWork')}
                           </motion.button>
                         </Link>
                       </div>

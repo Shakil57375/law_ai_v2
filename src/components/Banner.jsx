@@ -1,10 +1,8 @@
-'use client';
-
 import { useEffect, useRef } from 'react';
 import backgroundImages from '../../src/assets/Group 1597882512 1.png';
 import { useLanguage } from '../../lib/language-context';
 import { getTranslation } from '../../lib/i18n';
-import banner from "../assets/baner-image.png"
+import banner from '../assets/baner-image.png';
 import { Link } from 'react-router-dom';
 
 export default function Banner() {
@@ -152,7 +150,8 @@ export default function Banner() {
   }, []);
 
   return (
-    <section id='banner'
+    <section
+      id="banner"
       style={{
         backgroundImage: `url(${backgroundImages})`,
       }}
@@ -191,10 +190,16 @@ export default function Banner() {
               ref={buttonsRef}
               className="flex flex-col sm:flex-row gap-3 sm:gap-4"
             >
-              <Link to={"/login"} className="hover-button bg-white text-teal-600 px-6 sm:px-8 py-3 rounded-lg font-semibold transition w-full sm:w-auto">
+              <Link
+                to={'/login'}
+                className="hover-button bg-white text-teal-600 px-6 sm:px-8 py-3 rounded-lg font-semibold transition w-full sm:w-auto"
+              >
                 {t('banner.logIn')}
               </Link>
-              <Link to={"/signup"} className="hover-button bg-teal-700 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold transition w-full sm:w-auto">
+              <Link
+                to={'/signup'}
+                className="hover-button bg-teal-700 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold transition w-full sm:w-auto"
+              >
                 {t('banner.signUp')}
               </Link>
             </div>

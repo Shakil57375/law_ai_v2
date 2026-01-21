@@ -1,5 +1,3 @@
-'use client';
-
 import { useRef } from 'react';
 import { getTranslation } from '../../lib/i18n';
 import { useLanguage } from '../../lib/language-context';
