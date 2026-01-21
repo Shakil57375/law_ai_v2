@@ -11,8 +11,12 @@ import {
 import { userLoggedOut, userUpdated } from '../features/auth/authSlice';
 import { LuLogOut } from 'react-icons/lu';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
 
 const ProfileModal = ({ isOpen, onClose }) => {
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
   const [tempData, setTempData] = useState({
@@ -206,7 +210,9 @@ const ProfileModal = ({ isOpen, onClose }) => {
                     {/* Header */}
                     <div className="text-center">
                       <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">
-                        {isEditing ? 'Edit Profile' : 'My Profile'}
+                        {isEditing
+                          ? t('profile.editProfile')
+                          : t('profile.myProfile')}
                       </h2>
                       <p className="text-gray-500 dark:text-gray-400 mt-2">
                         {isEditing
@@ -344,7 +350,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                             ) : (
                               <>
                                 <FiSave className="w-5 h-5" />
-                                Save Changes
+                                {t('profile.save')}
                               </>
                             )}
                           </motion.button>
@@ -355,7 +361,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                             className="flex-1 flex items-center justify-center gap-2 py-3 px-6 rounded-lg border-2 border-gray-300 dark:border-gray-600 font-semibold text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
                           >
                             <FiX className="w-5 h-5" />
-                            Cancel
+                            {t('profile.cancel')}
                           </motion.button>
                         </>
                       ) : (
@@ -366,7 +372,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                           className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg text-white font-semibold bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 shadow-lg transition-all"
                         >
                           <FiEdit2 className="w-5 h-5" />
-                          Edit Profile
+                          {t('profile.editProfile')}
                         </motion.button>
                       )}
                     </div>

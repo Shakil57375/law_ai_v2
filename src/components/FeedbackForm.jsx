@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
 
 export default function FeedbackForm() {
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
+
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [rating, setRating] = useState(0);
@@ -26,14 +31,14 @@ export default function FeedbackForm() {
 
   const handleSubmit = async () => {
     if (!feedback.trim() || rating === 0) {
-      alert('Please provide feedback and rating');
+      alert(t('feedback.pleaseProvide'));
       return;
     }
 
     setIsLoading(true);
     // Simulate API call
     setTimeout(() => {
-      alert('Thank you for your feedback!');
+      alert(t('feedback.thankYou'));
       setFeedback('');
       setRating(0);
       setDesignation('');
@@ -139,7 +144,10 @@ export default function FeedbackForm() {
           className="relative w-full lg:pt-20 pt-0 pb-8 px-8 bg-gradient-to-b from-teal-400 to-teal-500 text-white rounded-3xl font-semibold hover:shadow-xl transition-shadow duration-300 text-xl border"
         >
           <span className="relative flex items-center justify-center gap-1 z-10 bg-white/20 backdrop-blur-md p-4 rounded-full text-base border border-white/30 top-4 lg:top-0">
-            <span className='lg:block hidden '>Write A {" "} </span>Feedback
+            <span className="lg:block hidden ">
+              {t('feedback.writeFeedback')}{' '}
+            </span>
+            {language === 'en' ? 'Feedback' : 'প্রতিক্রিয়া'}
           </span>
         </button>
       </div>
@@ -165,18 +173,20 @@ export default function FeedbackForm() {
                 onClick={(e) => e.stopPropagation()}
               >
                 <h2 className="text-3xl font-bold text-center mb-6 text-white">
-                  Write your Feedback
+                  {t('feedback.writeYourFeedback')}
                 </h2>
 
                 <textarea
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
                   className="w-full h-32 bg-white rounded-2xl p-4 resize-none focus:outline-none focus:ring-2 focus:ring-teal-600 mb-6 text-gray-900"
-                  placeholder="Share your thoughts..."
+                  placeholder={t('feedback.placeholder')}
                 />
 
                 <div className="mb-6 text-white">
-                  <span className="font-semibold mr-4">Rating:</span>
+                  <span className="font-semibold mr-4">
+                    {t('feedback.rating')}
+                  </span>
                   <div className="inline-flex gap-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
@@ -196,7 +206,7 @@ export default function FeedbackForm() {
                     disabled={isLoading}
                     className="px-8 py-3 bg-white text-teal-600 rounded-xl font-semibold hover:shadow-lg disabled:opacity-50 transition-all"
                   >
-                    {isLoading ? 'Sending...' : 'Send'}
+                    {isLoading ? t('feedback.sending') : t('feedback.send')}
                   </button>
                   <button
                     onClick={() => {
@@ -207,7 +217,7 @@ export default function FeedbackForm() {
                     }}
                     className="px-8 py-3 bg-transparent text-white rounded-xl font-semibold border-2 border-white hover:bg-white hover:text-teal-600 transition-all"
                   >
-                    Cancel
+                    {t('feedback.cancel')}
                   </button>
                 </div>
               </motion.div>

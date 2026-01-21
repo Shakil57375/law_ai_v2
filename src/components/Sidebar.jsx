@@ -476,7 +476,7 @@ export function Sidebar({
               className="w-full py-2 px-3 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 dark:text-red-400 font-medium rounded-lg transition-colors flex items-center justify-center gap-2 text-sm"
             >
               <MdDeleteSweep className="text-lg" />
-              <span>Delete All Chats</span>
+              <span>{t('sidebar.deleteAllChats')}</span>
             </button>
           </div>
         )}
@@ -509,12 +509,11 @@ export function Sidebar({
                   <MdDeleteSweep className="text-2xl text-red-600 dark:text-red-400" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                  Delete All Chats?
+                  {t('sidebar.deleteAllChatsConfirm')}
                 </h3>
               </div>
               <p className="text-gray-600 dark:text-gray-300 mb-6">
-                This will permanently delete all your chat history. This action
-                cannot be undone.
+                {t('sidebar.deleteAllChatsWarning')}
               </p>
               <div className="flex gap-3">
                 <button
@@ -522,7 +521,7 @@ export function Sidebar({
                   disabled={isDeleting}
                   className="flex-1 py-2.5 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg transition-colors disabled:opacity-50"
                 >
-                  Cancel
+                  {t('sidebar.cancel')}
                 </button>
                 <button
                   onClick={handleDeleteAllChats}
@@ -537,7 +536,7 @@ export function Sidebar({
                   ) : (
                     <>
                       <FiTrash2 />
-                      <span>Delete All</span>
+                      <span>{t('sidebar.deleteAll')}</span>
                     </>
                   )}
                 </button>
