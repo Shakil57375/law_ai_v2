@@ -275,7 +275,7 @@ function MainContent() {
             />
             <Route path="/settings" element={<ModalForSettings />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/blog/:blogId" element={<BlogDetailsPage />} />
+            <Route path="/blog/:slug" element={<BlogDetailsPage />} />
             <Route
               path="/upgrade"
               element={

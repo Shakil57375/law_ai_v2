@@ -8,8 +8,17 @@ const BlogDetailsPage = () => {
   const navigate = useNavigate();
   const [imageIndex, setImageIndex] = useState(0);
 
+  // Debug: Log the slug and available slugs
+  console.log('Looking for slug:', slug);
+  console.log(
+    'Available slugs:',
+    blogPosts.map((p) => p.slug)
+  );
+
   // Find the blog post by slug
   const post = blogPosts.find((p) => p.slug === slug);
+
+  console.log('Found post:', post ? post.title : 'Not found');
 
   if (!post) {
     return (
