@@ -2,8 +2,12 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
 
 export default function ContactForm() {
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const {
     register,
     handleSubmit,
@@ -29,11 +33,9 @@ export default function ContactForm() {
       {/* Header Section */}
       <div className="text-center pb-8 px-4">
         <h1 className="text-4xl md:text-5xl font-bold text-teal-500 mb-4">
-          Contact Us
+          {t('contactForm.title')}
         </h1>
-        <p className="text-gray-600 text-lg">
-          Any question or remarks? Just write us a message!
-        </p>
+        <p className="text-gray-600 text-lg">{t('contactForm.subtitle')}</p>
       </div>
 
       {/* Main Content */}
@@ -46,9 +48,11 @@ export default function ContactForm() {
             <div className="absolute bottom-12 right-12 w-48 h-48 bg-slate-600 rounded-full opacity-10"></div>
 
             <div className="relative z-10">
-              <h2 className="text-3xl font-bold mb-3">Contact Information</h2>
+              <h2 className="text-3xl font-bold mb-3">
+                {t('contactForm.contactInformation')}
+              </h2>
               <p className="text-slate-300 mb-12">
-                Say something to start a live chat!
+                {t('contactForm.sayHello')}
               </p>
 
               {/* Contact Items */}
@@ -65,8 +69,12 @@ export default function ContactForm() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-slate-400 text-sm font-medium">Phone</p>
-                    <p className="text-white font-semibold">+1 012 3456 789</p>
+                    <p className="text-slate-400 text-sm font-medium">
+                      {t('contactForm.phone')}
+                    </p>
+                    <p className="text-white font-semibold">
+                      {t('contactForm.phoneNumber')}
+                    </p>
                   </div>
                 </div>
 
@@ -82,8 +90,12 @@ export default function ContactForm() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-slate-400 text-sm font-medium">Email</p>
-                    <p className="text-white font-semibold">demo@gmail.com</p>
+                    <p className="text-slate-400 text-sm font-medium">
+                      {t('contactForm.email')}
+                    </p>
+                    <p className="text-white font-semibold">
+                      {t('contactForm.emailAddress')}
+                    </p>
                   </div>
                 </div>
 
@@ -100,9 +112,11 @@ export default function ContactForm() {
                   </div>
                   <div>
                     <p className="text-slate-400 text-sm font-medium">
-                      Location
+                      {t('contactForm.location')}
                     </p>
-                    <p className="text-white font-semibold">demo address</p>
+                    <p className="text-white font-semibold">
+                      {t('contactForm.locationAddress')}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -119,13 +133,13 @@ export default function ContactForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    First Name
+                    {t('contactForm.firstName')}
                   </label>
                   <input
                     type="text"
-                    placeholder="John"
+                    placeholder={t('contactForm.firstNamePlaceholder')}
                     {...register('firstName', {
-                      required: 'First name is required',
+                      required: t('contactForm.firstNameRequired'),
                     })}
                     className="w-full border-b-2 border-gray-300 bg-transparent focus:border-teal-500 outline-none py-2 transition text-gray-800 placeholder-gray-400"
                   />
@@ -138,13 +152,13 @@ export default function ContactForm() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Name
+                    {t('contactForm.lastName')}
                   </label>
                   <input
                     type="text"
-                    placeholder="Doe"
+                    placeholder={t('contactForm.lastNamePlaceholder')}
                     {...register('lastName', {
-                      required: 'Last name is required',
+                      required: t('contactForm.lastNameRequired'),
                     })}
                     className="w-full border-b-2 border-gray-300 bg-transparent focus:border-teal-500 outline-none py-2 transition text-gray-800 placeholder-gray-400"
                   />
@@ -160,16 +174,16 @@ export default function ContactForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email
+                    {t('contactForm.email')}
                   </label>
                   <input
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder={t('contactForm.emailPlaceholder')}
                     {...register('email', {
-                      required: 'Email is required',
+                      required: t('contactForm.emailRequired'),
                       pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: 'Please enter a valid email',
+                        message: t('contactForm.emailInvalid'),
                       },
                     })}
                     className="w-full border-b-2 border-gray-300 bg-transparent focus:border-teal-500 outline-none py-2 transition text-gray-800 placeholder-gray-400"
@@ -183,13 +197,13 @@ export default function ContactForm() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number
+                    {t('contactForm.phoneLabel')}
                   </label>
                   <input
                     type="tel"
-                    placeholder="+1 012 3456 789"
+                    placeholder={t('contactForm.phonePlaceholder')}
                     {...register('phone', {
-                      required: 'Phone number is required',
+                      required: t('contactForm.phoneRequired'),
                     })}
                     className="w-full border-b-2 border-gray-300 bg-transparent focus:border-teal-500 outline-none py-2 transition text-gray-800 placeholder-gray-400"
                   />
@@ -204,13 +218,13 @@ export default function ContactForm() {
               {/* Message */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Message
+                  {t('contactForm.message')}
                 </label>
                 <textarea
                   rows="5"
-                  placeholder="Write your message.."
+                  placeholder={t('contactForm.messagePlaceholder')}
                   {...register('message', {
-                    required: 'Message is required',
+                    required: t('contactForm.messageRequired'),
                   })}
                   className="w-full border-b-2 border-gray-300 bg-transparent focus:border-teal-500 outline-none py-2 transition resize-none text-gray-800 placeholder-gray-400"
                 ></textarea>
@@ -227,7 +241,7 @@ export default function ContactForm() {
                   type="submit"
                   className="bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 px-8 rounded-lg transition duration-200"
                 >
-                  Send Message
+                  {t('contactForm.sendMessage')}
                 </button>
               </div>
             </form>
