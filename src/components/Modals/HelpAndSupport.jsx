@@ -2,8 +2,12 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useHelpSupportMutation } from '../../features/auth/authApi';
+import { useLanguage } from '../../../lib/language-context';
+import { getTranslation } from '../../../lib/i18n';
 
 export const ModalForHelpAndSupport = () => {
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const {
     register,
     handleSubmit,
@@ -29,11 +33,13 @@ export const ModalForHelpAndSupport = () => {
 
   return (
     <div className="px-4 lg:px-20 mt-4">
-      <h2 className="text-xl font-semibold mb-6">Help & Support</h2>
+      <h2 className="text-xl font-semibold mb-6">{t('help.helpAndSupport')}</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Your Email</label>
+          <label className="block text-sm font-medium mb-1">
+            {t('profile.email')}
+          </label>
           <input
             type="email"
             {...register('email', { required: 'Email is required' })}
@@ -68,7 +74,7 @@ export const ModalForHelpAndSupport = () => {
             disabled={isLoading}
             className="px-8 py-2 bg-blue-600 text-white rounded-md font-medium"
           >
-            {isLoading ? 'Sending...' : 'Send'}
+            {isLoading ? 'Sending...' : t('chat.send')}
           </button>
         </div>
       </form>

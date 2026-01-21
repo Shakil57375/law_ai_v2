@@ -1,12 +1,17 @@
-import { IoMdClose } from "react-icons/io";
-import { useLocation, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { IoMdClose } from 'react-icons/io';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { useLanguage } from '../../../lib/language-context';
+import { getTranslation } from '../../../lib/i18n';
+
 export const ModalForSettings = () => {
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const navigate = useNavigate();
   const location = useLocation(); // Import useLocation
   const onClose = () => {
-    const from = location.state?.from?.pathname || "/";
-    navigate(from); 
+    const from = location.state?.from?.pathname || '/';
+    navigate(from);
   };
   return (
     <motion.div
@@ -34,7 +39,7 @@ export const ModalForSettings = () => {
           <IoMdClose className="w-6 h-6" />
         </button>
 
-        <h2 className="text-xl font-semibold mb-6">Settings</h2>
+        <h2 className="text-xl font-semibold mb-6">{t('settings.settings')}</h2>
 
         <div className="space-y-4">
           <h3 className="text-sm font-medium text-gray-700">
@@ -50,7 +55,7 @@ export const ModalForSettings = () => {
           </div>
 
           <button className="w-full py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-            Update
+            {t('settings.save')}
           </button>
         </div>
       </motion.div>
