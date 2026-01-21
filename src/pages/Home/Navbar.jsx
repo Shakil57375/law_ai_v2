@@ -48,12 +48,23 @@ export const Navbar = () => {
     }
   };
 
+  const handleHomeClick = () => {
+    if (location.pathname === '/home') {
+      // Already on home page, scroll to banner
+      scrollToSection('banner');
+    } else {
+      // Navigate to home (will show banner by default)
+      navigate('/home');
+      setMobileMenuOpen(false);
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const menuItems = [
-    { label: 'Home', id: 'banner', href: '/home' },
+    { label: 'Home', id: 'banner', href: '/home', action: 'home' },
     { label: 'About', id: 'about' },
     { label: 'Blog', id: 'blog' },
     { label: 'Contact', id: 'contact', href: '/contact' },
@@ -115,6 +126,18 @@ export const Navbar = () => {
                     scrolled ? 'text-gray-700' : ''
                   }`,
                 };
+
+                if (item.action === 'home') {
+                  return (
+                    <motion.button
+                      key={item.id}
+                      {...commonProps}
+                      onClick={handleHomeClick}
+                    >
+                      {item.label}
+                    </motion.button>
+                  );
+                }
 
                 if (item.href) {
                   return (
@@ -217,6 +240,18 @@ export const Navbar = () => {
                     className:
                       'w-full text-left px-4 py-3 rounded-lg text-gray-700 font-medium transition hover:text-teal-600',
                   };
+
+                  if (item.action === 'home') {
+                    return (
+                      <motion.button
+                        key={item.id}
+                        {...commonProps}
+                        onClick={handleHomeClick}
+                      >
+                        {item.label}
+                      </motion.button>
+                    );
+                  }
 
                   if (item.href) {
                     return (

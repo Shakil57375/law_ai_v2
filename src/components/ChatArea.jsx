@@ -22,15 +22,36 @@ import Loader from './Loader/Loader';
 import { RichTextDisplay } from './RichTextDisplay';
 import { LuSend } from 'react-icons/lu';
 import ClickOutside from './CloseOutsideClick';
-
-const MODELS = {
-  CartWright: { name: 'CartWright', label: 'Get Advice', icon: '🧠' },
-  TranscriptX: { name: 'TranscriptX', label: 'Brainstorm', icon: '💡' },
-  Redactify: { name: 'Redactify', label: 'Images', icon: '📸' },
-  Validify: { name: 'Validify', label: 'Deep Search', icon: '🔍' },          
-};
+import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
 
 export function ChatArea() {
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
+
+  const MODELS = {
+    CartWright: {
+      name: t('chat.models.cartwright.name'),
+      label: t('chat.models.cartwright.label'),
+      icon: '🧠',
+    },
+    TranscriptX: {
+      name: t('chat.models.transcriptx.name'),
+      label: t('chat.models.transcriptx.label'),
+      icon: '💡',
+    },
+    Redactify: {
+      name: t('chat.models.redactify.name'),
+      label: t('chat.models.redactify.label'),
+      icon: '📸',
+    },
+    Validify: {
+      name: t('chat.models.validify.name'),
+      label: t('chat.models.validify.label'),
+      icon: '🔍',
+    },
+  };
+
   const { id: currentChatId } = useParams();
   const navigate = useNavigate();
   const [isAiLoading, setIsAiLoading] = useState(false);
@@ -40,7 +61,7 @@ export function ChatArea() {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadType, setUploadType] = useState(null);
   const [showMediaDropdown, setShowMediaDropdown] = useState(false);
-  const [showModelDropdown, setShowModelDropdown] = useState(false); 
+  const [showModelDropdown, setShowModelDropdown] = useState(false);
 
   const caseStudyInputRef = useRef(null);
   const documentInputRef = useRef(null);
@@ -115,7 +136,7 @@ export function ChatArea() {
     smoothScrollToBottom();
   }, [chatMessages, isAiLoading, smoothScrollToBottom]);
 
-  const handleCaseStudyUpload = (event) => { 
+  const handleCaseStudyUpload = (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -553,7 +574,7 @@ export function ChatArea() {
                           <MdImage className="text-xl text-teal-600" />
                           <div>
                             <div className="font-semibold text-sm dark:text-white">
-                              Case Study
+                              {t('chat.image')}
                             </div>
                             <div className="text-xs text-gray-500 dark:text-gray-400">
                               JPG, PNG, GIF, SVG, WebP
@@ -568,7 +589,7 @@ export function ChatArea() {
                           <MdDescription className="text-xl text-teal-600" />
                           <div>
                             <div className="font-semibold text-sm dark:text-white">
-                              Document
+                              {t('chat.document')}
                             </div>
                             <div className="text-xs text-gray-500 dark:text-gray-400">
                               PDF files only
@@ -601,7 +622,7 @@ export function ChatArea() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Message LawBangla..."
+                  placeholder={t('chat.placeholder')}
                   rows={1}
                   className="flex-1 py-2.5 px-1 bg-transparent border-none focus:outline-none resize-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 overflow-y-auto text-sm md:text-base"
                   style={{

@@ -24,6 +24,9 @@ import './sidebar.css';
 import { ChevronsLeftIcon } from './ChevronsLeftIcon';
 import { MenuIcon } from './MenuIcon';
 import logo from '../assets/logo.png';
+import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
+
 export function Sidebar({
   isSidebarOpen,
   setIsSidebarOpen,
@@ -31,6 +34,8 @@ export function Sidebar({
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const [searchTerm, setSearchTerm] = useState('');
   const [editChatId, setEditChatId] = useState(null);
   const [editTitle, setEditTitle] = useState('');
@@ -384,7 +389,7 @@ export function Sidebar({
             className="w-full py-2.5 px-4 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
           >
             <span className="text-xl">+</span>
-            <span>New Chat</span>
+            <span>{t('chat.newChat')}</span>
           </button>
         </div>
 
@@ -392,7 +397,7 @@ export function Sidebar({
         <div className="flex-shrink-0 px-4 py-3">
           <input
             type="text"
-            placeholder="Search chats..."
+            placeholder={t('chat.searchChats')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
@@ -406,7 +411,7 @@ export function Sidebar({
         >
           <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
             <LuLibraryBig className="text-lg" />
-            <span className="font-semibold text-sm">Library</span>
+            <span className="font-semibold text-sm">{t('chat.library')}</span>
           </div>
           {showChatHistory ? (
             <FaAngleDown className="text-gray-500" />
@@ -421,10 +426,10 @@ export function Sidebar({
             {isChatEmpty(groupedChats) ? (
               <div className="text-center py-8">
                 <p className="text-gray-500 dark:text-gray-400 text-sm">
-                  No chats yet
+                  {t('chat.noChats')}
                 </p>
                 <p className="text-gray-400 dark:text-gray-500 text-xs mt-1">
-                  Start a new conversation
+                  {t('chat.startConversation')}
                 </p>
               </div>
             ) : (
@@ -432,7 +437,7 @@ export function Sidebar({
                 {filteredTodayChats?.length > 0 && (
                   <div>
                     <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-2">
-                      Today
+                      {t('chat.today')}
                     </h3>
                     {filteredTodayChats.map(renderChatItem)}
                   </div>
@@ -441,7 +446,7 @@ export function Sidebar({
                 {filteredYesterdayChats?.length > 0 && (
                   <div>
                     <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-2">
-                      Yesterday
+                      {t('chat.yesterday')}
                     </h3>
                     {filteredYesterdayChats.map(renderChatItem)}
                   </div>

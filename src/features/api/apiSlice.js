@@ -4,7 +4,7 @@ import { selectAccessToken } from '../auth/authSlice';
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://parliament-curves-cancel-foreign.trycloudflare.com/api',
+    baseUrl: 'http://lawbotmvp.duckdns.org/api',
     prepareHeaders: (headers, { getState }) => {
       const token = selectAccessToken(getState());
       if (token) {
