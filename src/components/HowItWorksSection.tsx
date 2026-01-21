@@ -24,7 +24,7 @@ export default function HowItWorksSection() {
           ref={headerRef}
           className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-8 sm:mb-12 lg:mb-16"
         >
-          কিভাবে এটা কাজ করে
+          {t('howWorks.title')}
         </h1>
 
         {/* Steps Container */}
@@ -43,13 +43,12 @@ export default function HowItWorksSection() {
 
               {/* Title */}
               <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-3 sm:mb-4 text-center mt-4 sm:mt-6 lg:mt-8">
-                আপনার প্রম্প্ট ডিজাইন করুন
+                {t('howWorks.step1Title')}
               </h2>
 
               {/* Description */}
               <p className="text-gray-700 text-center text-xs sm:text-sm lg:text-base leading-relaxed">
-                আপনার আইএ প্রম্প্ট বাংলা বা ইংরেজিতে টাইপ করুন অথবা বলুন। আমাদের
-                সিস্টেম নির্ভুলভাবে ব্যাখ্যা করবে ডায়ালগ।
+                {t('howWorks.step1Description')}
               </p>
 
               {/* Step Badge */}
@@ -75,13 +74,12 @@ export default function HowItWorksSection() {
 
               {/* Title */}
               <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-3 sm:mb-4 text-center mt-4 sm:mt-6 lg:mt-8">
-                এআই বিশ্লেষণ
+                {t('howWorks.step2Title')}
               </h2>
 
               {/* Description */}
               <p className="text-gray-700 text-center text-xs sm:text-sm lg:text-base leading-relaxed">
-                আপনার প্রম্প্ট বাংলাদেশের মার্কেটকৃত আইএ, আইএন এবং ঘাসালা
-                কিংবদের ডিজিটাল বিশ্লেষণ করা হবেছে।
+                {t('howWorks.step2Description')}
               </p>
 
               {/* Step Badge */}
@@ -107,13 +105,12 @@ export default function HowItWorksSection() {
 
               {/* Title */}
               <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-3 sm:mb-4 text-center mt-4 sm:mt-6 lg:mt-8">
-                বিত্তরতি উত্তর পান
+                {t('howWorks.step3Title')}
               </h2>
 
               {/* Description */}
               <p className="text-gray-700 text-center text-xs sm:text-sm lg:text-base leading-relaxed">
-                যথাযথ উদ্ধৃতি এবং রেফারেন্স সহ স্পষ্ট, সুগঠিত আইএন উত্তর্গুছি
-                পান।
+                {t('howWorks.step3Description')}
               </p>
 
               {/* Step Badge */}

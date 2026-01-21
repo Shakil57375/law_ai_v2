@@ -165,21 +165,34 @@ export const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-2 sm:gap-3">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition ${
-                  scrolled
-                    ? 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                    : 'bg-white/20 hover:bg-white/30'
-                }`}
-              >
-                <span>{language === 'en' ? '🇧🇩' : '🇬🇧'}</span>
-                <span className="text-sm hidden sm:inline">
-                  {language === 'en' ? 'বাংলা' : 'English'}
-                </span>
-              </motion.button>
+              {/* Desktop Language Toggle */}
+              <div className="hidden lg:flex items-center bg-teal-100 rounded-full p-1 relative">
+                <motion.div
+                  className="absolute top-1 bottom-1 bg-teal-600 rounded-full"
+                  initial={false}
+                  animate={{
+                    left: language === 'bn' ? '4px' : '50%',
+                    right: language === 'en' ? '4px' : '50%',
+                  }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                />
+                <button
+                  onClick={() => setLanguage('bn')}
+                  className={`relative z-10 px-4 py-1.5 rounded-full font-medium text-sm transition-colors ${
+                    language === 'bn' ? 'text-white' : 'text-teal-700'
+                  }`}
+                >
+                  বাং
+                </button>
+                <button
+                  onClick={() => setLanguage('en')}
+                  className={`relative z-10 px-4 py-1.5 rounded-full font-medium text-sm transition-colors ${
+                    language === 'en' ? 'text-white' : 'text-teal-700'
+                  }`}
+                >
+                  EN
+                </button>
+              </div>
 
               <Link to="/">
                 <motion.div
@@ -188,7 +201,7 @@ export const Navbar = () => {
                   className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition cursor-pointer ${
                     scrolled
                       ? 'bg-teal-600 hover:bg-teal-700 text-white'
-                      : 'bg-white hover:bg-gray-100 text-teal-600'
+                      : 'text-white  bg-teal-600'
                   }`}
                 >
                   {t('navbar.getStarted')}
@@ -218,7 +231,12 @@ export const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/50 z-40 md:hidden"
+              className="fixed inset-0 bg-black/50 z-40 md:hidden "
+              style={{
+                backdropFilter: 'blur(5px)',
+                WebkitBackdropFilter: 'blur(5px)',
+                backgroundColor: 'rgba(0, 0, 0, 0.3)',
+              }}
             />
             <motion.div
               variants={menuVariants}
@@ -285,15 +303,39 @@ export const Navbar = () => {
                   className="border-t pt-4"
                 >
                   <p className="text-sm text-gray-600 px-4 mb-3">Language</p>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
-                    className="w-full px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 flex items-center justify-center gap-2"
-                  >
-                    <span>{language === 'en' ? '🇧🇩' : '🇬🇧'}</span>
-                    <span>{language === 'en' ? 'বাংলা' : 'English'}</span>
-                  </motion.button>
+                  <div className="px-4">
+                    <div className="flex items-center bg-teal-100 rounded-full p-1 relative">
+                      <motion.div
+                        className="absolute top-1 bottom-1 bg-teal-600 rounded-full"
+                        initial={false}
+                        animate={{
+                          left: language === 'bn' ? '4px' : '50%',
+                          right: language === 'en' ? '4px' : '50%',
+                        }}
+                        transition={{
+                          type: 'spring',
+                          stiffness: 300,
+                          damping: 30,
+                        }}
+                      />
+                      <button
+                        onClick={() => setLanguage('bn')}
+                        className={`relative z-10 flex-1 px-4 py-2 rounded-full font-medium text-sm transition-colors ${
+                          language === 'bn' ? 'text-white' : 'text-teal-700'
+                        }`}
+                      >
+                        বাং
+                      </button>
+                      <button
+                        onClick={() => setLanguage('en')}
+                        className={`relative z-10 flex-1 px-4 py-2 rounded-full font-medium text-sm transition-colors ${
+                          language === 'en' ? 'text-white' : 'text-teal-700'
+                        }`}
+                      >
+                        EN
+                      </button>
+                    </div>
+                  </div>
                 </motion.div>
               </div>
             </motion.div>

@@ -205,22 +205,52 @@ export default function Banner() {
             </div>
 
             <div ref={downloadRef} className="space-y-3">
-              <p className="text-sm opacity-90">{t('banner.appStore')}</p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <a href="#" className="block w-full sm:w-auto hover-button">
-                  <img
-                    src="https://i.ibb.co.com/1gYMq68/App-Store.png"
-                    alt="Download on App Store"
-                    className="h-11 sm:h-12 w-auto mx-auto sm:mx-0"
-                  />
-                </a>
-                <a href="#" className="block w-full sm:w-auto hover-button">
-                  <img
-                    src="https://i.ibb.co.com/8gNnx8GK/Play-Store.png"
-                    alt="Get it on Google Play"
-                    className="h-11 sm:h-12 w-auto mx-auto sm:mx-0"
-                  />
-                </a>
+                {/* App Store */}
+                <div className="relative group w-full sm:w-auto">
+                  <a
+                    href="#"
+                    className="block hover-button pointer-events-none"
+                  >
+                    <img
+                      src="https://i.ibb.co.com/1gYMq68/App-Store.png"
+                      alt="Download on App Store"
+                      className="h-11 sm:h-12 w-auto mx-auto sm:mx-0 opacity-80"
+                    />
+                  </a>
+
+                  {/* Tooltip */}
+                  <div
+                    className="absolute -top-10 left-1/2 -translate-x-1/2
+      whitespace-nowrap rounded-md bg-black px-3 py-1 text-xs text-white
+      opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  >
+                    Coming Soon
+                  </div>
+                </div>
+
+                {/* Play Store */}
+                <div className="relative group w-full sm:w-auto">
+                  <a
+                    href="#"
+                    className="block hover-button pointer-events-none"
+                  >
+                    <img
+                      src="https://i.ibb.co.com/8gNnx8GK/Play-Store.png"
+                      alt="Get it on Google Play"
+                      className="h-11 sm:h-12 w-auto mx-auto sm:mx-0 opacity-80"
+                    />
+                  </a>
+
+                  {/* Tooltip */}
+                  <div
+                    className="absolute -top-10 left-1/2 -translate-x-1/2
+      whitespace-nowrap rounded-md bg-black px-3 py-1 text-xs text-white
+      opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  >
+                    Coming Soon
+                  </div>
+                </div>
               </div>
             </div>
           </div>

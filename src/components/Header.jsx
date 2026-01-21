@@ -27,23 +27,37 @@ export function Header() {
         <header className="bg-transparent dark:text-white text-black px-2 sm:px-3 py-2 flex items-center justify-end z-40 fixed top-0 right-0 w-full md:w-auto lg:rounded-bl-2xl ">
           <div className="flex items-center gap-3 w-full justify-end">
             {/* Language Toggle */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
-              className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg font-medium transition bg-opacity-20 hover:bg-opacity-30 dark:bg-opacity-20 dark:hover:bg-opacity-30"
-              style={{
-                backgroundColor:
+            <div className="flex items-center bg-teal-100 dark:bg-teal-900 rounded-full p-1 relative">
+              <motion.div
+                className="absolute top-1 bottom-1 bg-teal-600 dark:bg-teal-500 rounded-full"
+                initial={false}
+                animate={{
+                  left: language === 'bn' ? '4px' : '50%',
+                  right: language === 'en' ? '4px' : '50%',
+                }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              />
+              <button
+                onClick={() => setLanguage('bn')}
+                className={`relative z-10 px-3 sm:px-4 py-1.5 rounded-full font-medium text-xs sm:text-sm transition-colors ${
+                  language === 'bn'
+                    ? 'text-white'
+                    : 'text-teal-700 dark:text-teal-300'
+                }`}
+              >
+                বাং
+              </button>
+              <button
+                onClick={() => setLanguage('en')}
+                className={`relative z-10 px-3 sm:px-4 py-1.5 rounded-full font-medium text-xs sm:text-sm transition-colors ${
                   language === 'en'
-                    ? 'rgba(220, 38, 38, 0.2)'
-                    : 'rgba(34, 197, 94, 0.2)',
-              }}
-            >
-              <span>{language === 'en' ? '🇧🇩' : '🇬🇧'}</span>
-              <span className="text-xs sm:text-sm hidden sm:inline">
-                {language === 'en' ? 'বাংলা' : 'English'}
-              </span>
-            </motion.button>
+                    ? 'text-white'
+                    : 'text-teal-700 dark:text-teal-300'
+                }`}
+              >
+                EN
+              </button>
+            </div>
 
             {/* Dark Mode Toggle */}
             <div

@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useLanguage } from '../../lib/language-context';
 import { getTranslation } from '../../lib/i18n';
 import { MdEmail } from 'react-icons/md';
-import { CiLocationOn } from 'react-icons/ci';
 import { FaLocationDot } from 'react-icons/fa6';
+import send_img from '../assets/send.png'
 export default function ContactForm() {
   const { language } = useLanguage();
   const t = (key) => getTranslation(language, key);
@@ -39,13 +39,13 @@ export default function ContactForm() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 pb-16">
+      <div className="max-w-7xl mx-auto px-4 pb-16 bg-white rounded-3xl shadow-lg p-8 md:p-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Section - Contact Information */}
-          <div className="relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 md:p-12 text-white overflow-hidden">
+          <div className="relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 md:p-12 text-white overflow-hidden h-[400px] lg:min-h-[700px]">
             {/* Background decoration circles */}
-            <div className="absolute bottom-0 right-0 w-64 h-64 bg-slate-700 rounded-full opacity-20 -mr-32 -mb-32"></div>
-            <div className="absolute bottom-12 right-12 w-48 h-48 bg-slate-600 rounded-full opacity-10"></div>
+            <div className="absolute bottom-0 right-0 w-64 h-64 bg-slate-700 rounded-full opacity-50 -mr-32 -mb-32"></div>
+            <div className="absolute bottom-5 right-5 w-48 h-48 bg-slate-500 rounded-full opacity-40"></div>
 
             <div className="relative z-10">
               <h2 className="text-3xl font-bold mb-3">
@@ -231,6 +231,13 @@ export default function ContactForm() {
                 >
                   {t('contactForm.sendMessage')}
                 </button>
+              </div>
+              <div className="items-center justify-center hidden  lg:flex">
+                <img
+                  src={send_img}
+                  alt=""
+                  className="w-52 h-52 flex  items-center justify-center"
+                />
               </div>
             </form>
           </div>
