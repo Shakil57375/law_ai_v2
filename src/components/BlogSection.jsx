@@ -5,17 +5,20 @@ import { Link } from 'react-router-dom';
 import { blogPosts } from '../../lib/blogData';
 import { useLanguage } from '../../lib/language-context';
 import { getTranslation } from '../../lib/i18n';
+import { useGetAllBlogsQuery } from '../features/api/apiSlice';
 
 export default function BlogSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const {data : blogsData } = useGetAllBlogsQuery();
+  console.log(blogsData)
   const [isMobile, setIsMobile] = useState(
     typeof window !== 'undefined' ? window.innerWidth < 768 : false
   );
   const { language } = useLanguage();
   const t = (key) => getTranslation(language, key);
-  const blogs = blogPosts; // Declare the blogs variable
+  const blogs = blogsData || []; // Declare the blogs variable
 
-  const maxSlide = isMobile ? blogPosts.length - 1 : blogPosts.length - 2;
+  const maxSlide = isMobile ? blogs.length - 1 : blogs.length - 2;
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % maxSlide);
@@ -41,21 +44,22 @@ export default function BlogSection() {
   return (
     <section
       id="blog"
-      className="bg-white px-4 sm:px-6 lg:px-12 py-8 sm:py-12 lg:py-20 relative w-full"
+      className="bg-white px-4 sm:px-6 lg:px-12 py-8 sm:py-12 lg:py-20 relative w-full "
     >
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="flex flex-col items-center text-center mb-8 sm:mb-12 lg:mb-16 z-50"
+        className="flex flex-col items-center  text-center z-50 absolute lg:top-16 -top-5 lg:left-1/4 left-1 transform lg:-translate-x-1 translate-x-1/2"
       >
         <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-2 sm:mb-4 leading-tight">
           {t('blog.title')}
         </h1>
-        <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-light text-gray-900">
+        <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-light text-gray-900 ">
           {t('blog.subtitle')}
         </p>
+        <span className='border-4 border-yellow-400 w-28 absolute top-28 right-36 hidden lg:block'></span>
       </motion.div>
 
       {/* Desktop Layout */}
@@ -88,7 +92,7 @@ export default function BlogSection() {
                   animate={{ x: `-${currentSlide * (100 / 3 + 2.4)}%` }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
                 >
-                  {blogPosts.map((post, index) => (
+                  {blogs.map((post, index) => (
                     <motion.div
                       key={post.id}
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -170,10 +174,7 @@ export default function BlogSection() {
               viewport={{ once: true }}
               className="mb-6 sm:mb-8"
             >
-              <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                Explore our latest articles on artificial intelligence,
-                chatbots, machine learning, and digital transformation.
-              </p>
+              
             </motion.div>
 
             <div className="relative">
@@ -183,7 +184,7 @@ export default function BlogSection() {
                   animate={{ x: `-${currentSlide * 100}%` }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
                 >
-                  {blogPosts.map((post, index) => (
+                  {blogs.map((post, index) => (
                     <motion.div
                       key={post.id}
                       initial={{ opacity: 0, scale: 0.8 }}

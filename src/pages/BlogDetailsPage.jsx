@@ -4,9 +4,13 @@ import { blogPosts } from '../../lib/blogData';
 import { ChevronRight, Clock, Calendar } from 'lucide-react';
 import Footer from '../components/Footer';
 import { Navbar } from './Home/Navbar';
+import { useGetASingleBlogQuery } from '../features/api/apiSlice';
 
 const BlogDetailsPage = () => {
   const { slug } = useParams();
+  console.log(slug)
+  const {data : blogData} = useGetASingleBlogQuery(slug);
+  console.log(blogData)
   const navigate = useNavigate();
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -31,13 +35,13 @@ const BlogDetailsPage = () => {
   );
 
   // Find the blog post by slug
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = blogData;
 
   console.log('Found post:', post ? post.title : 'Not found');
 
   if (!post) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50 ">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
             Blog Post Not Found
@@ -68,7 +72,7 @@ const BlogDetailsPage = () => {
   return (
     <div>
       <Navbar />
-      <div className="bg-white">
+      <div className="bg-white mt-14">
         {/* Breadcrumb Navigation */}
         <div className="max-w-5xl mx-auto px-4 py-6 md:px-6">
           <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -271,12 +275,7 @@ const BlogDetailsPage = () => {
             >
               ← Back
             </button>
-            <Link
-              to="/blog"
-              className="px-6 py-3 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 transition text-center"
-            >
-              View All Articles →
-            </Link>
+            
           </div>
         </div>
       </div>

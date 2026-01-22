@@ -62,6 +62,18 @@ export const apiSlice = createApi({
         body: data,
       }),
     }),
+    getAllBlogs: builder.query({
+      query: () => ({
+        url: '/blog/get_all_blogs/',
+        method: 'GET',
+      }),
+    }),
+    getASingleBlog: builder.query({
+      query: (slug) => ({
+        url: `/blog/get_single_blog/${slug}/`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -73,4 +85,6 @@ export const {
   useResetPasswordMutation,
   useGetUserInfoQuery,
   useUpdateProfileMutation,
+  useGetAllBlogsQuery,
+  useGetASingleBlogQuery,
 } = apiSlice;
