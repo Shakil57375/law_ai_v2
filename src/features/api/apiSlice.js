@@ -28,6 +28,14 @@ export const apiSlice = createApi({
         body: data,
       }),
     }),
+    // New social login endpoint
+    socialLogin: builder.mutation({
+      query: (data) => ({
+        url: '/auth/signup/',
+        method: 'POST',
+        body: data,
+      }),
+    }),
     sendOtp: builder.mutation({
       query: (data) => ({
         url: '/auth/send-otp/',
@@ -80,6 +88,7 @@ export const apiSlice = createApi({
 export const {
   useSignupMutation,
   useLoginMutation,
+  useSocialLoginMutation,
   useSendOtpMutation,
   useVerifyEmailMutation,
   useResetPasswordMutation,
