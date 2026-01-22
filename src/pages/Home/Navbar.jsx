@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../../assets/logo.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowUp } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { selectAccessToken } from '../../features/auth/authSlice';
 
 // Navbar Component
 export const Navbar = () => {
@@ -15,6 +17,9 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
+
+  const token = useSelector(selectAccessToken)
+  console.log(token)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -197,19 +202,35 @@ export const Navbar = () => {
                 </button>
               </div>
 
-              <Link to="/">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition cursor-pointer ${
-                    scrolled
-                      ? 'bg-teal-600 hover:bg-teal-700 text-white'
-                      : 'text-white  bg-teal-600'
-                  }`}
-                >
-                  {t('navbar.getStarted')}
-                </motion.div>
-              </Link>
+              {token ? (
+                <Link to="/">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition cursor-pointer ${
+                      scrolled
+                        ? 'bg-teal-600 hover:bg-teal-700 text-white'
+                        : 'text-white  bg-teal-600'
+                    }`}
+                  >
+                    {t('navbar.getStarted')}
+                  </motion.div>
+                </Link>
+              ) : (
+                <Link to="/login">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition cursor-pointer ${
+                      scrolled
+                        ? 'bg-teal-600 hover:bg-teal-700 text-white'
+                        : 'text-white  bg-teal-600'
+                    }`}
+                  >
+                    {t('navbar.getStarted')}
+                  </motion.div>
+                </Link>
+              )}
 
               {/* Mobile Menu Button */}
               <motion.button

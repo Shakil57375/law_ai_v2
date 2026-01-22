@@ -43,7 +43,7 @@ const LoginPage = () => {
       setTimeout(() => navigate('/'), 1500);
     } catch (err) {
       const errorMsg =
-        err?.data?.error?.[0] || 'Login failed. Please try again.';
+        err?.data?.error || 'Login failed. Please try again.';
       toast.error(errorMsg);
     }
   };
@@ -59,49 +59,40 @@ const LoginPage = () => {
         console.log('hlw');
         toast.success(`Welcome ${user.displayName}`, { duration: 2000 });
       }
-      return;
-      // Get Firebase token
-      // const idToken = await user.getIdToken();
+      const idToken = await user.getIdToken();
 
-      // // Send token to backend
-      // const response = await fetch(
-      //   `https://backend.gameplanai.co.uk/authentication_app/social_signup_signin/`,
-      //   {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify({
-      //       username: user.displayName,
-      //       email: user.email,
-      //       token: idToken,
-      //     }),
-      //   }
-      // );
+      // Send token to backend
+      const response = await fetch(
+        `https://backend.gameplanai.co.uk/authentication_app/social_signup_signin/`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: user.displayName,
+            email: user.email,
+            token: idToken,
+          }),
+        }
+      );
 
-      // if (response.ok) {
-      //   const data = await response.json();
-      //   console.log('Google Login successful, backend response:', data);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Google Login successful, backend response:', data);
 
-      //   dispatch(
-      //     userLoggedIn({
-      //       user: data.user_profile,
-      //       token: data.access,
-      //     })
-      //   );
+        dispatch(
+          userLoggedIn({
+            user: data.user_profile,
+            token: data.access,
+          })
+        );
 
-      //   localStorage.setItem('auth', JSON.stringify(data));
+        localStorage.setItem('auth', JSON.stringify(data));
 
-      //   if (!data.user_profile?.is_verified) {
-      //     navigate('/verificationCode');
-      //   } else if (!data.user_profile?.about_you) {
-      //     navigate('/aboutMe');
-      //   } else {
-      //     navigate('/');
-      //   }
-      // } else {
-      //   throw new Error('Backend login failed.');
-      // }
+      } else {
+        throw new Error('Backend login failed.');
+      }
     } catch (error) {
       console.error('Google Login Error:', error);
       setError('Failed to login with Google. Please try again.');
