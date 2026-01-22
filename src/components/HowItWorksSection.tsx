@@ -123,7 +123,7 @@ export default function HowItWorksSection() {
               {/* Description */}
               <p className="text-gray-700 text-center text-xs sm:text-sm lg:text-base leading-relaxed">
                 {t('howWorks.step3Description')}
-              </p>
+              </p> 
 
               {/* Step Badge */}
               <div className="absolute -top-16  lg:top-48 right-2  lg:right-4">
