@@ -5,6 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { useSignupMutation } from '../features/api/apiSlice';
+import googleIcon from '../assets/google-login.png';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import app from '../Firebase/firebase';
+import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,6 +17,9 @@ export default function SignUpPage() {
   const navigate = useNavigate();
   const [signup, { isLoading }] = useSignupMutation();
   const dispatch = useDispatch();
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
+  const auth = getAuth(app);
 
   const {
     register,
@@ -32,19 +40,78 @@ export default function SignUpPage() {
 
       localStorage.setItem('email', JSON.stringify({ email: data.email }));
 
-      toast.success('Account created! Redirecting to verification...', {
+      toast.success(t('toast.accountCreated'), {
         duration: 2000,
       });
 
       setTimeout(() => navigate('/verifyAccount'), 500);
     } catch (err) {
       const errorMsg =
-        err?.data?.error?.[0] || 'Signup failed. Please try again.';
+        err?.data?.error?.[0] || t('toast.accountCreated');
       toast.error(errorMsg);
       setError('email', {
         type: 'manual',
         message: errorMsg,
       });
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      setError('');
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      if (user) {
+        console.log('hlw');
+        toast.success(t('toast.welcome').replace('{{name}}', user.displayName), { duration: 2000 });
+      }
+      return;
+      // Get Firebase token
+      // const idToken = await user.getIdToken();
+
+      // // Send token to backend
+      // const response = await fetch(
+      //   `https://backend.gameplanai.co.uk/authentication_app/social_signup_signin/`,
+      //   {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({
+      //       username: user.displayName,
+      //       email: user.email,
+      //       token: idToken,
+      //     }),
+      //   }
+      // );
+
+      // if (response.ok) {
+      //   const data = await response.json();
+      //   console.log('Google Login successful, backend response:', data);
+
+      //   dispatch(
+      //     userLoggedIn({
+      //       user: data.user_profile,
+      //       token: data.access,
+      //     })
+      //   );
+
+      //   localStorage.setItem('auth', JSON.stringify(data));
+
+      //   if (!data.user_profile?.is_verified) {
+      //     navigate('/verificationCode');
+      //   } else if (!data.user_profile?.about_you) {
+      //     navigate('/aboutMe');
+      //   } else {
+      //     navigate('/');
+      //   }
+      // } else {
+      //   throw new Error('Backend login failed.');
+      // }
+    } catch (error) {
+      console.error('Google Login Error:', error);
+      setError('Failed to login with Google. Please try again.');
     }
   };
 
@@ -203,6 +270,23 @@ export default function SignUpPage() {
               </p>
             </div>
           </form>
+
+          <div className="pt-3 flex items-center text-sm text-gray-800 before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-neutral-600 dark:after:border-neutral-600">
+            or
+          </div>
+          <div className="flex justify-center">
+            <button
+              onClick={handleGoogleLogin}
+              className="flex p-4 border rounded-l-full rounded-r-full items-center hover:bg-gray-200 transition-colors duration-300 hover:text-[#15B8A6]"
+            >
+              <img
+                src={googleIcon}
+                alt="Google Login"
+                className="w-6 h-6 mr-2"
+              />
+              <span>Login with Google</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

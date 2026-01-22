@@ -43,14 +43,14 @@ export const ModalForSettings = () => {
 
         <div className="space-y-4">
           <h3 className="text-sm font-medium text-gray-700">
-            Subscription Details
+            {t('settings.subscriptionDetails')}
           </h3>
 
           <div className="p-4 rounded-lg border border-gray-200">
             <div className="text-lg font-semibold">Standard</div>
             <div className="text-2xl font-bold mt-1">80$</div>
             <div className="text-sm text-gray-500 mt-1">
-              expire date: 11/09/24
+              {t('settings.expireDate')} 11/09/24
             </div>
           </div>
 

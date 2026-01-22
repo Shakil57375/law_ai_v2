@@ -85,7 +85,7 @@ export function Sidebar({
     setIsDeleting(true);
     try {
       await axios.delete(
-        'http://lawbotmvp.duckdns.org/api/chat/delete_all_chats/',
+        'https://backend.lexbanglaai.com/api/chat/delete_all_chats/',
         {
           headers: {
             Authorization: `Bearer ${token}`,

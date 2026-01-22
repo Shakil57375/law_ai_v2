@@ -25,7 +25,6 @@ import NotFoundPage from './pages/NotFoundPage';
 import { Header } from './components/Header';
 import Users from './pages/Users';
 import { PricingModal } from './components/Modals/PricingModal';
-import { SubscriptionManagement } from './components/Modals/ManageSuscription';
 import { GlobalModals } from './components/Modals/GlobalModal';
 import LoginPage from './pages/LoginPage';
 import ModalForPrivacyAndPolicy from './components/Modals/PrivacyAndPolicyModal';
@@ -287,14 +286,7 @@ function MainContent() {
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/manageSubscription"
-              element={
-                <PrivateRoute>
-                  <SubscriptionManagement />
-                </PrivateRoute>
-              }
-            />
+         
 
             <Route path="/terms" element={<TermsAndConditions />} />
             <Route path="/privacy" element={<ModalForPrivacyAndPolicy />} />

@@ -1,7 +1,9 @@
 import { useRef } from 'react';
 import { getTranslation } from '../../lib/i18n';
 import { useLanguage } from '../../lib/language-context';
-import img1 from '../assets/HTW/Group (4).png';
+import img2 from '../assets/HTW/Group (4).png';
+import img1 from '../assets/HTW/Group (6).png';
+import img3 from '../assets/HtW/Group (5).png';
 export default function HowItWorksSection() {
   const { language } = useLanguage();
   const t = (key) => getTranslation(language, key);
@@ -17,7 +19,7 @@ export default function HowItWorksSection() {
   ];
 
   return (
-    <div className="px-4 py-8 sm:py-12 lg:py-16">
+    <div id="howWorks" className="px-4 py-8 sm:py-12 lg:py-16">
       <div className="container mx-auto">
         {/* Header */}
         <h1
@@ -28,7 +30,7 @@ export default function HowItWorksSection() {
         </h1>
 
         {/* Steps Container */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-6 lg:gap-8">
           {/* Step 1 */}
           <div ref={step1Ref} className="relative">
             <div className="border-2 border-teal-400 rounded-lg p-4 sm:p-6 lg:p-8 bg-purple-50 bg-opacity-30 h-full flex flex-col items-center transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-teal-500">
@@ -66,7 +68,7 @@ export default function HowItWorksSection() {
               {/* Illustration */}
               <div className="-mt-12 sm:-mt-14 lg:-mt-16 bg-purple-50 rounded-full w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 flex items-center justify-center flex-shrink-0">
                 <img
-                  src={img1}
+                  src={img2}
                   alt=""
                   className="w-full h-full object-contain"
                 />
@@ -97,7 +99,7 @@ export default function HowItWorksSection() {
               {/* Illustration */}
               <div className="-mt-12 sm:-mt-14 lg:-mt-16 bg-purple-50 rounded-full w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 flex items-center justify-center flex-shrink-0">
                 <img
-                  src={img1}
+                  src={img3}
                   alt=""
                   className="w-full h-full object-contain"
                 />

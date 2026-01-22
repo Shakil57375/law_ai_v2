@@ -8,7 +8,6 @@ import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { selectAccessToken, selectUser } from '../features/auth/authSlice';
 import { useChat } from '../context/ChatContext';
-import { useGetTokensQuery } from '../features/token/token';
 import {
   useGetChatContentsQuery,
   useGetChatsQuery,
@@ -78,13 +77,10 @@ export function ChatArea() {
     error,
     refetch: refetchUserProfile,
   } = useGetUserProfileQuery();
-
   const user = useSelector(selectUser);
   const token = useSelector(selectAccessToken);
   const { chatMessages, setChatMessages, setChatId, handleClearId } = useChat();
-
   const { data: chats = [], refetch } = useGetChatsQuery();
-  const { data: tokenData, refetch: tokenRefetch } = useGetTokensQuery();
   const { data: chatContentsData, refetch: refetchChatContents } =
     useGetChatContentsQuery(currentChatId, {
       skip: !currentChatId,
@@ -264,7 +260,6 @@ export function ChatArea() {
 
         const response = await createChatAxios(formData);
         refetch();
-        tokenRefetch();
         newChatId = response?.data?.id;
         setChatId(newChatId);
         navigate(`/chat/${newChatId}`);
@@ -281,7 +276,6 @@ export function ChatArea() {
         }
 
         await addMessageToChatAxios(formData);
-        await tokenRefetch();
         await refetchChatContents();
       }
     } catch (error) {

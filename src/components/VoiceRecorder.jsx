@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import { FaMicrophone, FaStop, FaPlay, FaPause } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import toast from 'react-hot-toast';
+import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
 
 export function VoiceRecorder({ onClose, onSend }) {
   const [isRecording, setIsRecording] = useState(false);
@@ -11,6 +13,8 @@ export function VoiceRecorder({ onClose, onSend }) {
   const [isPlayingPreview, setIsPlayingPreview] = useState(false);
   const [currentPlayTime, setCurrentPlayTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const streamRef = useRef(null);
@@ -88,10 +92,10 @@ export function VoiceRecorder({ onClose, onSend }) {
 
       mediaRecorder.start();
       setIsRecording(true);
-      toast.success('Recording started...');
+      toast.success(t('toast.recordingStarted'));
     } catch (error) {
       console.error('Error accessing microphone:', error);
-      toast.error('Could not access microphone. Please check permissions.');
+      toast.error(t('toast.microphoneError'));
     }
   };
 
@@ -99,18 +103,18 @@ export function VoiceRecorder({ onClose, onSend }) {
     if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
-      toast.success('Recording stopped');
+      toast.success(t('toast.recordingStopped'));
     }
   };
 
   const transcribeAudio = async () => {
     if (!recordedBlob) {
-      toast.error('No audio recorded');
+      toast.error(t('toast.noAudioRecorded'));
       return;
     }
 
     try {
-      toast.loading('Sending voice message...');
+      toast.loading(t('toast.sendingVoice'));
 
       onSend({
         audioBlob: recordedBlob,
@@ -122,7 +126,7 @@ export function VoiceRecorder({ onClose, onSend }) {
       handleClose();
     } catch (error) {
       console.error('Error sending voice message:', error);
-      toast.error('Failed to send voice message');
+      toast.error(t('toast.voiceSendFailed'));
     }
   };
 

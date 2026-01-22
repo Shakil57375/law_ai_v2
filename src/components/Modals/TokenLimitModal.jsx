@@ -5,11 +5,15 @@ import { IoMdClose } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useUpgradePlanMutation } from '../../features/subscription/subscriptionApi';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../../lib/language-context';
+import { getTranslation } from '../../../lib/i18n';
 
 export function TokenLimitModal() {
   const [upgradePlan] = useUpgradePlanMutation();
   const navigate = useNavigate();
   const { closeTokenLimitModal } = useAuth();
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const [loadingPlanId, setLoadingPlanId] = React.useState(null);
 
   const handleUpgrade = async (plan) => {
@@ -19,13 +23,13 @@ export function TokenLimitModal() {
       if (response?.checkout_url) {
         window.location.href = response.checkout_url;
       } else {
-        toast.error(response?.Message || 'Upgrade failed. Please try again.', {
+        toast.error(response?.Message || t('toast.upgradeFailed'), {
           duration: 1000,
         });
       }
     } catch (error) {
       console.error('Upgrade error:', error);
-      toast.error('Failed to upgrade. Please try again.', { duration: 1000 });
+      toast.error(t('toast.upgradeFailed'), { duration: 1000 });
     } finally {
       setLoadingPlanId(null);
     }
@@ -34,28 +38,28 @@ export function TokenLimitModal() {
   const plans = [
     {
       id: 'one',
-      name: 'Monthly Plan',
+      name: t('pricing.monthlyPlan'),
       price: '$12.99',
-      frequency: '/ per month',
-      buttonText: 'Upgrade Now',
+      frequency: t('pricing.perMonth'),
+      buttonText: t('buttons.upgradeNow'),
       features: [
-        'Unlimited use of AI planner',
-        'Unlimited use of the full suite of tools',
-        'Priority Support',
-        'Cancel anytime',
+        t('pricing.unlimitedAIPlan'),
+        t('pricing.unlimitedTools'),
+        t('pricing.prioritySupport'),
+        t('pricing.cancelAnytime'),
       ],
     },
     {
       id: 'two',
-      name: 'Annual Plan',
+      name: t('pricing.annualPlan'),
       price: '$8.30',
-      frequency: '/ per month',
-      billedAnnually: 'Billed as $99.60 annually',
-      buttonText: 'Upgrade Now',
+      frequency: t('pricing.perMonth'),
+      billedAnnually: t('pricing.billedAnnually'),
+      buttonText: t('buttons.upgradeNow'),
       features: [
-        'Unlimited use of AI planner',
-        'Unlimited use of the full suite of tools',
-        'Priority Support',
+        t('pricing.unlimitedAIPlan'),
+        t('pricing.unlimitedTools'),
+        t('pricing.prioritySupport'),
       ],
     },
   ];

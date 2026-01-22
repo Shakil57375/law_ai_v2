@@ -23,11 +23,11 @@ export const ModalForHelpAndSupport = () => {
         email: data.email,
         description: data.description,
       }).unwrap();
-      toast.success('Support request sent!');
+      toast.success(t('toast.supportRequestSent'));
       reset();
       navigate(-1);
     } catch (error) {
-      toast.error('Failed to send support request');
+      toast.error(t('toast.supportRequestFailed'));
     }
   };
 
@@ -55,11 +55,11 @@ export const ModalForHelpAndSupport = () => {
           <label className="block text-sm font-medium mb-1">Description</label>
           <textarea
             {...register('description', {
-              required: 'Description is required',
+              required: t('help.descriptionRequired'),
             })}
             rows={4}
             className="w-full px-4 py-2 rounded-md border dark:bg-gray-700 dark:text-white"
-            placeholder="Describe your issue"
+            placeholder={t('help.describeIssue')}
           />
           {errors.description && (
             <p className="text-red-500 text-sm mt-1">

@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { IoClose } from "react-icons/io5";
-import { FaMicrophone } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
-import "./VoiceInputModal.css";
+import React, { useState, useEffect } from 'react';
+import { IoClose } from 'react-icons/io5';
+import { FaMicrophone } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import './VoiceInputModal.css';
 
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 const mic = new SpeechRecognition();
 mic.continuous = true;
 mic.interimResults = true;
-mic.lang = "en-US";
+mic.lang = 'en-US';
 
 export function VoiceInputModal({ isOpen, onClose, onSubmit }) {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [transcript, setTranscript] = useState("");
+  const [transcript, setTranscript] = useState('');
 
   // Framer Motion animation variants
   const modalVariants = {
@@ -40,26 +40,26 @@ export function VoiceInputModal({ isOpen, onClose, onSubmit }) {
     if (isListening) {
       mic.start();
       mic.onend = () => {
-        console.log("continue..");
+        console.log('continue..');
         mic.start();
       };
     } else {
       mic.stop();
       mic.onend = () => {
-        console.log("Stopped Mic on Click");
+        console.log('Stopped Mic on Click');
         setIsSpeaking(false);
       };
     }
 
     mic.onstart = () => {
-      console.log("Mics on");
+      console.log('Mics on');
     };
 
     mic.onresult = (event) => {
       const transcript = Array.from(event.results)
         .map((result) => result[0])
         .map((result) => result.transcript)
-        .join("");
+        .join('');
 
       setTranscript(transcript);
       setIsSpeaking(true);
@@ -79,7 +79,7 @@ export function VoiceInputModal({ isOpen, onClose, onSubmit }) {
   const handleSubmit = () => {
     if (transcript.trim()) {
       onSubmit(transcript);
-      setTranscript("");
+      setTranscript('');
       setIsListening(false);
       setIsSpeaking(false);
       onClose();
@@ -106,16 +106,14 @@ export function VoiceInputModal({ isOpen, onClose, onSubmit }) {
           />
 
           {/* Modal Content */}
-          <motion.div
-            className="fixed inset-0 flex items-center justify-center z-50"
-          >
+          <motion.div className="fixed inset-0 flex items-center justify-center z-50">
             <motion.div
               className="bg-white dark:bg-gray-800 rounded-lg p-6 w-[90%] max-w-lg"
               initial="hidden"
               animate="visible"
               exit="exit"
               variants={modalVariants}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
             >
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold dark:text-white">
@@ -135,7 +133,7 @@ export function VoiceInputModal({ isOpen, onClose, onSubmit }) {
 
               <div className="mb-6 min-h-[100px] bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                 <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
-                  {transcript || "Click the microphone to start speaking..."}
+                  {transcript || 'Click the microphone to start speaking...'}
                 </p>
               </div>
 
@@ -147,8 +145,8 @@ export function VoiceInputModal({ isOpen, onClose, onSubmit }) {
                   <div
                     className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors ${
                       isListening
-                        ? "bg-red-500"
-                        : "bg-[#15B8A6] hover:bg-[#15B8A6]"
+                        ? 'bg-red-500'
+                        : 'bg-[#15B8A6] hover:bg-[#15B8A6]'
                     }`}
                   >
                     <FaMicrophone size={24} className="text-white" />
@@ -160,7 +158,7 @@ export function VoiceInputModal({ isOpen, onClose, onSubmit }) {
                     )}
                   </div>
                   <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                    {isListening ? "Tap to stop" : "Tap to speak"}
+                    {isListening ? 'Tap to stop' : 'Tap to speak'}
                   </span>
                 </button>
 

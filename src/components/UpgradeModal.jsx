@@ -1,12 +1,16 @@
-import React, { useState } from "react";
-import toast from "react-hot-toast";
-import { motion } from "framer-motion";
-import { IoMdClose } from "react-icons/io";
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
-import { useUpgradePlanMutation } from "../features/subscription/subscriptionApi";
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
+import { IoMdClose } from 'react-icons/io';
+import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
+import { useUpgradePlanMutation } from '../features/subscription/subscriptionApi';
+import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
 
 export function UpgradeModal({ setShowUpgradeModal }) {
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const [upgradePlan] = useUpgradePlanMutation();
   const [loadingPlanId, setLoadingPlanId] = useState(null); // Track loading state for individual plans
   const navigate = useNavigate();
@@ -18,11 +22,13 @@ export function UpgradeModal({ setShowUpgradeModal }) {
       if (response?.checkout_url) {
         window.location.href = response.checkout_url; // Redirect to the checkout URL
       } else {
-        toast.error(response?.Message || "Upgrade failed. Please try again.", {duration : 1000});
+        toast.error(response?.Message || t('toast.upgradeFailed'), {
+          duration: 1000,
+        });
       }
     } catch (error) {
-      console.error("Upgrade error:", error);
-      toast.error("Failed to upgrade. Please try again.", {duration : 1000});
+      console.error('Upgrade error:', error);
+      toast.error(t('toast.upgradeFailed'), { duration: 1000 });
     } finally {
       setLoadingPlanId(null); // Reset loading state
     }
@@ -30,29 +36,29 @@ export function UpgradeModal({ setShowUpgradeModal }) {
 
   const plans = [
     {
-      id: "one", // Corresponds to "subscription_plan": "one"
-      name: "Monthly Plan",
-      price: "$12.99",
-      frequency: "/ per month",
-      buttonText: "Upgrade Now",
+      id: 'one', // Corresponds to "subscription_plan": "one"
+      name: t('pricing.monthlyPlan'),
+      price: '$12.99',
+      frequency: t('pricing.perMonth'),
+      buttonText: t('buttons.upgradeNow'),
       features: [
-        "Unlimited use of AI planner",
-        "Unlimited use of the full suite of tools",
-        "Priority Support",
-        "Cancel anytime",
+        t('pricing.unlimitedAIPlan'),
+        t('pricing.unlimitedTools'),
+        t('pricing.prioritySupport'),
+        t('pricing.cancelAnytime'),
       ],
     },
     {
-      id: "two", // Corresponds to "subscription_plan": "two"
-      name: "Annual Plan",
-      price: "$8.30",
-      frequency: "/ per month",
-      billedAnnually: "Billed as $99.60 annually", // Smaller text for annual billing
-      buttonText: "Upgrade Now",
+      id: 'two', // Corresponds to "subscription_plan": "two"
+      name: t('pricing.annualPlan'),
+      price: '$8.30',
+      frequency: t('pricing.perMonth'),
+      billedAnnually: t('pricing.billedAnnually'), // Smaller text for annual billing
+      buttonText: t('buttons.upgradeNow'),
       features: [
-        "Unlimited use of AI planner",
-        "Unlimited use of the full suite of tools",
-        "Priority Support",
+        t('pricing.unlimitedAIPlan'),
+        t('pricing.unlimitedTools'),
+        t('pricing.prioritySupport'),
       ],
     },
   ];
@@ -100,8 +106,10 @@ export function UpgradeModal({ setShowUpgradeModal }) {
               <div className="p-6 text-center">
                 <h3 className="text-lg font-bold">{plan.name}</h3>
                 <p className="text-4xl font-extrabold">
-                  {plan.price}{" "}
-                  <span className="text-base font-medium">{plan.frequency}</span>
+                  {plan.price}{' '}
+                  <span className="text-base font-medium">
+                    {plan.frequency}
+                  </span>
                 </p>
                 {plan.billedAnnually && (
                   <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -136,7 +144,7 @@ export function UpgradeModal({ setShowUpgradeModal }) {
                   disabled={loadingPlanId === plan.id}
                 >
                   {loadingPlanId === plan.id
-                    ? "Processing..."
+                    ? 'Processing...'
                     : plan.buttonText}
                 </button>
               </div>

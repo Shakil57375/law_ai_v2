@@ -286,7 +286,7 @@ export function ChatArea({
         }
 
         const response = await axios.post(
-          'http://lawbotmvp.duckdns.org/api/chat/create_chat/',
+          'https://backend.lexbanglaai.com/api/chat/create_chat/',
           formData,
           {
             headers: {
@@ -311,7 +311,7 @@ export function ChatArea({
         }
 
         await axios.post(
-          'http://lawbotmvp.duckdns.org/api/chat/add_message_to_chat/',
+          'https://backend.lexbanglaai.com/api/chat/add_message_to_chat/',
           formData,
           {
             headers: {
@@ -354,7 +354,7 @@ export function ChatArea({
       formData.append('model_name', messageToRegenerate.model_name);
 
       await axios.post(
-        'http://lawbotmvp.duckdns.org/api/chat/add_message_to_chat/',
+        'https://backend.lexbanglaai.com/api/chat/add_message_to_chat/',
         formData,
         {
           headers: {
@@ -458,7 +458,7 @@ export function ChatArea({
         }
 
         const response = await axios.post(
-          'http://lawbotmvp.duckdns.org/api/chat/create_chat/',
+          'https://backend.lexbanglaai.com/api/chat/create_chat/',
           formData,
           {
             headers: {
@@ -500,7 +500,7 @@ export function ChatArea({
         }
 
         const response = await axios.post(
-          'http://lawbotmvp.duckdns.org/api/chat/add_message_to_chat/',
+          'https://backend.lexbanglaai.com/api/chat/add_message_to_chat/',
           formData,
           {
             headers: {
@@ -559,7 +559,7 @@ export function ChatArea({
       formData.append('model_name', selectedModel);
 
       await axios.post(
-        'http://lawbotmvp.duckdns.org/api/chat/add_message_to_chat/',
+        'https://backend.lexbanglaai.com/api/chat/add_message_to_chat/',
         formData,
         {
           headers: {
@@ -764,7 +764,7 @@ export function ChatArea({
                     <img
                       src={
                         user?.profile_picture
-                          ? `http://lawbotmvp.duckdns.org/api${user.profile_picture}`
+                          ? `https://backend.lexbanglaai.com/api${user.profile_picture}`
                           : userImage
                       }
                       alt="User"

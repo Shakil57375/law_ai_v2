@@ -23,7 +23,7 @@
     "docx": "^9.1.1",
     "dompurify": "^3.2.3",
     "file-saver": "^2.0.5",
-    "firebase": "^11.1.0",
+    "firebase": "^11.10.0",
     "framer-motion": "^11.18.2",
     "html2pdf.js": "^0.10.2",
     "i": "^0.3.7",

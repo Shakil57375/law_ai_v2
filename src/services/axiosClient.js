@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '../store';
 import { selectAccessToken } from '../features/auth/authSlice';
 
-const API_BASE_URL = 'http://lawbotmvp.duckdns.org/api';
+const API_BASE_URL = 'https://backend.lexbanglaai.com/api';
 
 const axiosClient = axios.create({
   baseURL: API_BASE_URL,

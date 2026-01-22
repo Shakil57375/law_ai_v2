@@ -4,11 +4,15 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useResetPasswordMutation } from '../../features/api/apiSlice';
+import { useLanguage } from '../../../lib/language-context';
+import { getTranslation } from '../../../lib/i18n';
 
 export default function ResetPasswordPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
   const authData = JSON.parse(localStorage.getItem('email'));
@@ -25,7 +29,7 @@ export default function ResetPasswordPage() {
 
   const onSubmit = async (data) => {
     if (!email) {
-      toast.error('Email is missing. Please start from forgot password.', {
+      toast.error(t('toast.emailMissing'), {
         duration: 2000,
       });
       navigate('/forgotPassword');
@@ -34,7 +38,7 @@ export default function ResetPasswordPage() {
 
     const storedOtp = localStorage.getItem('otp');
     if (!storedOtp) {
-      toast.error('Please verify OTP first', { duration: 2000 });
+      toast.error(t('toast.otpRequired'), { duration: 2000 });
       navigate('/verificationCode');
       return;
     }
@@ -46,7 +50,7 @@ export default function ResetPasswordPage() {
         new_password: data.newPassword,
       }).unwrap();
 
-      toast.success('Password reset successfully! Redirecting to login...', {
+      toast.success(t('toast.passwordReset'), {
         duration: 2000,
       });
 
@@ -56,8 +60,7 @@ export default function ResetPasswordPage() {
         navigate('/login');
       }, 1500);
     } catch (err) {
-      const errorMsg =
-        err?.data?.error?.[0] || 'Failed to reset password. Please try again.';
+      const errorMsg = err?.data?.error?.[0] || t('toast.passwordReset');
       toast.error(errorMsg);
     }
   };

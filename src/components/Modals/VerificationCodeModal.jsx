@@ -6,10 +6,14 @@ import {
   useSendOtpMutation,
   useVerifyEmailMutation,
 } from '../../features/api/apiSlice';
+import { useLanguage } from '../../../lib/language-context';
+import { getTranslation } from '../../../lib/i18n';
 
 export default function VerificationPage() {
   const [code, setCode] = useState(new Array(4).fill(''));
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const [verifyEmail, { isLoading: isVerifying }] = useVerifyEmailMutation();
   const [sendOtp, { isLoading: isResending }] = useSendOtpMutation();
 
@@ -71,20 +75,19 @@ export default function VerificationPage() {
     const otp = code.join('');
 
     if (otp.length !== 4) {
-      toast.error('Please enter a valid 4-digit OTP');
+      toast.error(t('toast.invalidOTP'));
       return;
     }
 
     try {
       localStorage.setItem('otp', otp);
-      toast.success('OTP verified successfully!', { duration: 2000 });
+      toast.success(t('toast.otpVerified'), { duration: 2000 });
 
       setTimeout(() => {
         navigate('/resetPass');
       }, 1500);
     } catch (err) {
-      const errorMsg =
-        err?.data?.error?.[0] || 'OTP verification failed. Please try again.';
+      const errorMsg = err?.data?.error?.[0] || t('toast.invalidOTP');
       toast.error(errorMsg);
     }
   };
@@ -92,12 +95,11 @@ export default function VerificationPage() {
   const handleResendOtp = async () => {
     try {
       await sendOtp({ email }).unwrap();
-      toast.success('OTP resent successfully. Check your email.', {
+      toast.success(t('toast.otpResent'), {
         duration: 2000,
       });
     } catch (err) {
-      const errorMsg =
-        err?.data?.error?.[0] || 'Failed to resend OTP. Please try again.';
+      const errorMsg = err?.data?.error?.[0] || t('toast.otpResent');
       toast.error(errorMsg);
     }
   };

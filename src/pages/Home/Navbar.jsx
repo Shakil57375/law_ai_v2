@@ -64,10 +64,13 @@ export const Navbar = () => {
   };
 
   const menuItems = [
-    { label: 'Home', id: 'banner', href: '/home', action: 'home' },
-    { label: 'About', id: 'about' },
-    { label: 'Blog', id: 'blog' },
-    { label: 'Contact', id: 'contact', href: '/contact' },
+    { label: t('navbar.home'), id: 'banner', href: '/home', action: 'home' },
+    { label: t('navbar.features'), id: 'features' },
+    { label: t('navbar.whoIsFor'), id: 'whoIsFor' },
+    { label: t('navbar.howWorks'), id: 'howWorks' },
+    { label: t('navbar.about'), id: 'about' },
+    { label: t('navbar.blog'), id: 'blog' },
+    { label: t('navbar.contact'), id: 'contact', href: '/contact' },
   ];
   const menuVariants = {
     hidden: { opacity: 0, x: -300 },
