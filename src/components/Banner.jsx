@@ -166,7 +166,7 @@ export default function Banner() {
         {[...Array(35)].map((_, i) => (
           <div
             key={i}
-            className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-teal-700 rounded-full"
+            className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#130D3A] rounded-full"
           ></div>
         ))}
       </div>
@@ -256,7 +256,7 @@ export default function Banner() {
           </div>
 
           {/* Right Content - App Screenshot */}
-          <div ref={appScreenRef} className="relative mt-8 lg:mt-0">
+          <div ref={appScreenRef} className="relative mt-20 lg:mt-6">
             <img src={banner} alt="App Screenshot" className="w-full" />
             <div className="absolute bottom-0 right-0 w-full h-1/2 bg-gradient-to-t from-white" />
           </div>

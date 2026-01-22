@@ -30,7 +30,7 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-gray-50 dark:text-black text-black">
+    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-gray-50 dark:text-[#161C2D] text-[#161C2D]">
       <div className="hidden lg:flex items-center justify-center bg-gray-900 p-8 relative overflow-hidden">
         <div
           className="absolute inset-0 opacity-20"
@@ -75,7 +75,7 @@ const ForgotPasswordPage = () => {
                     message: 'Invalid email address',
                   },
                 })}
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#15B8A6] focus:border-[#15B8A6] sm:text-sm text-black mt-1"
+                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#15B8A6] focus:border-[#15B8A6] sm:text-sm text-[#161C2D] mt-1"
               />
               {errors.email && (
                 <p className="mt-1 text-sm text-red-600">

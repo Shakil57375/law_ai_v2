@@ -1,10 +1,10 @@
 // WhoIsForSection.jsx
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import imge1 from '../../src/assets/Card/Group (3) - Copy.png';
-import imge2 from '../../src/assets/Card/Group (2) - Copy.png';
-import imge3 from '../../src/assets/Card/10137 [Converted].png';
-import imge4 from '../../src/assets/Card/Layer_4.png';
+import imge1 from '../../src/assets/Card/Group (2) - Copy.png';
+import imge2 from '../../src/assets/Card/Group (3) - Copy.png';
+import imge4 from '../../src/assets/Card/10137 [Converted].png';
+import imge3 from '../../src/assets/Card/Layer_4.png';
 import { useLanguage } from '../../lib/language-context';
 import { getTranslation } from '../../lib/i18n';
 
@@ -102,7 +102,7 @@ export default function WhoIsForSection() {
       title: t('whoIsFor.users'),
       image: imge1,
       icon: 'law-scale',
-      color: 'bg-blue-100',
+      color: 'bg-blue-50',
       heading: t('whoIsFor.users'),
       description: t('whoIsFor.users_description'),
       points: [
@@ -125,7 +125,7 @@ export default function WhoIsForSection() {
       title: t('whoIsFor.law'),
       icon: 'student',
       image: imge2,
-      color: 'bg-teal-100',
+      color: 'bg-purple-50',
       heading: t('whoIsFor.law'),
       description: t('whoIsFor.law_description'),
       points: [
@@ -148,7 +148,7 @@ export default function WhoIsForSection() {
       title: t('whoIsFor.advocates'),
       icon: 'lawyer',
       image: imge3,
-      color: 'bg-gray-100',
+      color: 'bg-gray-50',
       heading: t('whoIsFor.advocates'),
       description: t('whoIsFor.advocates_description'),
       points: [
@@ -171,7 +171,7 @@ export default function WhoIsForSection() {
       title: t('whoIsFor.lawFirms'),
       image: imge4,
       icon: 'organization',
-      color: 'bg-purple-100',
+      color: 'bg-orange-50',
       heading: t('whoIsFor.lawFirms'),
       description: t('whoIsFor.lawFirms_description'),
       points: [

@@ -873,10 +873,10 @@ export function ChatArea({
                             : 'hover:bg-gray-100 dark:hover:bg-gray-600'
                         }`}
                       >
-                        <span className="dark:text-white text-black">
+                        <span className="dark:text-white text-[#161C2D]">
                           {model.icon}
                         </span>
-                        <span className="dark:text-white text-black">
+                        <span className="dark:text-white text-[#161C2D]">
                           {model.label}
                         </span>
                         {selectedModel === key && (
@@ -976,7 +976,7 @@ export function ChatArea({
                 }
               }}
               disabled={isTokenLimitExceeded()}
-              className="flex-1 p-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-black disabled:opacity-50"
+              className="flex-1 p-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-[#161C2D] disabled:opacity-50"
             />
 
             <button

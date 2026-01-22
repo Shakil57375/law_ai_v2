@@ -6,6 +6,12 @@ body {
   background-color: #f9fafc !important;
 }
 
+.text-outline {
+  -webkit-text-stroke: 2px currentColor;
+  color: transparent;
+}
+
+
 ::-webkit-scrollbar {
   width: 2px;
 }

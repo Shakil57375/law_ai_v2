@@ -83,6 +83,7 @@ export default function ProblemsSection() {
     t('problems.item2'),
     t('problems.item3'),
     t('problems.item4'),
+    t('problems.item5'),
   ];
 
   return (
@@ -118,7 +119,7 @@ export default function ProblemsSection() {
                   className="flex items-start gap-3 sm:gap-4"
                 >
                   <div className="flex-shrink-0 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-gray-900 rounded-full mt-2"></div>
-                  <p className="text-base sm:text-lg lg:text-xl text-gray-800 leading-relaxed font-medium">
+                  <p className="text-base sm:text-lg lg:text-xl text-gray-800 leading-relaxed font-medium list-none">
                     {problem}
                   </p>
                 </li>

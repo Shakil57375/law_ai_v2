@@ -22,12 +22,12 @@ export function PricingModal() {
         <div className="grid md:grid-cols-3 gap-6 mt-4">
           {/* Professional Plan */}
           <div className="border rounded-lg p-6 dark:bg-gray-700">
-            <div className="text-lg mb-2 text-black dark:text-white">
+            <div className="text-lg mb-2 text-[#161C2D] dark:text-white">
               Professional
             </div>
             <div className="flex items-baseline mb-4">
-              <span className="text-2xl dark:text-white text-black">$</span>
-              <span className="text-4xl font-bold dark:text-white text-black">
+              <span className="text-2xl dark:text-white text-[#161C2D]">$</span>
+              <span className="text-4xl font-bold dark:text-white text-[#161C2D]">
                 56
               </span>
             </div>
@@ -37,7 +37,7 @@ export function PricingModal() {
             <button className="w-full bg-[#15B8A6] text-white rounded-lg py-3 mb-6 hover:bg-blue-700 transition-colors">
               Buy now
             </button>
-            <ul className="space-y-3 text-black dark:text-white">
+            <ul className="space-y-3 text-[#161C2D] dark:text-white">
               <li className="flex items-center">
                 <CheckIcon />
                 <span className="ml-2">Single user license</span>
@@ -60,10 +60,12 @@ export function PricingModal() {
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#15B8A6] text-white px-4 py-1 rounded-full text-sm">
               Best value
             </div>
-            <div className="text-lg mb-2 text-black dark:text-white">Team</div>
+            <div className="text-lg mb-2 text-[#161C2D] dark:text-white">
+              Team
+            </div>
             <div className="flex items-baseline mb-4">
-              <span className="text-2xl dark:text-white text-black">$</span>
-              <span className="text-4xl font-bold dark:text-white text-black">
+              <span className="text-2xl dark:text-white text-[#161C2D]">$</span>
+              <span className="text-4xl font-bold dark:text-white text-[#161C2D]">
                 588
               </span>
             </div>
@@ -73,7 +75,7 @@ export function PricingModal() {
             <button className="w-full bg-[#15B8A6] text-white rounded-lg py-3 mb-6 hover:bg-blue-700 transition-colors">
               Buy now
             </button>
-            <ul className="space-y-3 text-black dark:text-white">
+            <ul className="space-y-3 text-[#161C2D] dark:text-white">
               <li className="flex items-center">
                 <CheckIcon />
                 <span className="ml-2">Up to 12 users license</span>
@@ -93,7 +95,7 @@ export function PricingModal() {
 
           {/* Custom Plan */}
           <div className="border rounded-lg p-6 dark:bg-gray-700">
-            <div className="text-lg mb-2 text-black dark:text-white">
+            <div className="text-lg mb-2 text-[#161C2D] dark:text-white">
               Custom Plan
             </div>
             <p className="text-gray-600 mb-4 dark:text-gray-400">
@@ -105,7 +107,7 @@ export function PricingModal() {
             >
               Buy now
             </button>
-            <ul className="space-y-3 text-black dark:text-white">
+            <ul className="space-y-3 text-[#161C2D] dark:text-white">
               <li className="flex items-center">
                 <CheckIcon />
                 <span className="ml-2">Unlimited library users</span>

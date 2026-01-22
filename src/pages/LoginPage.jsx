@@ -42,8 +42,7 @@ const LoginPage = () => {
 
       setTimeout(() => navigate('/'), 1500);
     } catch (err) {
-      const errorMsg =
-        err?.data?.error || 'Login failed. Please try again.';
+      const errorMsg = err?.data?.error || 'Login failed. Please try again.';
       toast.error(errorMsg);
     }
   };
@@ -89,7 +88,6 @@ const LoginPage = () => {
         );
 
         localStorage.setItem('auth', JSON.stringify(data));
-
       } else {
         throw new Error('Backend login failed.');
       }
@@ -100,7 +98,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-gray-50 dark:text-black text-black">
+    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-gray-50 dark:text-[#161C2D] text-[#161C2D]">
       <div className="hidden lg:flex items-center justify-center bg-gray-900 p-8 relative overflow-hidden">
         <div
           className="absolute inset-0 opacity-20"

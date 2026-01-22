@@ -211,7 +211,7 @@ export function Sidebar({
             type="text"
             value={editTitle}
             onChange={(e) => setEditTitle(e.target.value)}
-            className="flex-1 px-2 py-1 text-sm border border-gray-300 dark:border-gray-500 rounded focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-gray-700 dark:text-white text-black"
+            className="flex-1 px-2 py-1 text-sm border border-gray-300 dark:border-gray-500 rounded focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-gray-700 dark:text-white text-[#161C2D]"
             autoFocus
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleSaveEdit();

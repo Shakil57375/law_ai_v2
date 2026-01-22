@@ -24,7 +24,7 @@ export function Header() {
   return (
     <>
       <div className="w-full ml-auto">
-        <header className="bg-transparent dark:text-white text-black px-2 sm:px-3 py-2 flex items-center justify-end z-40 fixed top-0 right-0 w-full md:w-auto lg:rounded-bl-2xl ">
+        <header className="bg-transparent dark:text-white text-[#161C2D] px-2 sm:px-3 py-2 flex items-center justify-end z-40 fixed top-0 right-0 w-full md:w-auto lg:rounded-bl-2xl ">
           <div className="flex items-center gap-3 w-full justify-end">
             {/* Language Toggle */}
             <div className="flex items-center bg-teal-100 dark:bg-teal-900 rounded-full p-1 relative">

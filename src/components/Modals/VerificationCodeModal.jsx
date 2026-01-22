@@ -110,7 +110,7 @@ export default function VerificationPage() {
   }
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-gray-50 dark:text-black text-black">
+    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-gray-50 dark:text-[#161C2D] text-[#161C2D]">
       <div className="hidden lg:flex items-center justify-center bg-gray-900 p-8 relative overflow-hidden">
         <div
           className="absolute inset-0 opacity-20"
@@ -147,7 +147,7 @@ export default function VerificationPage() {
                   onChange={(e) => handleInputChange(e.target, index)}
                   onKeyDown={(e) => handleBackspace(e, index)}
                   maxLength={1}
-                  className="w-16 h-16 text-center text-2xl font-medium border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#15B8A6] bg-gray-100 !text-black"
+                  className="w-16 h-16 text-center text-2xl font-medium border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#15B8A6] bg-gray-100 !text-[#161C2D]"
                 />
               ))}
             </div>

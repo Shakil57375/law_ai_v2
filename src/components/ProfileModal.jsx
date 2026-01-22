@@ -271,7 +271,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                           }
                           disabled={!isEditing}
                           placeholder={t('profile.enterFullName')}
-                          className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all text-black "
+                          className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all text-[#161C2D] "
                         />
                       </div>
 
@@ -288,7 +288,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                             })
                           }
                           disabled={!isEditing}
-                          className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all text-black"
+                          className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all text-[#161C2D]"
                           style={{
                             '--tw-ring-color': 'rgb(6 182 212)', // cyan-500
                           }}
@@ -314,7 +314,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                           }
                           disabled={!isEditing}
                           placeholder={t('profile.enterUniversity')}
-                          className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all text-black"
+                          className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all text-[#161C2D]"
                         />
                       </div>
 
@@ -326,7 +326,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                           type="email"
                           value={userProfile?.data?.email || ''}
                           disabled
-                          className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-400 cursor-not-allowed text-black "
+                          className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-400 cursor-not-allowed text-[#161C2D] "
                         />
                       </div>
                     </div>
@@ -358,7 +358,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={handleCancel}
-                            className="flex-1 flex items-center justify-center gap-2 py-3 px-6 rounded-lg border-2 border-gray-300 dark:border-gray-600 font-semibold text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
+                            className="flex-1 flex items-center justify-center gap-2 py-3 px-6 rounded-lg border-2 border-gray-300 dark:border-gray-600 font-semibold text-[#161C2D] hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
                           >
                             <FiX className="w-5 h-5" />
                             {t('profile.cancel')}

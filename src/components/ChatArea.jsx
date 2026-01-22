@@ -476,7 +476,7 @@ export function ChatArea() {
                       onClick={() => setShowModelDropdown(false)}
                       exceptionRef={modelButtonRef}
                     >
-                      <div className="absolute bottom-full left-0 mb-2 bg-white dark:bg-gray-700 text-black border border-gray-200 dark:border-gray-600 rounded-xl shadow-xl z-50 min-w-48 overflow-hidden">
+                      <div className="absolute bottom-full left-0 mb-2 bg-white dark:bg-gray-700 text-[#161C2D] border border-gray-200 dark:border-gray-600 rounded-xl shadow-xl z-50 min-w-48 overflow-hidden">
                         {Object.entries(MODELS).map(([key, model]) => (
                           <button
                             key={key}

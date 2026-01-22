@@ -17,13 +17,13 @@ export function CustomPlanModal() {
           <X size={24} />
         </button>
 
-        <h2 className="text-2xl font-bold mb-6 text-black dark:text-white">
+        <h2 className="text-2xl font-bold mb-6 text-[#161C2D] dark:text-white">
           Add User
         </h2>
 
         <div className="space-y-6">
           <div>
-            <label className="block mb-2 text-black dark:text-white">
+            <label className="block mb-2 text-[#161C2D] dark:text-white">
               User
             </label>
             <div className="flex items-center border rounded-lg p-2 w-24 bg-gray-100 dark:bg-gray-600">
@@ -44,7 +44,7 @@ export function CustomPlanModal() {
                 type="number"
                 value={userCount}
                 onChange={(e) => setUserCount(Number.parseInt(e.target.value))}
-                className="w-12 outline-none bg-transparent text-black dark:text-white"
+                className="w-12 outline-none bg-transparent text-[#161C2D] dark:text-white"
                 min="1"
               />
             </div>
@@ -54,7 +54,7 @@ export function CustomPlanModal() {
             <div className="text-gray-600 dark:text-gray-400">
               Money payable:
             </div>
-            <div className="text-xl font-semibold text-black dark:text-white">
+            <div className="text-xl font-semibold text-[#161C2D] dark:text-white">
               {userCount} × {pricePerUser} = {userCount * pricePerUser}
             </div>
           </div>

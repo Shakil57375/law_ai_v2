@@ -18,8 +18,7 @@ export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
 
-  const token = useSelector(selectAccessToken)
-  console.log(token)
+  const token = useSelector(selectAccessToken);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -107,7 +106,7 @@ export const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'bg-white shadow-lg' : 'bg-white text-black'
+          scrolled ? 'bg-white shadow-lg' : 'bg-white text-[#161C2D]'
         }`}
       >
         <div className="w-full lg:px-52 px-4 sm:px-6 mx-auto">

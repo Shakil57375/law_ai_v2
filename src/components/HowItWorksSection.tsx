@@ -39,7 +39,7 @@ export default function HowItWorksSection() {
                 <img
                   src={img1}
                   alt=""
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain border-8 rounded-full border-white shadow-lg"
                 />
               </div>
 
@@ -54,9 +54,14 @@ export default function HowItWorksSection() {
               </p>
 
               {/* Step Badge */}
-              <div className="absolute bottom-2 sm:bottom-3 lg:bottom-4 right-2 sm:right-3 lg:right-4">
-                <span className="step-badge text-cyan-400 font-bold text-sm sm:text-base lg:text-lg">
-                  step 1
+              <div className="absolute -top-16  lg:top-48 right-2  lg:right-4">
+                <span className="step-badge text-cyan-400 font-bold text-sm sm:text-base lg:text-lg px-4 py-2">
+                  <p
+                    className="text-2xl sm:text-3xl lg:text-3xl font-extrabold text-teal-500 text-outline bg-white rounded-full shadow-xl px-6 py-4"
+                    style={{ WebkitTextStroke: '2px #14b8a6' }}
+                  >
+                    {t('howWorks.stepBadge1')}
+                  </p>
                 </span>
               </div>
             </div>
@@ -64,13 +69,13 @@ export default function HowItWorksSection() {
 
           {/* Step 2 */}
           <div ref={step2Ref} className="relative">
-            <div className="border-2 border-teal-400 rounded-lg p-4 sm:p-6 lg:p-8 bg-purple-50 bg-opacity-30 h-full flex flex-col items-center transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-teal-500">
+            <div className="border-2 border-bg-gradient-to-right border-teal-400 rounded-lg p-4 sm:p-6 lg:p-8 bg-purple-50 bg-opacity-30 h-full flex flex-col items-center transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-teal-500">
               {/* Illustration */}
               <div className="-mt-12 sm:-mt-14 lg:-mt-16 bg-purple-50 rounded-full w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 flex items-center justify-center flex-shrink-0">
                 <img
                   src={img2}
                   alt=""
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain border-8 rounded-full border-white shadow-lg"
                 />
               </div>
 
@@ -85,9 +90,14 @@ export default function HowItWorksSection() {
               </p>
 
               {/* Step Badge */}
-              <div className="absolute bottom-2 sm:bottom-3 lg:bottom-4 right-2 sm:right-3 lg:right-4">
-                <span className="step-badge text-cyan-400 font-bold text-sm sm:text-base lg:text-lg">
-                  step 2
+              <div className="absolute -top-16  lg:top-48 right-2  lg:right-4">
+                <span className="step-badge text-cyan-400 font-bold text-sm sm:text-base lg:text-lg px-4 py-2">
+                  <p
+                    className="text-2xl sm:text-3xl lg:text-3xl font-extrabold text-teal-500 text-outline bg-white rounded-full shadow-xl px-6 py-4"
+                    style={{ WebkitTextStroke: '2px #14b8a6' }}
+                  >
+                    {t('howWorks.stepBadge2')}
+                  </p>
                 </span>
               </div>
             </div>
@@ -101,7 +111,7 @@ export default function HowItWorksSection() {
                 <img
                   src={img3}
                   alt=""
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain border-8 rounded-full border-white shadow-lg"
                 />
               </div>
 
@@ -116,9 +126,14 @@ export default function HowItWorksSection() {
               </p>
 
               {/* Step Badge */}
-              <div className="absolute bottom-2 sm:bottom-3 lg:bottom-4 right-2 sm:right-3 lg:right-4">
-                <span className="step-badge text-cyan-400 font-bold text-sm sm:text-base lg:text-lg">
-                  step 3
+              <div className="absolute -top-16  lg:top-48 right-2  lg:right-4">
+                <span className="step-badge text-cyan-400 font-bold text-sm sm:text-base lg:text-lg px-4 py-2">
+                  <p
+                    className="text-2xl sm:text-3xl lg:text-3xl font-extrabold text-teal-500 text-outline bg-white rounded-full shadow-xl px-6 py-4"
+                    style={{ WebkitTextStroke: '2px #14b8a6' }}
+                  >
+                    {t('howWorks.stepBadge3')}
+                  </p>
                 </span>
               </div>
             </div>

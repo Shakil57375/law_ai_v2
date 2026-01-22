@@ -232,7 +232,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                         }
                         disabled={!isEditing}
                         placeholder={t('profile.enterFullName')}
-                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600  text-black dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all"
+                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600  text-[#161C2D] dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all"
                       />
                     </div>
 
@@ -251,7 +251,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                         }
                         disabled={!isEditing}
                         placeholder={t('profile.enterDesignation')}
-                        className="w-full px-4 py-3 rounded-lg border-2 text-black border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all"
+                        className="w-full px-4 py-3 rounded-lg border-2 text-[#161C2D] border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all"
                       />
                     </div>
 
@@ -270,7 +270,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                         }
                         disabled={!isEditing}
                         placeholder={t('profile.enterUniversity')}
-                        className="w-full px-4 py-3 rounded-lg border-2 text-black border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all"
+                        className="w-full px-4 py-3 rounded-lg border-2 text-[#161C2D] border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 dark:focus:ring-teal-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:cursor-not-allowed transition-all"
                       />
                     </div>
 
@@ -282,7 +282,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                         type="email"
                         value={userProfile?.data?.email || ''}
                         disabled
-                        className="w-full px-4 py-3 rounded-lg border-2 text-black border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-400 cursor-not-allowed"
+                        className="w-full px-4 py-3 rounded-lg border-2 text-[#161C2D] border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-400 cursor-not-allowed"
                       />
                     </div>
                   </div>

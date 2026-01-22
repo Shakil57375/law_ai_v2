@@ -46,9 +46,8 @@ export default function SignUpPage() {
 
       setTimeout(() => navigate('/verifyAccount'), 500);
     } catch (err) {
-      console.log(err)
-      const errorMsg =
-        err?.data?.error || t('toast.accountCreated');
+      console.log(err);
+      const errorMsg = err?.data?.error || t('toast.accountCreated');
       toast.error(errorMsg);
       setError('email', {
         type: 'manual',
@@ -65,7 +64,10 @@ export default function SignUpPage() {
       const user = result.user;
       if (user) {
         console.log('hlw');
-        toast.success(t('toast.welcome').replace('{{name}}', user.displayName), { duration: 2000 });
+        toast.success(
+          t('toast.welcome').replace('{{name}}', user.displayName),
+          { duration: 2000 }
+        );
       }
       return;
       // Get Firebase token
@@ -117,7 +119,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-gray-50 dark:text-black text-black">
+    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-gray-50 dark:text-[#161C2D] text-[#161C2D]">
       <div className="hidden lg:flex items-center justify-center bg-gray-900 p-8 relative overflow-hidden">
         <div
           className="absolute inset-0 opacity-20"
