@@ -56,21 +56,16 @@ export default function Footer() {
                 {t('footer.blog')}
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="#" className="hover:text-white transition">
                 {t('footer.digitalMarketing')}
               </a>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <a href="#" className="hover:text-white transition">
                 {t('footer.contentWriting')}
               </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-white transition">
-                {t('footer.raisedAnIssue')}
-              </a>
-            </li>
+            </li> */}
           </ul>
         </div>
 
@@ -82,11 +77,11 @@ export default function Footer() {
                 {t('footer.contact')}
               </a>
             </li>
-            <li>
+            <Link to={"/terms"}>
               <a href="#" className="hover:text-white transition">
                 {t('footer.terms')}
               </a>
-            </li>
+            </Link>
           </ul>
         </div>
       </div>

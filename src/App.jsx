@@ -12,7 +12,6 @@ import { Toaster } from 'react-hot-toast';
 import ModalForForgotPassword from './components/Modals/ForgetPasswordModal';
 import ModalForVerificationCode from './components/Modals/VerificationCodeModal';
 import ModalForResetPassword from './components/Modals/ModalForResetPassword';
-import ModalTermsAndCondition from './components/Modals/TermsAndCondtionModal';
 import ProfileModal from './components/Modals/ModalForProfileEdit';
 import { ModalForHelpAndSupport } from './components/Modals/HelpAndSupport';
 import { ModalForSettings } from './components/Modals/SettingModal';
@@ -37,6 +36,7 @@ import i18n from './i18n';
 import Contact from './components/Contact';
 import BlogDetailsPage from './pages/BlogDetailsPage';
 import ScrollToTop from './utils/ScrollToTop';
+import TermsAndConditions from './pages/TermsAndConditions';
 
 const DEFAULT_SIDEBAR_WIDTH = 350;
 const MIN_SIDEBAR_WIDTH = 350;
@@ -105,12 +105,10 @@ function MainContent() {
     '/editProfile',
     '/helpAndSupport',
     '/settings',
-    '/terms',
     '/faq',
     '/saved-chats',
     '/upgrade',
     '/manageSubscription',
-    '/TermsAndConditions',
     '/aboutMe',
     '/login-info',
     '/privacy',
@@ -186,7 +184,8 @@ function MainContent() {
           className={`flex-1 ${
             location.pathname === '/home' ||
             location.pathname === '/contact' ||
-            location.pathname.startsWith('/blog/')
+            location.pathname.startsWith('/blog/') ||
+            location.pathname.startsWith('/terms')
               ? 'overflow-y-auto'
               : 'overflow-hidden'
           }`}
@@ -297,11 +296,7 @@ function MainContent() {
               }
             />
 
-            <Route
-              path="/TermsAndConditions"
-              element={<ModalTermsAndCondition />}
-            />
-            <Route path="/terms" element={<ModalTermsAndCondition />} />
+            <Route path="/terms" element={<TermsAndConditions />} />
             <Route path="/privacy" element={<ModalForPrivacyAndPolicy />} />
             <Route
               path="/pricing"
