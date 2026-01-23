@@ -13,9 +13,6 @@ import ModalForForgotPassword from './components/Modals/ForgetPasswordModal';
 import ModalForVerificationCode from './components/Modals/VerificationCodeModal';
 import ModalForResetPassword from './components/Modals/ModalForResetPassword';
 import ProfileModal from './components/Modals/ModalForProfileEdit';
-import { ModalForHelpAndSupport } from './components/Modals/HelpAndSupport';
-import { ModalForSettings } from './components/Modals/SettingModal';
-import { UpgradeModal } from './components/UpgradeModal';
 import { PrivateRoute } from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 import ModalForSignUp from './pages/SingUpPage';
@@ -24,17 +21,14 @@ import { PublicRoute } from './components/PublicRoute';
 import NotFoundPage from './pages/NotFoundPage';
 import { Header } from './components/Header';
 import Users from './pages/Users';
-import { PricingModal } from './components/Modals/PricingModal';
-import { GlobalModals } from './components/Modals/GlobalModal';
 import LoginPage from './pages/LoginPage';
-import ModalForPrivacyAndPolicy from './components/Modals/PrivacyAndPolicyModal';
 import { CustomPlanModal } from './components/CustomPlan';
 import VerifyAccount from './pages/VerifyAccount';
-import { I18nextProvider } from 'react-i18next';
 import Contact from './components/Contact';
 import BlogDetailsPage from './pages/BlogDetailsPage';
 import ScrollToTop from './utils/ScrollToTop';
 import TermsAndConditions from './pages/TermsAndConditions';
+import PrivacyAndPolicy from './pages/PrivacyAndPolicy';
 
 const DEFAULT_SIDEBAR_WIDTH = 350;
 const MIN_SIDEBAR_WIDTH = 350;
@@ -105,11 +99,9 @@ function MainContent() {
     '/settings',
     '/faq',
     '/saved-chats',
-    '/upgrade',
     '/manageSubscription',
     '/aboutMe',
     '/login-info',
-    '/privacy',
     '/privacyAndPolicy',
   ];
 
@@ -183,6 +175,7 @@ function MainContent() {
             location.pathname === '/home' ||
             location.pathname === '/contact' ||
             location.pathname.startsWith('/blog/') ||
+            location.pathname.startsWith('/privacy') ||
             location.pathname.startsWith('/terms')
               ? 'overflow-y-auto'
               : 'overflow-hidden'
@@ -270,33 +263,14 @@ function MainContent() {
                 </PublicRoute>
               }
             />
-            <Route
-              path="/helpAndSupport"
-              element={<ModalForHelpAndSupport />}
-            />
-            <Route path="/settings" element={<ModalForSettings />} />
+           
             <Route path="/contact" element={<Contact />} />
             <Route path="/blog/:slug" element={<BlogDetailsPage />} />
-            <Route
-              path="/upgrade"
-              element={
-                <PrivateRoute>
-                  <UpgradeModal />
-                </PrivateRoute>
-              }
-            />
-         
+           
 
             <Route path="/terms" element={<TermsAndConditions />} />
-            <Route path="/privacy" element={<ModalForPrivacyAndPolicy />} />
-            <Route
-              path="/pricing"
-              element={
-                <PublicRoute>
-                  <PricingModal />
-                </PublicRoute>
-              }
-            />
+            <Route path="/privacy" element={<PrivacyAndPolicy />} />
+           
             <Route path="/custom-plan" element={<CustomPlanModal />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
@@ -313,7 +287,6 @@ function App() {
           <ChatProvider>
             <ScrollToTop />
             <div className="font-montserrat">
-              <GlobalModals />
               <MainContent />
             </div>
             <Toaster

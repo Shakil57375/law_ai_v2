@@ -95,9 +95,9 @@ export default function Footer() {
               </button>
             </li>
             <li>
-              <a href="/contact" className="hover:text-white transition">
+              <Link to={'/contact'} className="hover:text-white transition">
                 {t('footer.support')}
-              </a>
+              </Link>
             </li>
             <li>
               <button

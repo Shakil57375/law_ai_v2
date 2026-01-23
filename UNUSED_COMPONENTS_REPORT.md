@@ -12,19 +12,6 @@ This report identifies potentially unused or orphaned components, files, and mod
 
 These components exist but are NOT used in the current Home.jsx:
 
-- `About.jsx` ❌ NOT USED
-- `Benefits.jsx` ❌ NOT USED
-- `CaseStudy.jsx` ❌ NOT USED
-- `CaseUse.jsx` ❌ NOT USED
-- `Contact.jsx` ❌ NOT USED
-- `Expertise.jsx` ❌ NOT USED
-- `Features.jsx` ❌ NOT USED
-- `Hero.jsx` ❌ NOT USED
-- `Introduction.jsx` ❌ NOT USED
-- `SolutionsInAction.jsx` ❌ NOT USED (has CSS file too)
-- `Technology.jsx` ❌ NOT USED
-- `Testimonials.jsx` ❌ NOT USED
-
 **Location:** `src/pages/Home/`
 
 **Note:** These appear to be from an older design iteration. Current Home.jsx uses only:
@@ -35,8 +22,6 @@ These components exist but are NOT used in the current Home.jsx:
 
 ### Home Page Component Helpers (src/pages/Home/components/)
 
-- `SolutionsComparison.jsx` ❌ NOT USED
-- `ComparisonSlider.jsx` ❌ NOT USED
 
 **Location:** `src/pages/Home/components/`
 
@@ -112,12 +97,11 @@ These components exist but are NOT used in the current Home.jsx:
 No direct unused icon components found, but:
 
 - Multiple `.css` files exist without clear usage:
-  - `ChatArea.css`
+
   - `Instructions.css`
   - `RichTextDisplay.css`
   - `sidebar.css`
   - `style.css`
-  - `custom-datepicker.css`
   - `Modals/VoiceInputModal.css`
   - `SolutionsInAction.css`
 
