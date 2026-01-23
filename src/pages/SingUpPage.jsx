@@ -14,7 +14,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import app from '../Firebase/firebase';
 import { useLanguage } from '../../lib/language-context';
 import { getTranslation } from '../../lib/i18n';
-
+import logo from '../assets/logo.png';
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -110,9 +110,11 @@ export default function SignUpPage() {
           }}
         />
         <div className="relative z-10 text-center text-white max-w-md">
-          <div className="text-6xl font-bold mb-4">⚖️</div>
-          <h1 className="text-4xl font-bold mb-4">Your Trusted AI</h1>
-          <h1 className="text-4xl font-bold">Legal Companion.</h1>
+          <div className="relative z-10 text-center text-white max-w-md flex items-center flex-col">
+            <img src={logo} alt="Logo" className="w-24 h-24 mb-4" />
+            <h1 className="text-4xl font-bold mb-4">Your Trusted AI</h1>
+            <h1 className="text-4xl font-bold">Legal Companion.</h1>
+          </div>
         </div>
       </div>
 
