@@ -31,7 +31,6 @@ import ModalForPrivacyAndPolicy from './components/Modals/PrivacyAndPolicyModal'
 import { CustomPlanModal } from './components/CustomPlan';
 import VerifyAccount from './pages/VerifyAccount';
 import { I18nextProvider } from 'react-i18next';
-import i18n from './i18n';
 import Contact from './components/Contact';
 import BlogDetailsPage from './pages/BlogDetailsPage';
 import ScrollToTop from './utils/ScrollToTop';
@@ -310,7 +309,6 @@ function MainContent() {
 function App() {
   return (
     <Router>
-      <I18nextProvider i18n={i18n}>
         <AuthProvider>
           <ChatProvider>
             <ScrollToTop />
@@ -329,7 +327,6 @@ function App() {
             />
           </ChatProvider>
         </AuthProvider>
-      </I18nextProvider>
     </Router>
   );
 }
