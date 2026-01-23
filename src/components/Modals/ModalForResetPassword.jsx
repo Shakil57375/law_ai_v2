@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useResetPasswordMutation } from '../../features/api/apiSlice';
 import { useLanguage } from '../../../lib/language-context';
@@ -79,11 +79,14 @@ export default function ResetPasswordPage() {
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23FFD700' fillOpacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
         />
-        <div className="relative z-10 text-center text-white max-w-md flex items-center flex-col">
+        <Link
+          to={'/home'}
+          className="relative z-10 text-center text-white max-w-md flex items-center flex-col"
+        >
           <img src={logo} alt="Logo" className="w-24 h-24 mb-4" />
           <h1 className="text-4xl font-bold mb-4">Your Trusted AI</h1>
           <h1 className="text-4xl font-bold">Legal Companion.</h1>
-        </div>
+        </Link>
       </div>
 
       <div className="flex items-center justify-center p-8">

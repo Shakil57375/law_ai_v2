@@ -110,11 +110,14 @@ export default function SignUpPage() {
           }}
         />
         <div className="relative z-10 text-center text-white max-w-md">
-          <div className="relative z-10 text-center text-white max-w-md flex items-center flex-col">
+          <Link
+            to={'/home'}
+            className="relative z-10 text-center text-white max-w-md flex items-center flex-col"
+          >
             <img src={logo} alt="Logo" className="w-24 h-24 mb-4" />
             <h1 className="text-4xl font-bold mb-4">Your Trusted AI</h1>
             <h1 className="text-4xl font-bold">Legal Companion.</h1>
-          </div>
+          </Link>
         </div>
       </div>
 
