@@ -45,10 +45,18 @@ export default function Footer() {
           </p>
 
           <div className="flex space-x-4 mt-3">
-            <a href="#" className="text-gray-400 hover:text-white transition">
+            <a
+              href="https://www.facebook.com/people/LexBangla-AI/61585454807572/"
+              target='_blank'
+              className="text-gray-400 hover:text-white transition"
+            >
               <FaFacebook className="w-5 h-5" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-white transition">
+            <a
+              href="https://www.linkedin.com/company/bangladeshi-law-ai/"
+              target="_blank"
+              className="text-gray-400 hover:text-white transition"
+            >
               <FaLinkedin className="w-5 h-5" />
             </a>
           </div>
