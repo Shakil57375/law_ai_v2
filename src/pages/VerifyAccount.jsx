@@ -180,7 +180,7 @@ export default function VerifyAccountPage() {
 
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                Didn't receive the code?{' '}
+                Didn&apos;t receive the code?{' '}
                 <button
                   type="button"
                   onClick={handleResendOtp}
