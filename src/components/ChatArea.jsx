@@ -23,6 +23,7 @@ import { LuSend } from 'react-icons/lu';
 import ClickOutside from './CloseOutsideClick';
 import { useLanguage } from '../../lib/language-context';
 import { getTranslation } from '../../lib/i18n';
+import userImage from "../assets/fahad_Bhai.png";
 
 export function ChatArea() {
   const { language } = useLanguage();
@@ -32,22 +33,18 @@ export function ChatArea() {
     CartWright: {
       name: t('chat.models.cartwright.name'),
       label: t('chat.models.cartwright.label'),
-      icon: '🧠',
     },
     TranscriptX: {
       name: t('chat.models.transcriptx.name'),
       label: t('chat.models.transcriptx.label'),
-      icon: '💡',
     },
     Redactify: {
       name: t('chat.models.redactify.name'),
       label: t('chat.models.redactify.label'),
-      icon: '📸',
     },
     Validify: {
       name: t('chat.models.validify.name'),
       label: t('chat.models.validify.label'),
-      icon: '🔍',
     },
   };
 
@@ -420,7 +417,7 @@ export function ChatArea() {
 
                   {message.sent_by === 'user' && (
                     <img
-                      src={userProfile?.data?.profile_picture}
+                      src={userProfile?.data?.profile_picture || userImage}
                       alt="User"
                       className="w-7 h-7 md:w-8 md:h-8 rounded-full flex-shrink-0 mt-1 object-cover ring-2 ring-teal-500"
                     />

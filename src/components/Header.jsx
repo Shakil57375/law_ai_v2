@@ -5,6 +5,7 @@ import ProfileModal from './ProfileModal';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
 import { useLanguage } from '../../lib/language-context';
 import { motion } from 'framer-motion';
+import userImage from '../assets/fahad_Bhai.png';
 
 export function Header() {
   const { data: userProfile } = useGetUserProfileQuery();
@@ -94,10 +95,7 @@ export function Header() {
               className="flex items-center gap-3 cursor-pointer select-none"
             >
               <img
-                src={
-                  user?.profile_picture ||
-                  'https://i.ibb.co.com/tdxM1S4/fahad-Bhai.png'
-                }
+                src={user?.profile_picture || userImage}
                 alt="Profile"
                 className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover ring-2 ring-teal-500 ring-offset-2"
               />

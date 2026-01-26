@@ -11,6 +11,7 @@ import {
 } from '../../features/auth/authApi';
 import { useLanguage } from '../../../lib/language-context';
 import { getTranslation } from '../../../lib/i18n';
+import userImage from '../../assets/fahad_Bhai.png';
 
 const ProfileModal = ({ isOpen, onClose }) => {
   const { language } = useLanguage();
@@ -190,10 +191,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                   >
                     <div className="relative">
                       <img
-                        src={
-                          previewImage ||
-                          'https://i.ibb.co.com/tdxM1S4/fahad-Bhai.png'
-                        }
+                        src={previewImage || userImage}
                         alt="Profile"
                         className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-teal-500 shadow-lg"
                       />

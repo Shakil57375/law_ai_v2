@@ -115,6 +115,7 @@ export const Navbar = () => {
               className={`text-2xl font-bold ${scrolled ? 'text-teal-600' : ''}`}
             >
               <Link
+                onClick={handleHomeClick}
                 to="/home"
                 className="text-xl font-bold text-teal-600 dark:text-teal-400 py-2"
               >
