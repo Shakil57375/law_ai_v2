@@ -51,7 +51,7 @@ export default function BlogSection() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="flex flex-col items-center  text-center z-50 absolute lg:top-16 -top-5 lg:left-1/4 left-1 transform lg:-translate-x-1 translate-x-1/2"
+        className="flex flex-col items-center  text-center z-10 absolute lg:top-16 -top-5 lg:left-1/4 left-1 transform lg:-translate-x-1 translate-x-1/2"
       >
         <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-2 sm:mb-4 leading-tight">
           {t('blog.title')}
@@ -71,7 +71,7 @@ export default function BlogSection() {
         <div className="w-3/4 bg-cyan-50 rounded-tl-[300px] overflow-hidden">
           <div className="p-8 lg:p-12">
             {/* Header Section */}
-            <div className="grid grid-cols-2 gap-8 lg:gap-12 mb-12 lg:mb-16 z-50">
+            <div className="grid grid-cols-2 gap-8 lg:gap-12 mb-12 lg:mb-16 z-10">
               <div></div>
               <motion.div
                 initial={{ opacity: 0, x: 20 }}

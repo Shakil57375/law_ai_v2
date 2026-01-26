@@ -541,7 +541,7 @@ export function ChatArea() {
               <div className="relative flex items-end gap-1 bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-2xl shadow-sm focus-within:border-teal-500 focus-within:shadow-md transition-all">
                 {/* Attach Button */}
                 <div ref={mediaDropdownRef} className="relative flex-shrink-0">
-                  <button
+                  {/* <button
                     ref={attachButtonRef}
                     type="button"
                     onClick={() => setShowMediaDropdown(!showMediaDropdown)}
@@ -549,7 +549,7 @@ export function ChatArea() {
                     title="Attach file"
                   >
                     <IoAttach className="text-lg md:text-xl" />
-                  </button>
+                  </button> */}
 
                   {showMediaDropdown && (
                     <ClickOutside

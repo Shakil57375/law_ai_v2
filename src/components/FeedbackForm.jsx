@@ -1,26 +1,21 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLanguage } from '../../lib/language-context';
-import { getTranslation } from '../../lib/i18n';
+import { useSelector } from 'react-redux';
+import { selectAccessToken } from '../features/auth/authSlice';
 
 export default function FeedbackForm() {
-  const { language } = useLanguage();
-  const t = (key) => getTranslation(language, key);
-
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [rating, setRating] = useState(0);
-  const [designation, setDesignation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [toast, setToast] = useState(null);
+  const token = useSelector(selectAccessToken);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape' && isFeedbackOpen) {
-        setFeedback('');
-        setRating(0);
-        setDesignation('');
-        setIsFeedbackOpen(false);
+        handleClose();
       }
     };
     document.addEventListener('keydown', handleKeyDown);
@@ -29,28 +24,118 @@ export default function FeedbackForm() {
     };
   }, [isFeedbackOpen]);
 
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => {
+        setToast(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+  };
+
+  const handleClose = () => {
+    setFeedback('');
+    setRating(0);
+    setIsFeedbackOpen(false);
+  };
+
   const handleSubmit = async () => {
     if (!feedback.trim() || rating === 0) {
-      alert(t('feedback.pleaseProvide'));
+      showToast('Please provide both feedback and rating', 'error');
       return;
     }
 
     setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      alert(t('feedback.thankYou'));
-      setFeedback('');
-      setRating(0);
-      setDesignation('');
-      setIsFeedbackOpen(false);
+
+    try {
+
+      const response = await fetch(
+        'https://backend.lexbanglaai.com/api/utilities/feedback/',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token ? `Bearer ${token}` : '',
+          },
+          body: JSON.stringify({
+            feedback_text: feedback,
+            stars: rating,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok && data.status === 'success') {
+        showToast('Thank you for your feedback!', 'success');
+        handleClose();
+      } else {
+        showToast(data.message || 'Failed to submit feedback', 'error');
+      }
+    } catch (error) {
+      showToast('Network error. Please try again.', 'error');
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
     <div>
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            className="fixed top-4 right-4 z-[100] max-w-sm"
+          >
+            <div
+              className={`p-4 rounded-lg shadow-lg ${
+                toast.type === 'success'
+                  ? 'bg-green-500 text-white'
+                  : 'bg-red-500 text-white'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                {toast.type === 'success' ? (
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
+                <p className="font-medium">{toast.message}</p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="relative">
-        {/* SVG Icon - positioned absolutely to overlap */}
+        {/* SVG Icon */}
         <div className="absolute left-1/2 -translate-x-1/2 -top-12 z-10 lg:block hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -144,9 +229,8 @@ export default function FeedbackForm() {
           className="relative w-full lg:pt-20 pt-0 pb-8 px-8 bg-gradient-to-b from-teal-400 to-teal-500 text-white rounded-3xl font-semibold hover:shadow-xl transition-shadow duration-300 text-xl border"
         >
           <span className="relative flex items-center justify-center gap-1 z-10 bg-white/20 backdrop-blur-md p-4 rounded-full text-base border border-white/30 top-4 lg:top-0">
-            <span className="lg:block hidden ">
-              {t('feedback.writeFeedback')}{' '}
-            </span>
+            <span className="lg:block hidden">Write Your Feedback</span>
+            <span className="lg:hidden">Feedback</span>
           </span>
         </button>
       </div>
@@ -155,12 +239,7 @@ export default function FeedbackForm() {
         createPortal(
           <div
             className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
-            onClick={() => {
-              setFeedback('');
-              setRating(0);
-              setDesignation('');
-              setIsFeedbackOpen(false);
-            }}
+            onClick={handleClose}
           >
             <AnimatePresence>
               <motion.div
@@ -172,20 +251,18 @@ export default function FeedbackForm() {
                 onClick={(e) => e.stopPropagation()}
               >
                 <h2 className="text-3xl font-bold text-center mb-6 text-white">
-                  {t('feedback.writeYourFeedback')}
+                  Write Your Feedback
                 </h2>
 
                 <textarea
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
                   className="w-full h-32 bg-white rounded-2xl p-4 resize-none focus:outline-none focus:ring-2 focus:ring-teal-600 mb-6 text-gray-900"
-                  placeholder={t('feedback.placeholder')}
+                  placeholder="Share your thoughts with us..."
                 />
 
                 <div className="mb-6 text-white">
-                  <span className="font-semibold mr-4">
-                    {t('feedback.rating')}
-                  </span>
+                  <span className="font-semibold mr-4">Rating:</span>
                   <div className="inline-flex gap-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
@@ -205,18 +282,13 @@ export default function FeedbackForm() {
                     disabled={isLoading}
                     className="px-8 py-3 bg-white text-teal-600 rounded-xl font-semibold hover:shadow-lg disabled:opacity-50 transition-all"
                   >
-                    {isLoading ? t('feedback.sending') : t('feedback.send')}
+                    {isLoading ? 'Sending...' : 'Send'}
                   </button>
                   <button
-                    onClick={() => {
-                      setFeedback('');
-                      setRating(0);
-                      setDesignation('');
-                      setIsFeedbackOpen(false);
-                    }}
+                    onClick={handleClose}
                     className="px-8 py-3 bg-transparent text-white rounded-xl font-semibold border-2 border-white hover:bg-white hover:text-teal-600 transition-all"
                   >
-                    {t('feedback.cancel')}
+                    Cancel
                   </button>
                 </div>
               </motion.div>
