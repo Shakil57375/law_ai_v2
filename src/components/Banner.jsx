@@ -202,6 +202,7 @@ export default function Banner() {
               >
                 {t('banner.signUp')}
               </Link>
+              <p>Thank you selim Bhai anindya Bhai All credit goes to anindya Bhai </p>
             </div>
 
             <div ref={downloadRef} className="space-y-3">

@@ -127,7 +127,7 @@ export default function HowItWorksSection() {
 
               {/* Step Badge */}
               <div className="absolute  -top-14  lg:top-52 right-6  lg:right-6">
-                <span className="step-badge text-cyan-400 font-bold text-sm sm:text-base lg:text-lg px-4 py-2">
+                <span className="step-badge text-cyan-400  font-bold text-sm sm:text-base lg:text-lg px-4 py-2">
                   <p
                     className="text-xl font-extrabold text-teal-500 text-outline bg-white rounded-full px-6 py-4"
                     style={{ WebkitTextStroke: '1px #14b8a6' }}
