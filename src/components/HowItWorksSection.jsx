@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import { getTranslation } from '../../lib/i18n';
 import { useLanguage } from '../../lib/language-context';
-import img2 from '../assets/HTW/image-1.png';
-import img3 from '../assets/HTW/image-2.png';
-import img1 from '../assets/HtW/image-3.png';
+import img2 from '../assets/image-1.png';
+import img3 from '../assets/image-2.png';
+import img1 from '../assets/image-3.png';
 export default function HowItWorksSection() {
   const { language } = useLanguage();
   const t = (key) => getTranslation(language, key);
