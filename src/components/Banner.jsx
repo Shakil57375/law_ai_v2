@@ -256,7 +256,7 @@ export default function Banner() {
           </div>
 
           {/* Right Content - App Screenshot */}
-          <div ref={appScreenRef} className="relative lg:mt-6">
+          <div ref={appScreenRef} className="relative lg:mt-14">
             <img src={banner} alt="App Screenshot" className="w-full" />
             <div className="absolute bottom-0 right-0 w-full h-1/2 bg-gradient-to-t from-white" />
           </div>
