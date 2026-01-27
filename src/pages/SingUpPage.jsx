@@ -47,17 +47,14 @@ export default function SignUpPage() {
 
       localStorage.setItem('email', JSON.stringify({ email: data.email }));
 
-      toast.success(
-        t('toast.accountCreated') || 'Account created successfully!',
-        {
-          duration: 2000,
-        }
-      );
+      toast.success(t('auth.signup.toasts.success'), {
+        duration: 2000,
+      });
 
       setTimeout(() => navigate('/verifyAccount'), 500);
     } catch (err) {
       console.log(err);
-      const errorMsg = err?.data?.error || 'Signup failed. Please try again.';
+      const errorMsg = err?.data?.error || t('auth.signup.toasts.error');
       toast.error(errorMsg);
       setError('email', {
         type: 'manual',
@@ -90,12 +87,12 @@ export default function SignUpPage() {
         })
       );
 
-      toast.success('Login successful!', { duration: 2000 });
+      toast.success(t('auth.signup.toasts.success'), { duration: 2000 });
       setTimeout(() => navigate('/'), 1500);
     } catch (error) {
       console.error('Google Login Error:', error);
       const errorMsg =
-        error?.data?.error || 'Failed to login with Google. Please try again.';
+        error?.data?.error || t('auth.signup.toasts.googleError');
       toast.error(errorMsg);
     }
   };
@@ -125,10 +122,10 @@ export default function SignUpPage() {
         <div className="max-w-md w-full space-y-8">
           <div className="flex flex-col items-center">
             <h2 className="text-3xl font-bold text-gray-900">
-              Hello, Welcome!
+              {t('auth.signup.welcome')}
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Please Enter Your Details Below To Continue
+              {t('auth.signup.subtitle')}
             </p>
           </div>
 
@@ -139,17 +136,17 @@ export default function SignUpPage() {
                   htmlFor="email"
                   className="text-sm font-medium text-gray-700"
                 >
-                  Your Email
+                  {t('auth.signup.emailLabel')}
                 </label>
                 <input
                   id="email"
                   type="email"
-                  placeholder="Enter Email"
+                  placeholder={t('auth.signup.emailPlaceholder')}
                   {...register('email', {
-                    required: 'Email is required',
+                    required: t('auth.signup.validations.emailRequired'),
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: 'Invalid email address',
+                      message: t('auth.signup.validations.emailInvalid'),
                     },
                   })}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#15B8A6] focus:border-[#15B8A6] sm:text-sm mt-1"
@@ -166,18 +163,18 @@ export default function SignUpPage() {
                   htmlFor="password"
                   className="text-sm font-medium text-gray-700"
                 >
-                  New Password
+                  {t('auth.signup.passwordLabel')}
                 </label>
                 <div className="mt-1 relative">
                   <input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Enter New Password"
+                    placeholder={t('auth.signup.passwordPlaceholder')}
                     {...register('password', {
-                      required: 'Password is required',
+                      required: t('auth.signup.validations.passwordRequired'),
                       minLength: {
                         value: 8,
-                        message: 'Password must be at least 8 characters',
+                        message: t('auth.signup.validations.passwordTooShort'),
                       },
                     })}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#15B8A6] focus:border-[#15B8A6] sm:text-sm"
@@ -206,17 +203,18 @@ export default function SignUpPage() {
                   htmlFor="confirmPassword"
                   className="text-sm font-medium text-gray-700"
                 >
-                  Confirm Password
+                  {t('auth.signup.confirmPasswordLabel')}
                 </label>
                 <div className="mt-1 relative">
                   <input
                     id="confirmPassword"
                     type={showConfirmPassword ? 'text' : 'password'}
-                    placeholder="Confirm New Password"
+                    placeholder={t('auth.signup.confirmPasswordPlaceholder')}
                     {...register('confirmPassword', {
-                      required: 'Please confirm your password',
+                      required: t('auth.signup.validations.passwordRequired'),
                       validate: (value) =>
-                        value === password || 'Passwords do not match',
+                        value === password ||
+                        t('auth.signup.validations.passwordsMustMatch'),
                     })}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#15B8A6] focus:border-[#15B8A6] sm:text-sm"
                   />
@@ -245,24 +243,20 @@ export default function SignUpPage() {
               disabled={isLoading}
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#15B8A6] hover:bg-[#089181] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#15B8A6] disabled:opacity-50"
             >
-              {isLoading ? 'Signing up...' : 'Sign Up'}
+              {isLoading
+                ? t('auth.signup.signingUp')
+                : t('auth.signup.signUpButton')}
             </button>
 
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                Already Have An Account?{' '}
-                <Link
-                  to="/login"
-                  className="font-medium text-[#15B8A6] hover:text-[#15B8A6]"
-                >
-                  Login
-                </Link>
+                {t('auth.signup.haveAccount')}
               </p>
             </div>
           </form>
 
           <div className="pt-3 flex items-center text-sm text-gray-800 before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-neutral-600 dark:after:border-neutral-600">
-            or
+            {t('auth.signup.orContinueWith')}
           </div>
 
           <div className="flex justify-center">
@@ -277,7 +271,9 @@ export default function SignUpPage() {
                 className="w-6 h-6 mr-2"
               />
               <span>
-                {isSocialLoading ? 'Signing up...' : 'Sign up with Google'}
+                {isSocialLoading
+                  ? t('auth.signup.signingUp')
+                  : t('auth.signup.signUpWithGoogle')}
               </span>
             </button>
           </div>

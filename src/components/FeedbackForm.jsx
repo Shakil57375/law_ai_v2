@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { selectAccessToken } from '../features/auth/authSlice';
+import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
 
 export default function FeedbackForm() {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
@@ -11,6 +13,8 @@ export default function FeedbackForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState(null);
   const token = useSelector(selectAccessToken);
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -45,14 +49,13 @@ export default function FeedbackForm() {
 
   const handleSubmit = async () => {
     if (!feedback.trim() || rating === 0) {
-      showToast('Please provide both feedback and rating', 'error');
+      showToast(t('feedback.pleaseProvide'), 'error');
       return;
     }
 
     setIsLoading(true);
 
     try {
-
       const response = await fetch(
         'https://backend.lexbanglaai.com/api/utilities/feedback/',
         {
@@ -71,7 +74,7 @@ export default function FeedbackForm() {
       const data = await response.json();
 
       if (response.ok && data.status === 'success') {
-        showToast('Thank you for your feedback!', 'success');
+        showToast(t('feedback.thankYou'), 'success');
         handleClose();
       } else {
         showToast(data.message || 'Failed to submit feedback', 'error');
@@ -229,8 +232,10 @@ export default function FeedbackForm() {
           className="relative w-full lg:pt-20 pt-0 pb-8 px-8 bg-gradient-to-b from-teal-400 to-teal-500 text-white rounded-3xl font-semibold hover:shadow-xl transition-shadow duration-300 text-xl border"
         >
           <span className="relative flex items-center justify-center gap-1 z-10 bg-white/20 backdrop-blur-md p-4 rounded-full text-base border border-white/30 top-4 lg:top-0">
-            <span className="lg:block hidden">Write Your Feedback</span>
-            <span className="lg:hidden">Feedback</span>
+            <span className="lg:block hidden">
+              {t('feedback.writeYourFeedback')}
+            </span>
+            <span className="lg:hidden">{t('feedback.writeFeedback')}</span>
           </span>
         </button>
       </div>
@@ -251,18 +256,20 @@ export default function FeedbackForm() {
                 onClick={(e) => e.stopPropagation()}
               >
                 <h2 className="text-3xl font-bold text-center mb-6 text-white">
-                  Write Your Feedback
+                  {t('feedback.writeYourFeedback')}
                 </h2>
 
                 <textarea
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
                   className="w-full h-32 bg-white rounded-2xl p-4 resize-none focus:outline-none focus:ring-2 focus:ring-teal-600 mb-6 text-gray-900"
-                  placeholder="Share your thoughts with us..."
+                  placeholder={t('feedback.placeholder')}
                 />
 
                 <div className="mb-6 text-white">
-                  <span className="font-semibold mr-4">Rating:</span>
+                  <span className="font-semibold mr-4">
+                    {t('feedback.rating')}
+                  </span>
                   <div className="inline-flex gap-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
@@ -282,13 +289,13 @@ export default function FeedbackForm() {
                     disabled={isLoading}
                     className="px-8 py-3 bg-white text-teal-600 rounded-xl font-semibold hover:shadow-lg disabled:opacity-50 transition-all"
                   >
-                    {isLoading ? 'Sending...' : 'Send'}
+                    {isLoading ? t('feedback.sending') : t('feedback.send')}
                   </button>
                   <button
                     onClick={handleClose}
                     className="px-8 py-3 bg-transparent text-white rounded-xl font-semibold border-2 border-white hover:bg-white hover:text-teal-600 transition-all"
                   >
-                    Cancel
+                    {t('feedback.cancel')}
                   </button>
                 </div>
               </motion.div>

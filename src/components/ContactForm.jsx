@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -12,6 +14,8 @@ export default function ContactForm() {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState(null);
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
 
   useEffect(() => {
     if (toast) {
@@ -30,25 +34,25 @@ export default function ContactForm() {
     const newErrors = {};
 
     if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
+      newErrors.firstName = t('contactForm.firstNameRequired');
     }
 
     if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
+      newErrors.lastName = t('contactForm.lastNameRequired');
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = t('contactForm.emailRequired');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Invalid email address';
+      newErrors.email = t('contactForm.emailInvalid');
     }
 
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = t('contactForm.phoneRequired');
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+      newErrors.message = t('contactForm.messageRequired');
     }
 
     setErrors(newErrors);
@@ -74,7 +78,7 @@ export default function ContactForm() {
     e.preventDefault();
 
     if (!validateForm()) {
-      showToast('Please fill in all required fields correctly', 'error');
+      showToast(t('contactForm.validationError'), 'error');
       return;
     }
 
@@ -98,10 +102,7 @@ export default function ContactForm() {
       const data = await response.json();
 
       if (response.ok && data.status === 'success') {
-        showToast(
-          'Message sent successfully! We will get back to you soon.',
-          'success'
-        );
+        showToast(t('contactForm.toasts.success'), 'success');
         setFormData({
           firstName: '',
           lastName: '',
@@ -111,10 +112,10 @@ export default function ContactForm() {
         });
         setErrors({});
       } else {
-        showToast(data.message || 'Failed to send message', 'error');
+        showToast(data.message || t('contactForm.toasts.error'), 'error');
       }
     } catch (error) {
-      showToast('Network error. Please try again.', 'error');
+      showToast(t('contactForm.toasts.networkError'), 'error');
     } finally {
       setIsLoading(false);
     }
@@ -174,9 +175,9 @@ export default function ContactForm() {
       {/* Header Section */}
       <div className="text-center pb-8 px-4">
         <h1 className="text-4xl md:text-5xl font-bold text-teal-500 mb-4">
-          Get in Touch
+          {t('contactForm.getInTouch')}
         </h1>
-        <p className="text-gray-600 text-lg">We&apos;d love to hear from you</p>
+        <p className="text-gray-600 text-lg">{t('contactForm.weWouldLove')}</p>
       </div>
 
       {/* Main Content */}
@@ -189,9 +190,11 @@ export default function ContactForm() {
             <div className="absolute bottom-5 right-5 w-48 h-48 bg-slate-500 rounded-full opacity-40"></div>
 
             <div className="relative z-10">
-              <h2 className="text-3xl font-bold mb-3">Contact Information</h2>
+              <h2 className="text-3xl font-bold mb-3">
+                {t('contactForm.contactInformation')}
+              </h2>
               <p className="text-slate-300 mb-12">
-                Say something to start a chat!
+                {t('contactForm.sayHello')}
               </p>
 
               {/* Contact Items */}
@@ -208,9 +211,11 @@ export default function ContactForm() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-slate-400 text-sm font-medium">Phone</p>
+                    <p className="text-slate-400 text-sm font-medium">
+                      {t('contactForm.phone')}
+                    </p>
                     <p className="text-white font-semibold">
-                      +880 1632-701883
+                      {t('contactForm.phoneNumber')}
                     </p>
                   </div>
                 </div>
@@ -227,9 +232,11 @@ export default function ContactForm() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-slate-400 text-sm font-medium">Email</p>
+                    <p className="text-slate-400 text-sm font-medium">
+                      {t('contactForm.email')}
+                    </p>
                     <p className="text-white font-semibold">
-                      istiaqahmmedfahad@gmail.com
+                      {t('contactForm.emailAddress')}
                     </p>
                   </div>
                 </div>
@@ -251,9 +258,11 @@ export default function ContactForm() {
                   </div>
                   <div>
                     <p className="text-slate-400 text-sm font-medium">
-                      Location
+                      {t('contactForm.location')}
                     </p>
-                    <p className="text-white font-semibold">Dhaka</p>
+                    <p className="text-white font-semibold">
+                      {t('contactForm.locationAddress')}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -270,14 +279,14 @@ export default function ContactForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    First Name
+                    {t('contactForm.firstName')}
                   </label>
                   <input
                     type="text"
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
-                    placeholder="John"
+                    placeholder={t('contactForm.firstNamePlaceholder')}
                     className="w-full border-b-2 border-gray-300 bg-transparent focus:border-teal-500 outline-none py-2 transition text-gray-800 placeholder-gray-400"
                   />
                   {errors.firstName && (
@@ -289,14 +298,14 @@ export default function ContactForm() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Name
+                    {t('contactForm.lastName')}
                   </label>
                   <input
                     type="text"
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
-                    placeholder="Doe"
+                    placeholder={t('contactForm.lastNamePlaceholder')}
                     className="w-full border-b-2 border-gray-300 bg-transparent focus:border-teal-500 outline-none py-2 transition text-gray-800 placeholder-gray-400"
                   />
                   {errors.lastName && (
@@ -311,14 +320,14 @@ export default function ContactForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email
+                    {t('contactForm.email')}
                   </label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="john@example.com"
+                    placeholder={t('contactForm.emailPlaceholder')}
                     className="w-full border-b-2 border-gray-300 bg-transparent focus:border-teal-500 outline-none py-2 transition text-gray-800 placeholder-gray-400"
                   />
                   {errors.email && (
@@ -328,14 +337,14 @@ export default function ContactForm() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone
+                    {t('contactForm.phoneLabel')}
                   </label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+1234567890"
+                    placeholder={t('contactForm.phonePlaceholder')}
                     className="w-full border-b-2 border-gray-300 bg-transparent focus:border-teal-500 outline-none py-2 transition text-gray-800 placeholder-gray-400"
                   />
                   {errors.phone && (
@@ -347,14 +356,14 @@ export default function ContactForm() {
               {/* Message */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Message
+                  {t('contactForm.message')}
                 </label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows="5"
-                  placeholder="Write your message..."
+                  placeholder={t('contactForm.messagePlaceholder')}
                   className="w-full border-b-2 border-gray-300 bg-transparent focus:border-teal-500 outline-none py-2 transition resize-none text-gray-800 placeholder-gray-400"
                 ></textarea>
                 {errors.message && (
@@ -369,7 +378,9 @@ export default function ContactForm() {
                   disabled={isLoading}
                   className="bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 px-8 rounded-lg transition duration-200 disabled:opacity-50"
                 >
-                  {isLoading ? 'Sending...' : 'Send Message'}
+                  {isLoading
+                    ? t('contactForm.sending')
+                    : t('contactForm.sendMessage')}
                 </button>
               </div>
             </form>

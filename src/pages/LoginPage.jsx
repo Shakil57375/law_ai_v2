@@ -13,8 +13,12 @@ import googleIcon from '../assets/google-login.png';
 import toast from 'react-hot-toast';
 import { signInWithPopup, GoogleAuthProvider, getAuth } from 'firebase/auth';
 import app from '../Firebase/firebase';
+import { useLanguage } from '../../lib/language-context';
+import { getTranslation } from '../../lib/i18n';
 
 const LoginPage = () => {
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,11 +48,16 @@ const LoginPage = () => {
         })
       );
 
-      toast.success('Login successful!', { duration: 2000 });
+      toast.success(t('auth.login.toasts.success') || 'Login successful!', {
+        duration: 2000,
+      });
 
       setTimeout(() => navigate('/'), 1500);
     } catch (err) {
-      const errorMsg = err?.data?.error || 'Login failed. Please try again.';
+      const errorMsg =
+        err?.data?.error ||
+        t('auth.login.toasts.error') ||
+        'Login failed. Please try again.';
       toast.error(errorMsg);
     }
   };
@@ -77,12 +86,16 @@ const LoginPage = () => {
         })
       );
 
-      toast.success('Login successful!', { duration: 2000 });
+      toast.success(t('auth.login.toasts.success') || 'Login successful!', {
+        duration: 2000,
+      });
       setTimeout(() => navigate('/'), 1500);
     } catch (error) {
       console.error('Google Login Error:', error);
       const errorMsg =
-        error?.data?.error || 'Failed to login with Google. Please try again.';
+        error?.data?.error ||
+        t('auth.login.toasts.googleError') ||
+        'Failed to login with Google. Please try again.';
       toast.error(errorMsg);
     }
   };
@@ -110,10 +123,10 @@ const LoginPage = () => {
         <div className="max-w-md w-full space-y-8">
           <div className="flex flex-col items-center">
             <h2 className="text-3xl font-bold text-gray-900">
-              Hello, Welcome!
+              {t('auth.login.welcome')}
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Please Enter Your Details Below To Continue
+              {t('auth.login.subtitle')}
             </p>
           </div>
 
@@ -124,17 +137,17 @@ const LoginPage = () => {
                   htmlFor="email"
                   className="text-sm font-medium text-gray-700"
                 >
-                  Your Email
+                  {t('auth.login.emailLabel')}
                 </label>
                 <input
                   id="email"
                   type="email"
-                  placeholder="Enter Email"
+                  placeholder={t('auth.login.emailPlaceholder')}
                   {...register('email', {
-                    required: 'Email is required',
+                    required: t('auth.login.validations.emailRequired'),
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: 'Invalid email address',
+                      message: t('auth.login.validations.emailInvalid'),
                     },
                   })}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#15B8A6] focus:border-[#15B8A6] sm:text-sm mt-1"
@@ -151,15 +164,15 @@ const LoginPage = () => {
                   htmlFor="password"
                   className="text-sm font-medium text-gray-700"
                 >
-                  Password
+                  {t('auth.login.passwordLabel')}
                 </label>
                 <div className="mt-1 relative">
                   <input
                     id="password"
                     type={showPass ? 'text' : 'password'}
-                    placeholder="Enter Password"
+                    placeholder={t('auth.login.passwordPlaceholder')}
                     {...register('password', {
-                      required: 'Password is required',
+                      required: t('auth.login.validations.passwordRequired'),
                       minLength: {
                         value: 6,
                         message: 'Password must be at least 6 characters',
@@ -191,7 +204,7 @@ const LoginPage = () => {
                   to="/forgetPassword"
                   className="text-sm font-medium text-[#15B8A6] hover:text-[#15B8A6]"
                 >
-                  Forgot Password?
+                  {t('auth.login.forgotPassword')}
                 </Link>
               </div>
             </div>
@@ -201,24 +214,26 @@ const LoginPage = () => {
               disabled={isLoading}
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-[#15B8A6] hover:bg-[#0b8576] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#15B8A6] disabled:opacity-50"
             >
-              {isLoading ? 'Logging in...' : 'Login'}
+              {isLoading
+                ? t('auth.login.loggingIn')
+                : t('auth.login.loginButton')}
             </button>
 
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                Create account,{' '}
+                {t('auth.login.createAccount')}
                 <Link
                   to="/signUp"
                   className="font-medium text-[#15B8A6] hover:text-[#15B8A6]"
                 >
-                  sign up
+                  {t('auth.login.noAccount').split('? ')[1]}
                 </Link>
               </p>
             </div>
           </form>
 
           <div className="pt-3 flex items-center text-sm text-gray-800 before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-neutral-600 dark:after:border-neutral-600">
-            or
+            {t('auth.login.orContinueWith')}
           </div>
 
           <div className="flex justify-center">
@@ -233,7 +248,9 @@ const LoginPage = () => {
                 className="w-6 h-6 mr-2"
               />
               <span>
-                {isSocialLoading ? 'Logging in...' : 'Login with Google'}
+                {isSocialLoading
+                  ? t('auth.login.loggingIn')
+                  : t('auth.login.loginWithGoogle')}
               </span>
             </button>
           </div>
