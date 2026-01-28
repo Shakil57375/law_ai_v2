@@ -3,7 +3,7 @@ import { useLanguage } from '../../lib/language-context';
 
 export default function TutorialSection() {
   const { language } = useLanguage();
-  const t = (key: string) => getTranslation(language, key);
+  const t = (key) => getTranslation(language, key);
 
   return (
     <div className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">

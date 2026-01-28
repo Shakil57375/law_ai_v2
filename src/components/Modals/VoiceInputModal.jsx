@@ -40,19 +40,16 @@ export function VoiceInputModal({ isOpen, onClose, onSubmit }) {
     if (isListening) {
       mic.start();
       mic.onend = () => {
-        console.log('continue..');
         mic.start();
       };
     } else {
       mic.stop();
       mic.onend = () => {
-        console.log('Stopped Mic on Click');
         setIsSpeaking(false);
       };
     }
 
     mic.onstart = () => {
-      console.log('Mics on');
     };
 
     mic.onresult = (event) => {
@@ -70,7 +67,6 @@ export function VoiceInputModal({ isOpen, onClose, onSubmit }) {
     };
 
     mic.onerror = (event) => {
-      console.log(event.error);
       setIsListening(false);
       setIsSpeaking(false);
     };

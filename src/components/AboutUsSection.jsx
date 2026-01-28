@@ -5,7 +5,7 @@ import about_image from '../assets/baner-image.png';
 
 export default function AboutUsSection() {
   const { language } = useLanguage();
-  const t = (key: string) => getTranslation(language, key);
+  const t = (key) => getTranslation(language, key);
 
   return (
     <div

@@ -53,7 +53,6 @@ export default function SignUpPage() {
 
       setTimeout(() => navigate('/verifyAccount'), 500);
     } catch (err) {
-      console.log(err);
       const errorMsg = err?.data?.error || t('auth.signup.toasts.error');
       toast.error(errorMsg);
       setError('email', {

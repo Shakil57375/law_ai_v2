@@ -9,9 +9,7 @@ import WholeWebsiteCircleLoader from '../components/Loader/CircleLoader';
 
 const BlogDetailsPage = () => {
   const { slug } = useParams();
-  console.log(slug);
   const { data: blogData, isLoading } = useGetASingleBlogQuery(slug);
-  console.log(blogData);
   const navigate = useNavigate();
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -53,12 +51,7 @@ const BlogDetailsPage = () => {
     scrollToSection(blogSlug || 'blog');
   };
 
-  // Debug: Log the slug and available slugs
-  console.log('Looking for slug:', slug);
-  console.log(
-    'Available slugs:',
-    blogPosts.map((p) => p.slug)
-  );
+ 
 
   if (isLoading) {
     return <WholeWebsiteCircleLoader />;
@@ -67,7 +60,6 @@ const BlogDetailsPage = () => {
   // Find the blog post by slug
   const post = blogData;
 
-  console.log('Found post:', post ? post.title : 'Not found');
 
   if (!post) {
     return (

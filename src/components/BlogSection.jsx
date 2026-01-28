@@ -10,7 +10,6 @@ import { useGetAllBlogsQuery } from '../features/api/apiSlice';
 export default function BlogSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const {data : blogsData } = useGetAllBlogsQuery();
-  console.log(blogsData)
   const [isMobile, setIsMobile] = useState(
     typeof window !== 'undefined' ? window.innerWidth < 768 : false
   );
