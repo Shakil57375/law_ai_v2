@@ -5,12 +5,13 @@ import { ChevronRight, Clock, Calendar } from 'lucide-react';
 import Footer from '../components/Footer';
 import { Navbar } from './Home/Navbar';
 import { useGetASingleBlogQuery } from '../features/api/apiSlice';
+import WholeWebsiteCircleLoader from '../components/Loader/CircleLoader';
 
 const BlogDetailsPage = () => {
   const { slug } = useParams();
-  console.log(slug)
-  const {data : blogData} = useGetASingleBlogQuery(slug);
-  console.log(blogData)
+  console.log(slug);
+  const { data: blogData, isLoading } = useGetASingleBlogQuery(slug);
+  console.log(blogData);
   const navigate = useNavigate();
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -27,12 +28,41 @@ const BlogDetailsPage = () => {
     return () => clearTimeout(timer);
   }, [slug]);
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+
+    if (element) {
+      // Element exists on current page, scroll to it
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else if (location.pathname !== '/home') {
+      // Element doesn't exist and we're not on home page
+      // Navigate to home page first, then scroll
+      navigate('/home');
+
+      // Scroll to section after navigation completes
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 300);
+    }
+  };
+
+  const handleBlogClick = (blogSlug) => {
+    scrollToSection(blogSlug || 'blog');
+  };
+
   // Debug: Log the slug and available slugs
   console.log('Looking for slug:', slug);
   console.log(
     'Available slugs:',
     blogPosts.map((p) => p.slug)
   );
+
+  if (isLoading) {
+    return <WholeWebsiteCircleLoader />;
+  }
 
   // Find the blog post by slug
   const post = blogData;
@@ -80,9 +110,12 @@ const BlogDetailsPage = () => {
               Home
             </Link>
             <ChevronRight size={16} />
-            <Link to="/blog" className="hover:text-teal-500">
+            <button
+              onClick={() => handleBlogClick('blog')}
+              className="hover:text-teal-500"
+            >
               Blog
-            </Link>
+            </button>
             <ChevronRight size={16} />
             <span className="text-gray-900 font-medium">{post.title}</span>
           </div>
@@ -275,7 +308,6 @@ const BlogDetailsPage = () => {
             >
               ← Back
             </button>
-            
           </div>
         </div>
       </div>
