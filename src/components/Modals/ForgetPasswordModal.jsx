@@ -2,9 +2,14 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSendOtpMutation } from '../../features/api/apiSlice';
-import logo from "../../assets/logo.png";
+import { useLanguage } from '../../../lib/language-context';
+import { getTranslation } from '../../../lib/i18n';
+import logo from '../../assets/logo.png';
+
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const t = (key) => getTranslation(language, key);
   const [sendOtp, { isLoading }] = useSendOtpMutation();
 
   const {
@@ -19,12 +24,14 @@ const ForgotPasswordPage = () => {
 
       localStorage.setItem('email', JSON.stringify({ email: data.email }));
 
-      toast.success('OTP sent to your email!', { duration: 2000 });
+      toast.success(t('auth.forgotPassword.toasts.success'), {
+        duration: 2000,
+      });
 
       setTimeout(() => navigate('/verificationCode'), 1500);
     } catch (err) {
       const errorMsg =
-        err?.data?.error?.[0] || 'Failed to send OTP. Please try again.';
+        err?.data?.error?.[0] || t('auth.forgotPassword.toasts.error');
       toast.error(errorMsg);
     }
   };
@@ -43,8 +50,12 @@ const ForgotPasswordPage = () => {
           className="relative z-10 text-center text-white max-w-md flex items-center flex-col"
         >
           <img src={logo} alt="Logo" className="w-24 h-24 mb-4" />
-          <h1 className="text-4xl font-bold mb-4">Your Trusted AI</h1>
-          <h1 className="text-4xl font-bold">Legal Companion.</h1>
+          <h1 className="text-4xl font-bold mb-4">
+            {t('auth.login.brandMessage1')}
+          </h1>
+          <h1 className="text-4xl font-bold">
+            {t('auth.login.brandMessage2')}
+          </h1>
         </Link>
       </div>
 
@@ -52,10 +63,10 @@ const ForgotPasswordPage = () => {
         <div className="max-w-md w-full space-y-8">
           <div className="flex flex-col items-center">
             <h2 className="text-3xl font-bold text-gray-900">
-              Forgot Password?
+              {t('auth.forgotPassword.title')}
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Enter your email address to receive password reset instructions
+              {t('auth.forgotPassword.subtitle')}
             </p>
           </div>
 
@@ -65,17 +76,17 @@ const ForgotPasswordPage = () => {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Your Email
+                {t('auth.forgotPassword.emailLabel')}
               </label>
               <input
                 id="email"
                 type="email"
-                placeholder="Enter Email"
+                placeholder={t('auth.forgotPassword.emailPlaceholder')}
                 {...register('email', {
-                  required: 'Email is required',
+                  required: t('auth.forgotPassword.validations.emailRequired'),
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: 'Invalid email address',
+                    message: t('auth.forgotPassword.validations.emailInvalid'),
                   },
                 })}
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#15B8A6] focus:border-[#15B8A6] sm:text-sm text-[#161C2D] mt-1"
@@ -92,18 +103,20 @@ const ForgotPasswordPage = () => {
               disabled={isLoading}
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#15B8A6] hover:bg-[#089181] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#15B8A6] disabled:opacity-50"
             >
-              {isLoading ? 'Sending OTP...' : 'Send OTP'}
+              {isLoading
+                ? t('auth.forgotPassword.sending')
+                : t('auth.forgotPassword.sendButton')}
             </button>
 
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                Remember your password?{' '}
+                {t('auth.forgotPassword.rememberPassword')}{' '}
                 <button
                   type="button"
                   onClick={() => navigate('/login')}
                   className="font-medium text-[#15B8A6] hover:text-[#15B8A6]"
                 >
-                  Login
+                  {t('auth.forgotPassword.loginLink')}
                 </button>
               </p>
             </div>

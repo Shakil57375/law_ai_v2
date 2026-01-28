@@ -76,19 +76,20 @@ export default function VerificationPage() {
     const otp = code.join('');
 
     if (otp.length !== 4) {
-      toast.error(t('toast.invalidOTP'));
+      toast.error(t('auth.verifyOtp.validations.invalidOTP'));
       return;
     }
 
     try {
       localStorage.setItem('otp', otp);
-      toast.success(t('toast.otpVerified'), { duration: 2000 });
+      toast.success(t('auth.verifyOtp.toasts.otpVerified'), { duration: 2000 });
 
       setTimeout(() => {
         navigate('/resetPass');
       }, 1500);
     } catch (err) {
-      const errorMsg = err?.data?.error?.[0] || t('toast.invalidOTP');
+      const errorMsg =
+        err?.data?.error?.[0] || t('auth.verifyOtp.validations.invalidOTP');
       toast.error(errorMsg);
     }
   };
@@ -96,11 +97,12 @@ export default function VerificationPage() {
   const handleResendOtp = async () => {
     try {
       await sendOtp({ email }).unwrap();
-      toast.success(t('toast.otpResent'), {
+      toast.success(t('auth.verifyOtp.toasts.otpResent'), {
         duration: 2000,
       });
     } catch (err) {
-      const errorMsg = err?.data?.error?.[0] || t('toast.otpResent');
+      const errorMsg =
+        err?.data?.error?.[0] || t('auth.verifyOtp.toasts.error');
       toast.error(errorMsg);
     }
   };
@@ -124,18 +126,23 @@ export default function VerificationPage() {
           className="relative z-10 text-center text-white max-w-md flex items-center flex-col"
         >
           <img src={logo} alt="Logo" className="w-24 h-24 mb-4" />
-          <h1 className="text-4xl font-bold mb-4">Your Trusted AI</h1>
-          <h1 className="text-4xl font-bold">Legal Companion.</h1>
+          <h1 className="text-4xl font-bold mb-4">
+            {t('auth.login.brandMessage1')}
+          </h1>
+          <h1 className="text-4xl font-bold">
+            {t('auth.login.brandMessage2')}
+          </h1>
         </Link>
       </div>
 
       <div className="flex items-center justify-center p-8">
         <div className="max-w-md w-full space-y-8">
           <div className="flex flex-col items-center">
-            <h2 className="text-3xl font-bold text-gray-900">Verify OTP</h2>
+            <h2 className="text-3xl font-bold text-gray-900">
+              {t('auth.verifyOtp.title')}
+            </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Please enter the 4-digit code sent to{' '}
-              <strong>{maskEmail(email)}</strong> to reset your password
+              {t('auth.verifyOtp.subtitle')} <strong>{maskEmail(email)}</strong>
             </p>
           </div>
 
@@ -161,19 +168,23 @@ export default function VerificationPage() {
               disabled={isVerifying}
               className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#15B8A6] hover:bg-[#089181] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#15B8A6] disabled:opacity-50"
             >
-              {isVerifying ? 'Verifying...' : 'Submit'}
+              {isVerifying
+                ? t('auth.verifyOtp.verifying')
+                : t('auth.verifyOtp.verifyButton')}
             </button>
 
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                Didn&apos;t receive the code?{' '}
+                {t('auth.verifyOtp.subtitle')}{' '}
                 <button
                   type="button"
                   onClick={handleResendOtp}
                   disabled={isResending}
                   className="font-medium text-[#15B8A6] hover:text-[#15B8A6] disabled:opacity-50"
                 >
-                  {isResending ? 'Resending...' : 'Resend OTP'}
+                  {isResending
+                    ? t('auth.verifyOtp.resending')
+                    : t('auth.verifyOtp.resendButton')}
                 </button>
               </p>
             </div>

@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { useResetPasswordMutation } from '../../features/api/apiSlice';
 import { useLanguage } from '../../../lib/language-context';
 import { getTranslation } from '../../../lib/i18n';
-import logo from "../../assets/logo.png";
+import logo from '../../assets/logo.png';
 export default function ResetPasswordPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -29,7 +29,7 @@ export default function ResetPasswordPage() {
 
   const onSubmit = async (data) => {
     if (!email) {
-      toast.error(t('toast.emailMissing'), {
+      toast.error(t('auth.resetPassword.toasts.emailMissing'), {
         duration: 2000,
       });
       navigate('/forgotPassword');
@@ -38,7 +38,9 @@ export default function ResetPasswordPage() {
 
     const storedOtp = localStorage.getItem('otp');
     if (!storedOtp) {
-      toast.error(t('toast.otpRequired'), { duration: 2000 });
+      toast.error(t('auth.resetPassword.toasts.otpRequired'), {
+        duration: 2000,
+      });
       navigate('/verificationCode');
       return;
     }
@@ -50,7 +52,7 @@ export default function ResetPasswordPage() {
         new_password: data.newPassword,
       }).unwrap();
 
-      toast.success(t('toast.passwordReset'), {
+      toast.success(t('auth.resetPassword.toasts.passwordReset'), {
         duration: 2000,
       });
 
@@ -60,7 +62,8 @@ export default function ResetPasswordPage() {
         navigate('/login');
       }, 1500);
     } catch (err) {
-      const errorMsg = err?.data?.error?.[0] || t('toast.passwordReset');
+      const errorMsg =
+        err?.data?.error?.[0] || t('auth.resetPassword.toasts.error');
       toast.error(errorMsg);
     }
   };
@@ -84,17 +87,23 @@ export default function ResetPasswordPage() {
           className="relative z-10 text-center text-white max-w-md flex items-center flex-col"
         >
           <img src={logo} alt="Logo" className="w-24 h-24 mb-4" />
-          <h1 className="text-4xl font-bold mb-4">Your Trusted AI</h1>
-          <h1 className="text-4xl font-bold">Legal Companion.</h1>
+          <h1 className="text-4xl font-bold mb-4">
+            {t('auth.login.brandMessage1')}
+          </h1>
+          <h1 className="text-4xl font-bold">
+            {t('auth.login.brandMessage2')}
+          </h1>
         </Link>
       </div>
 
       <div className="flex items-center justify-center p-8">
         <div className="max-w-md w-full space-y-8">
           <div className="flex flex-col items-center">
-            <h2 className="text-3xl font-bold text-gray-900">Reset Password</h2>
+            <h2 className="text-3xl font-bold text-gray-900">
+              {t('auth.resetPassword.title')}
+            </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Enter your new password
+              {t('auth.resetPassword.subtitle')}
             </p>
           </div>
 
@@ -105,18 +114,22 @@ export default function ResetPasswordPage() {
                   htmlFor="newPassword"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  New Password
+                  {t('auth.resetPassword.newPasswordLabel')}
                 </label>
                 <div className="mt-1 relative">
                   <input
                     id="newPassword"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Enter New Password"
+                    placeholder={t('auth.resetPassword.newPasswordPlaceholder')}
                     {...register('newPassword', {
-                      required: 'New password is required',
+                      required: t(
+                        'auth.resetPassword.validations.newPasswordRequired'
+                      ),
                       minLength: {
                         value: 8,
-                        message: 'Password must be at least 8 characters',
+                        message: t(
+                          'auth.resetPassword.validations.passwordTooShort'
+                        ),
                       },
                     })}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#15B8A6] focus:border-[#15B8A6] sm:text-sm"
@@ -145,17 +158,22 @@ export default function ResetPasswordPage() {
                   htmlFor="confirmPassword"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Confirm Password
+                  {t('auth.resetPassword.confirmPasswordLabel')}
                 </label>
                 <div className="mt-1 relative">
                   <input
                     id="confirmPassword"
                     type={showConfirmPassword ? 'text' : 'password'}
-                    placeholder="Confirm New Password"
+                    placeholder={t(
+                      'auth.resetPassword.confirmPasswordPlaceholder'
+                    )}
                     {...register('confirmPassword', {
-                      required: 'Please confirm your password',
+                      required: t(
+                        'auth.resetPassword.validations.confirmPasswordRequired'
+                      ),
                       validate: (value) =>
-                        value === password || 'Passwords do not match',
+                        value === password ||
+                        t('auth.resetPassword.validations.passwordsMustMatch'),
                     })}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#15B8A6] focus:border-[#15B8A6] sm:text-sm"
                   />
@@ -184,7 +202,9 @@ export default function ResetPasswordPage() {
               disabled={isLoading}
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#15B8A6] hover:bg-[#089181] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#15B8A6] disabled:opacity-50"
             >
-              {isLoading ? 'Resetting Password...' : 'Reset Password'}
+              {isLoading
+                ? t('auth.resetPassword.resetting')
+                : t('auth.resetPassword.resetButton')}
             </button>
           </form>
         </div>
