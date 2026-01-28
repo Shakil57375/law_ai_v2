@@ -216,131 +216,193 @@ export default function WhoIsForSection() {
           </p>
         </motion.div>
 
-        {/* Cards Section */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12 lg:mb-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
-          viewport={{ once: true }}
-        >
-          {audiences.map((audience, index) => (
-            <motion.div
-              key={audience.id}
-              ref={(el) => (cardsRef.current[index] = el)}
-              onClick={() => handleCardClick(audience.id)}
-              initial={{ opacity: 0, y: 20, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              transition={{ duration: 0.3 }}
-              viewport={{ once: true }}
-              className={`${
-                audience.color
-              } rounded-2xl p-4 sm:p-5 lg:p-6 cursor-pointer transition-all duration-300 hover:shadow-xl ${
-                activeCard === audience.id
-                  ? 'ring-4 ring-teal-500 shadow-lg'
-                  : ''
-              }`}
-            >
-              <div className="flex flex-col items-center text-center">
-                {/* Icon SVG */}
-                <motion.div
-                  className="w-full h-24 sm:h-28 lg:h-32 flex items-center justify-center mb-2"
-                  whileHover={{ scale: 1.1 }}
+        {/* Tabs Section */}
+        
+          {/* Mobile Layout */}
+          <div className="lg:hidden">
+            {audiences.map((audience, index) => (
+              <div key={audience.id} className="mb-4">
+                {/* Mobile Tab */}
+                <motion.button
+                  ref={(el) => (cardsRef.current[index] = el)}
+                  onClick={() => handleCardClick(audience.id)}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
+                  viewport={{ once: true }}
+                  className={`w-full ${
+                    audience.color
+                  } rounded-2xl p-4 cursor-pointer transition-all duration-300 ${
+                    activeCard === audience.id
+                      ? 'ring-4 ring-teal-500 shadow-lg'
+                      : ''
+                  }`}
                 >
-                  <img
-                    src={audience.image || '/placeholder.svg'}
-                    alt=""
-                    className="w-full h-full object-contain"
-                  />
-                </motion.div>
-                <h3 className="text-xs sm:text-sm lg:text-base font-bold text-gray-900 leading-tight">
-                  {audience.title}
-                </h3>
-                <button className="mt-2 text-gray-600">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                  <div className="flex flex-col items-center text-center">
+                    <motion.div className="w-full h-20 flex items-center justify-center mb-2">
+                      <img
+                        src={audience.image || '/placeholder.svg'}
+                        alt=""
+                        className="w-full h-full object-contain"
+                      />
+                    </motion.div>
+                    <h3 className="text-sm font-bold text-gray-900">
+                      {audience.title}
+                    </h3>
+                  </div>
+                </motion.button>
+
+                {/* Mobile Content - Shows directly under active tab */}
+                {activeCard === audience.id && (
+                  <motion.div
+                    ref={activeCard === audience.id ? detailBoxRef : null}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="bg-white rounded-2xl shadow-lg p-4 mt-3 border border-gray-200"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                      {audiences[activeCard].heading}
+                    </h2>
 
-        {/* Detail Box */}
-        <motion.div
-          ref={detailBoxRef}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-3xl shadow-xl p-4 sm:p-6 lg:p-12 border border-gray-200"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
-            {/* Left Content */}
-            <motion.div
-              className="order-2 lg:order-1"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
-                {audiences[activeCard].heading}
-              </h2>
-
-              <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4 sm:mb-6">
-                {audiences[activeCard].description}
-              </p>
-
-              <ul className="space-y-3 sm:space-y-4">
-                {audiences[activeCard].points.map((point, index) => (
-                  <motion.li
-                    key={index}
-                    className="flex items-start gap-2 sm:gap-3"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    <span className="text-teal-600 font-bold mt-1 flex-shrink-0">
-                      •
-                    </span>
-                    <p className="text-sm sm:text-base text-gray-700">
-                      <strong className="text-gray-900">{point.title}</strong> —{' '}
-                      {point.desc}
+                    <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                      {audiences[activeCard].description}
                     </p>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
 
-            {/* Right Illustration */}
-            <motion.div
-              className="flex justify-center order-1 lg:order-2 w-full h-auto"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <img
-                className="w-full h-auto max-w-xs sm:max-w-sm lg:max-w-md"
-                src={audiences[activeCard].image || '/placeholder.svg'}
-                alt={audiences[activeCard].title}
-              />
-            </motion.div>
+                    <ul className="space-y-2">
+                      {audiences[activeCard].points.map((point, idx) => (
+                        <motion.li
+                          key={idx}
+                          className="flex items-start gap-2"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.1 }}
+                        >
+                          <span className="text-teal-600 font-bold mt-0.5 flex-shrink-0">
+                            •
+                          </span>
+                          <p className="text-xs sm:text-sm text-gray-700">
+                            <strong className="text-gray-900">{point.title}</strong> — {point.desc}
+                          </p>
+                        </motion.li>
+                      ))}
+                    </ul>
+
+                    <div className="mt-4 flex justify-center">
+                      <img
+                        className="w-full h-auto max-w-xs"
+                        src={audiences[activeCard].image || '/placeholder.svg'}
+                        alt={audiences[activeCard].title}
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            ))}
           </div>
+
+          {/* Desktop Layout */}
+          <motion.div className="hidden lg:block">
+            {/* Tab Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12">
+              {audiences.map((audience, index) => (
+                <motion.button
+                  key={audience.id}
+                  ref={(el) => (cardsRef.current[index] = el)}
+                  onClick={() => handleCardClick(audience.id)}
+                  initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                  viewport={{ once: true }}
+                  className={`${
+                    audience.color
+                  } rounded-2xl p-4 sm:p-5 lg:p-6 cursor-pointer transition-all duration-300 hover:shadow-xl ${
+                    activeCard === audience.id
+                      ? 'ring-4 ring-teal-500 shadow-lg'
+                      : ''
+                  }`}
+                >
+                  <div className="flex flex-col items-center text-center">
+                    {/* Icon/Image */}
+                    <motion.div
+                      className="w-full h-24 sm:h-28 lg:h-32 flex items-center justify-center mb-2"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <img
+                        src={audience.image || '/placeholder.svg'}
+                        alt=""
+                        className="w-full h-full object-contain"
+                      />
+                    </motion.div>
+                    <h3 className="text-xs sm:text-sm lg:text-base font-bold text-gray-900 leading-tight">
+                      {audience.title}
+                    </h3>
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Content Box */}
+            <motion.div
+              ref={detailBoxRef}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="bg-white rounded-3xl shadow-xl p-4 sm:p-6 lg:p-12 border border-gray-200"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
+                {/* Left Content */}
+                <motion.div
+                  className="order-2 lg:order-1"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
+                    {audiences[activeCard].heading}
+                  </h2>
+
+                  <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4 sm:mb-6">
+                    {audiences[activeCard].description}
+                  </p>
+
+                  <ul className="space-y-3 sm:space-y-4">
+                    {audiences[activeCard].points.map((point, index) => (
+                      <motion.li
+                        key={index}
+                        className="flex items-start gap-2 sm:gap-3"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <span className="text-teal-600 font-bold mt-1 flex-shrink-0">
+                          •
+                        </span>
+                        <p className="text-sm sm:text-base text-gray-700">
+                          <strong className="text-gray-900">{point.title}</strong> — {point.desc}
+                        </p>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </motion.div>
+
+                {/* Right Illustration */}
+                <motion.div
+                  className="flex justify-center order-1 lg:order-2 w-full h-auto"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <img
+                  className="w-full h-auto max-w-xs sm:max-w-sm lg:max-w-md"
+                  src={audiences[activeCard].image || '/placeholder.svg'}
+                  alt={audiences[activeCard].title}
+                />
+              </motion.div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </div>
