@@ -248,10 +248,16 @@ export default function SignUpPage() {
                 : t('auth.signup.signUpButton')}
             </button>
 
-            <div className="text-center">
+            <div className="text-center flex items-center justify-center space-x-2">
               <p className="text-sm text-gray-600">
                 {t('auth.signup.haveAccount')}
               </p>
+              <Link
+                to="/login"
+                className="text-sm text-[#15B8A6] hover:underline"
+              >
+                {t('auth.signup.logIn')}
+              </Link>
             </div>
           </form>
 
